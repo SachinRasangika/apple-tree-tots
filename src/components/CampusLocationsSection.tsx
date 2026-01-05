@@ -1,0 +1,96 @@
+import React from 'react';
+import { MapPin, Phone, Clock, Users } from 'lucide-react';
+import { Button } from './ui/Button';
+interface CampusProps {
+  name: string;
+  ages: string;
+  address: string;
+  postal: string;
+  phone: string;
+  hours: string;
+  image: string;
+  delay: string;
+}
+function CampusCard({
+  name,
+  ages,
+  address,
+  postal,
+  phone,
+  hours,
+  image,
+  delay
+}: CampusProps) {
+  return <div className="flex flex-col opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{
+    animationDelay: delay
+  }}>
+      {/* Image Container */}
+      <div className="relative aspect-[4/3] overflow-hidden mb-6 group border border-white/10">
+        <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+        <img src={image} alt={`${name} building`} className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
+        <div className="absolute bottom-0 left-0 bg-[#1a3a3a] px-4 py-2 border-t border-r border-white/10 z-20">
+          <span className="text-[10px] tracking-widest uppercase flex items-center gap-2">
+            <Users size={12} className="text-[#2d5555]" />
+            Ages {ages}
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-grow">
+        <h3 className="font-serif text-xl tracking-widest uppercase mb-4 min-h-[3.5rem]">
+          {name}
+        </h3>
+
+        <div className="space-y-4 mb-8 flex-grow">
+          <div className="flex items-start gap-3 opacity-80">
+            <MapPin className="w-4 h-4 mt-1 shrink-0 text-[#2d5555]" />
+            <div className="text-xs font-light tracking-wide leading-relaxed">
+              <p>{address}</p>
+              <p>{postal}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 opacity-80">
+            <Clock className="w-4 h-4 shrink-0 text-[#2d5555]" />
+            <span className="text-xs font-light tracking-wide">{hours}</span>
+          </div>
+
+          <div className="flex items-center gap-3 opacity-80">
+            <Phone className="w-4 h-4 shrink-0 text-[#2d5555]" />
+            <span className="text-xs font-light tracking-wide">{phone}</span>
+          </div>
+        </div>
+
+        <Button variant="outline" size="sm" className="w-full">
+          View Campus Details
+        </Button>
+      </div>
+    </div>;
+}
+export function CampusLocationsSection() {
+  const campuses = [{
+    name: 'Ahangama Campus',
+    ages: '2-5',
+    address: 'Ahangama',
+    postal: 'Galle District, Southern Province',
+    phone: '074 343 1488',
+    hours: 'Mon - Fri: 07:30 - 18:00',
+    image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800&auto=format&fit=crop',
+    delay: '0ms'
+  }];
+  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10">
+      <div className="mb-16 text-center">
+        <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+          Visit Us
+        </span>
+        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase">
+          Our <span className="italic opacity-80">Campus</span>
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 max-w-md mx-auto">
+        {campuses.map(campus => <CampusCard key={campus.name} {...campus} />)}
+      </div>
+    </section>;
+}

@@ -1,14 +1,16 @@
 import React from 'react';
 import { GraduationCap, Users, Heart, TrendingUp } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
+
 export function JoinTeamSection() {
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10 block" animation="fade-in-up">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Image */}
         <div className="relative order-2 lg:order-1">
           <div className="aspect-[4/3] overflow-hidden border border-white/10 relative group">
             <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
+            <img src="/apple-tree-tots/images/campus/Gemini_Generated_Image_6fd08v6fd08v6fd0.png" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
 
             {/* Overlay Badge */}
             <div className="absolute top-8 left-8 bg-[#1a3a3a] border border-white/10 px-6 py-3 z-20 backdrop-blur-sm">
@@ -108,5 +110,5 @@ export function JoinTeamSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { MapPin, Clock, Phone, Mail, Calendar } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
+
 export function AddressSection() {
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
         {/* Left Column: Visual/Map Representation */}
         <div className="w-full md:w-1/2 relative min-h-[400px]">
@@ -103,5 +105,5 @@ export function AddressSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

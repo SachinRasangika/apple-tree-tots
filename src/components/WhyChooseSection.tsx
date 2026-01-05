@@ -1,5 +1,6 @@
 import React from 'react';
 import { GraduationCap, Users, Globe, Heart, Shield, Sparkles } from 'lucide-react';
+import { AnimatedSection } from './AnimatedSection';
 interface FeatureProps {
   icon: React.ReactNode;
   title: string;
@@ -62,13 +63,13 @@ export function WhyChooseSection() {
     description: 'STEAM curriculum, cultural studies, outdoor education, and social-emotional learning create well-rounded, confident children.',
     delay: '750ms'
   }];
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
         {/* Left: Image */}
         <div className="lg:col-span-5 relative">
           <div className="aspect-[3/4] overflow-hidden border border-white/10 relative group">
             <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
-            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1000&auto=format&fit=crop" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
+            <img src="/apple-tree-tots/images/hero/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
 
             {/* Floating stat card */}
             <div className="absolute bottom-8 right-8 bg-[#1a3a3a] border border-white/10 p-6 z-20 backdrop-blur-sm">
@@ -98,5 +99,5 @@ export function WhyChooseSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

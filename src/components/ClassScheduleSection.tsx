@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
 interface ClassSession {
   name: string;
   teacher: string;
@@ -235,7 +236,7 @@ export function ClassScheduleSection() {
       }
     }
   }];
-  return <section className="py-20 bg-[#152e2e]">
+  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="mb-12">
@@ -408,5 +409,5 @@ export function ClassScheduleSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

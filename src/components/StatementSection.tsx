@@ -1,6 +1,8 @@
 import React from 'react';
+import { AnimatedSection } from './AnimatedSection';
+
 export function StatementSection() {
-  return <section className="py-32 px-6 md:px-12 lg:px-20 max-w-5xl mx-auto text-center">
+  return <AnimatedSection className="py-32 px-6 md:px-12 lg:px-20 max-w-5xl mx-auto text-center block" animation="fade-in-up">
       <h2 className="text-2xl md:text-4xl lg:text-5xl font-serif leading-tight tracking-widest uppercase font-light">
         <span className="block mb-4">Every child deserves a foundation</span>
         <span className="block mb-4">built on curiosity, confidence, and</span>
@@ -8,5 +10,5 @@ export function StatementSection() {
         <span className="block">the whole child for lifelong success.</span>
       </h2>
       <div className="mt-12 h-16 w-px bg-white/30 mx-auto"></div>
-    </section>;
+    </AnimatedSection>;
 }

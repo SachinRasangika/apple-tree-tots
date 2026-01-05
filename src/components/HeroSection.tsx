@@ -21,7 +21,7 @@ export function HeroSection() {
       {/* Main Image */}
       <div className="relative w-full max-w-5xl mx-auto aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm mb-12 group">
         <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-black/10 transition-colors duration-700"></div>
-        <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=2000&auto=format&fit=crop" alt="Children learning at Apple Tree Tots" className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[2s]" />
+        <img src="/apple-tree-tots/images/testimonials/Gemini_Generated_Image_i6bhti6bhti6bhti.png" alt="Children learning at Apple Tree Tots" className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[2s]" />
       </div>
 
       {/* Subtitle */}

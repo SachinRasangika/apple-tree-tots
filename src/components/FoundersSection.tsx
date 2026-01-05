@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
+
 export function FoundersSection() {
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-12">
         Our Educational Philosophy
       </h2>
@@ -10,7 +12,7 @@ export function FoundersSection() {
         {/* Main Image */}
         <div className="lg:col-span-7 relative">
           <div className="aspect-[4/3] overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1600&auto=format&fit=crop" alt="Teachers with children" className="w-full h-full object-cover hover:scale-105 transition-all duration-700" />
+            <img src="/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png" alt="Teachers with children" className="w-full h-full object-cover hover:scale-105 transition-all duration-700" />
           </div>
         </div>
 
@@ -33,10 +35,10 @@ export function FoundersSection() {
 
           <div className="mt-12 ml-auto w-2/3 hidden lg:block">
             <div className="aspect-square overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop" alt="Classroom detail" className="w-full h-full object-cover opacity-80" />
+              <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Classroom detail" className="w-full h-full object-cover opacity-80" />
             </div>
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

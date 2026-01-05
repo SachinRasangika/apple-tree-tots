@@ -1,5 +1,6 @@
 import React, { Children } from 'react';
 import { Waves, TreePine, Sun, Wind } from 'lucide-react';
+import { AnimatedSection } from './AnimatedSection';
 interface EnvironmentFeatureProps {
   icon: React.ReactNode;
   title: string;
@@ -46,7 +47,7 @@ export function CoastalEnvironmentSection() {
     description: 'Daily outdoor activities in our coastal environment promote health and wellbeing',
     delay: '450ms'
   }];
-  return <section className="py-20 bg-[#152e2e]">
+  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}
@@ -80,7 +81,7 @@ export function CoastalEnvironmentSection() {
         {/* Image Banner */}
         <div className="mt-16 relative h-[300px] md:h-[400px] overflow-hidden border border-white/10 group">
           <div className="absolute inset-0 bg-[#1a3a3a]/30 group-hover:bg-[#1a3a3a]/10 transition-colors duration-700 z-10" />
-          <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=2000&auto=format&fit=crop" alt="Children playing outdoors in Ahangama" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
+          <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Children playing outdoors in Ahangama" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#152e2e] to-transparent p-8 z-20">
             <p className="text-xs tracking-widest uppercase text-white/80">
               Outdoor Learning Spaces • Ahangama, Galle District
@@ -88,5 +89,5 @@ export function CoastalEnvironmentSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

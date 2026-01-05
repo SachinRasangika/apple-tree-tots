@@ -16,42 +16,42 @@ const teamMembers: TeamMember[] = [{
   bio: 'With a degree in Early Childhood Education and extensive experience, Priya leads our teaching team with expertise in Montessori methodology and child development. She creates a nurturing environment where children thrive and develop a genuine love for learning.',
   qualifications: 'Degree in Early Childhood Education, Montessori Certification',
   specialization: 'Montessori Methodology, Child Development',
-  image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }, {
   name: 'SARAH MITCHELL',
   role: 'Senior Teacher',
   bio: 'A native English speaker with ECE certification, Sarah brings international teaching experience and a passion for language immersion education. Her warm approach helps children develop confidence in English communication.',
   qualifications: 'ECE Certification, TESOL Diploma',
   specialization: 'English Language Immersion, International Curriculum',
-  image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }, {
   name: 'CHAMINDA FERNANDO',
   role: 'Toddler Coordinator',
   bio: 'Specializing in ages 2-3, Chaminda creates nurturing environments where our youngest learners develop confidence and social skills through play. His patient, gentle approach helps toddlers feel secure and excited to explore.',
   qualifications: 'Diploma in Early Childhood Education',
   specialization: 'Toddler Development, Play-Based Learning',
-  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }, {
   name: 'NISHA PERERA',
   role: 'Pre-K Teacher',
   bio: 'Focused on school readiness, Nisha prepares our 4-5 year olds for primary school with advanced literacy and numeracy programs. She makes learning engaging and builds the academic foundation children need for future success.',
   qualifications: 'Diploma in Early Childhood Education, Primary Education Certificate',
   specialization: 'School Readiness, Literacy & Numeracy',
-  image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }, {
   name: 'RAJITHA SILVA',
   role: 'STEAM Coordinator',
   bio: 'With a background in science education, Rajitha designs hands-on STEAM activities that spark curiosity and critical thinking in young learners. Her innovative approach makes complex concepts accessible and fun.',
   qualifications: 'Bachelor of Science, ECE Diploma',
   specialization: 'STEAM Education, Science & Technology',
-  image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }, {
   name: 'EMMA THOMPSON',
   role: 'Trainee Teacher',
   bio: 'Currently completing her ECE diploma, Emma brings fresh perspectives and enthusiasm to our teaching team while gaining valuable classroom experience. Her energy and creativity inspire both children and colleagues.',
   qualifications: 'ECE Diploma (In Progress)',
   specialization: 'Creative Arts, Outdoor Learning',
-  image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'
+  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
 }];
 function TeacherModal({
   teacher,
@@ -151,7 +151,7 @@ export function TeamPage() {
           {/* Hero Image */}
           <div className="relative h-[400px] md:h-[500px] overflow-hidden border border-white/10 group">
             <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
-            <img src="/image.png" alt="Teacher in peaceful setting" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
+            <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png" alt="Teacher in peaceful setting" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
           </div>
         </section>
 

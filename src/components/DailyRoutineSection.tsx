@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock, Sun, Coffee, BookOpen, Palette, Music, Utensils, TreePine, Home } from 'lucide-react';
+import { AnimatedSection } from './AnimatedSection';
 interface RoutineItemProps {
   time: string;
   activity: string;
@@ -101,7 +102,7 @@ export function DailyRoutineSection() {
     icon: <Home size={20} />,
     delay: '900ms'
   }];
-  return <section className="py-20 bg-[#152e2e]">
+  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           {/* Left: Header */}
@@ -133,5 +134,5 @@ export function DailyRoutineSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

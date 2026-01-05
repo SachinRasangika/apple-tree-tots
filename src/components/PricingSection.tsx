@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, Clock, BookOpen, Sparkles, Star, Heart } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
 interface PricingTierProps {
   title: string;
   price: string;
@@ -115,7 +116,7 @@ export function PricingSection() {
     highlighted: false,
     delay: '750ms'
   }];
-  return <section className="py-20 bg-[#152e2e]">
+  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -153,5 +154,5 @@ export function PricingSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

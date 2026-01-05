@@ -1,5 +1,6 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
+import { AnimatedSection } from './AnimatedSection';
 interface TestimonialProps {
   quote: string;
   parent: string;
@@ -54,7 +55,7 @@ export function TestimonialsSection() {
     program: 'Pre-K Program',
     delay: '300ms'
   }];
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10 block" animation="fade-in-up">
       <div className="mb-16 text-center">
         <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
           Parent Voices
@@ -71,5 +72,5 @@ export function TestimonialsSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonials.map(testimonial => <TestimonialCard key={testimonial.parent} {...testimonial} />)}
       </div>
-    </section>;
+    </AnimatedSection>;
 }

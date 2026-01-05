@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, Globe, Beaker, TreePine, Palette, Heart, Users, Music } from 'lucide-react';
+import { AnimatedSection } from './AnimatedSection';
 interface CurriculumCardProps {
   icon: React.ReactNode;
   title: string;
@@ -89,5 +90,22 @@ export function ClassesSection() {
     highlights: ['Pre-reading and writing', 'Number sense foundation', 'Classroom routines', 'Social confidence building'],
     delay: '700ms'
   }];
-  return;
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
+      <div className="mb-16 text-center">
+        <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+          Learning Philosophy
+        </span>
+        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6">
+          Our <span className="italic opacity-80">Curriculum</span>
+        </h2>
+        <p className="text-gray-300 font-light max-w-2xl mx-auto text-sm">
+          A holistic approach to early childhood education combining Montessori
+          principles with modern pedagogy
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {curriculum.map(item => <CurriculumCard key={item.title} {...item} />)}
+      </div>
+    </AnimatedSection>;
 }

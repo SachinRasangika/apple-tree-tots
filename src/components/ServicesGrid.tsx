@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
 interface ServiceCardProps {
   title: string;
   date?: string;
@@ -72,7 +73,7 @@ export function ServicesGrid() {
     date: 'ages 4-5',
     description: 'Preparing children for primary school success'
   }];
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="mb-12 border-b border-white/20 pb-6">
         <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase">
           A Foundation for <br />
@@ -81,9 +82,9 @@ export function ServicesGrid() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-white/10">
-        {services.map((service, index) => <div key={index} className="border-r border-b border-white/10">
+        {services.map((service, index) => <div key={index} className="border-r border-b border-white/10 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{ animationDelay: `${index * 100}ms` }}>
             <ServiceCard {...service} />
           </div>)}
       </div>
-    </section>;
+    </AnimatedSection>;
 }

@@ -1,19 +1,19 @@
 import React, { Children } from 'react';
 export function InteriorGallery() {
   const images = [{
-    url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=1000&auto=format&fit=crop',
+    url: '/apple-tree-tots/images/hero/homehero.png',
     alt: 'Bright classroom with learning materials',
     className: 'col-span-1 md:col-span-2 row-span-2'
   }, {
-    url: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=800&auto=format&fit=crop',
+    url: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png',
     alt: 'Children engaged in activities',
     className: 'col-span-1 md:col-span-1 row-span-1'
   }, {
-    url: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop',
+    url: '/apple-tree-tots/images/testimonials/Gemini_Generated_Image_i6bhti6bhti6bhti.png',
     alt: 'Outdoor play area',
     className: 'col-span-1 md:col-span-1 row-span-1'
   }, {
-    url: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=800&auto=format&fit=crop',
+    url: '/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png',
     alt: 'Reading corner',
     className: 'col-span-1 md:col-span-2 row-span-1'
   }];

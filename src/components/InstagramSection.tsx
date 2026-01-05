@@ -1,8 +1,10 @@
 import React from 'react';
 import { Instagram, Camera, Heart, MessageCircle } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
+
 export function InstagramSection() {
-  return <section className="py-20 bg-[#152e2e]">
+  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="text-center mb-16">
@@ -91,5 +93,5 @@ export function InstagramSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

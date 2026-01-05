@@ -1,8 +1,10 @@
 import React from 'react';
 import { Building2, Calendar, FileText, Users, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from './ui/Button';
+import { AnimatedSection } from './AnimatedSection';
+
 export function EnrollmentOfficeSection() {
-  return <section className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10 block" animation="fade-in-up">
       <div className="flex flex-col lg:flex-row gap-16 items-start">
         {/* Left Column: Info & Contact */}
         <div className="w-full lg:w-1/3 flex flex-col gap-8">
@@ -105,7 +107,7 @@ export function EnrollmentOfficeSection() {
           {/* Visual Image */}
           <div className="relative h-full min-h-[300px] order-1 md:order-2 group overflow-hidden border border-white/10">
             <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1000&auto=format&fit=crop" alt="Admissions Office" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" />
+            <img src="/apple-tree-tots/images/testimonials/Gemini_Generated_Image_i6bhti6bhti6bhti.png" alt="Admissions Office" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1a3a3a] to-transparent p-6 z-20">
               <span className="text-[10px] tracking-widest uppercase text-white/80">
                 Admissions Office
@@ -114,5 +116,5 @@ export function EnrollmentOfficeSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </AnimatedSection>;
 }

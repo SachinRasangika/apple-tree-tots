@@ -13,19 +13,19 @@ function FeatureCard({
   description,
   delay
 }: FeatureProps) {
-  return <div className="group flex gap-6 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards] p-6 -m-6 rounded-sm hover:bg-white transition-all duration-500" style={{
+  return <div className="group flex gap-6 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards] p-6 -m-6 rounded-2xl hover:bg-[#CDD1CB]/50 transition-all duration-300" style={{
     animationDelay: delay
   }}>
       <div className="shrink-0">
-        <div className="w-14 h-14 rounded-full bg-[#2d5555]/20 border border-white/10 flex items-center justify-center text-[#2d5555] group-hover:bg-white group-hover:border-gray-300 group-hover:text-[#1a3a3a] transition-all duration-300">
+        <div className="w-14 h-14 rounded-full bg-[#2A372F] flex items-center justify-center text-[#CDD1CB] group-hover:bg-[#1a2720] transition-all duration-300">
           {icon}
         </div>
       </div>
       <div>
-        <h3 className="text-lg font-serif tracking-wide mb-3 group-hover:text-[#1a3a3a] transition-colors duration-300">
+        <h3 className="text-lg font-semibold mb-3 text-[#2A372F] group-hover:text-[#1a2720] transition-colors duration-300">
           {title}
         </h3>
-        <p className="text-sm text-gray-400 font-light leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+        <p className="text-sm text-[#2A372F]/70 font-light leading-relaxed group-hover:text-[#2A372F] transition-colors duration-300">
           {description}
         </p>
       </div>
@@ -67,29 +67,25 @@ export function WhyChooseSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
         {/* Left: Image */}
         <div className="lg:col-span-5 relative">
-          <div className="aspect-[3/4] overflow-hidden border border-white/10 relative group">
-            <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
+          <div className="aspect-[3/4] overflow-hidden rounded-lg relative group">
             <img src="/apple-tree-tots/images/hero/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
 
             {/* Floating stat card */}
-            <div className="absolute bottom-8 right-8 bg-[#1a3a3a] border border-white/10 p-6 z-20 backdrop-blur-sm">
-              <p className="text-4xl font-serif tracking-wider mb-2">1:8</p>
-              <p className="text-[10px] tracking-widest uppercase text-gray-400">
+            <div className="absolute bottom-8 right-8 bg-[#CDD1CB]/95 border border-[#2A372F]/20 rounded-2xl p-6 z-20 shadow-lg">
+              <p className="text-4xl font-semibold text-[#2A372F] mb-2">1:8</p>
+              <p className="text-[10px] tracking-wide uppercase text-[#2A372F]/70">
                 Teacher-Child Ratio
               </p>
             </div>
           </div>
-
-          {/* Decorative border */}
-          <div className="absolute inset-0 border border-white/20 -translate-x-4 -translate-y-4 hidden lg:block pointer-events-none" />
         </div>
 
         {/* Right: Content */}
         <div className="lg:col-span-7">
-          <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+          <span className="text-xs tracking-wide uppercase text-[#2d5555] font-semibold mb-4 block">
             Our Commitment
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-8">
+          <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
             Why Choose{' '}
             <span className="italic opacity-80">Apple Tree Tots</span>
           </h2>

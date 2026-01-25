@@ -25,12 +25,12 @@ export function InteriorDesignSection() {
             {/* Row 1 */}
             {/* Image 1 - Left */}
             <div className="md:col-span-3 aspect-[3/4] overflow-hidden">
-              <img src="/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png" alt="Bright classroom with learning materials" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src="/apple-tree-tots/images/apple-tree-tots-images/IMG_8433 03.16.45.jpg" alt="Bright classroom with learning materials" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
 
             {/* Image 2 - Middle Left */}
             <div className="md:col-span-3 aspect-[3/4] overflow-hidden">
-              <img src="/apple-tree-tots/images/hero/homehero.png" alt="Outdoor learning and nature exploration" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src="/apple-tree-tots/images/apple-tree-tots-images/IMG_8434 03.16.45.jpg" alt="Outdoor learning and nature exploration" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
 
             {/* Spacer / Text Area */}
@@ -45,7 +45,7 @@ export function InteriorDesignSection() {
 
             {/* Image 3 - Right */}
             <div className="md:col-span-3 aspect-[3/4] overflow-hidden">
-              <img src="/apple-tree-tots/images/testimonials/Gemini_Generated_Image_i6bhti6bhti6bhti.png" alt="Campus facilities and spaces" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src="/apple-tree-tots/images/apple-tree-tots-images/IMG_8435 03.16.45.jpg" alt="Campus facilities and spaces" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
 
             {/* Row 2 */}
@@ -60,12 +60,12 @@ export function InteriorDesignSection() {
 
             {/* Image 4 - Center Left */}
             <div className="md:col-span-3 aspect-[3/4] overflow-hidden">
-              <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png" alt="Teacher engagement with children" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src="/apple-tree-tots/images/apple-tree-tots-images/IMG_8437 03.16.45.jpg" alt="Teacher engagement with children" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
 
             {/* Image 5 - Center Right */}
             <div className="md:col-span-3 aspect-[3/4] overflow-hidden">
-              <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Happy children and families" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src="/apple-tree-tots/images/apple-tree-tots-images/IMG_8439 03.16.45.jpg" alt="Happy children and families" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
 
             {/* Spacer Right */}

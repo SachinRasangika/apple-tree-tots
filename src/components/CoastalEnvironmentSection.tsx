@@ -1,12 +1,14 @@
 import React, { Children } from 'react';
 import { Waves, TreePine, Sun, Wind } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSection';
+
 interface EnvironmentFeatureProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   delay: string;
 }
+
 function EnvironmentFeature({
   icon,
   title,
@@ -16,15 +18,16 @@ function EnvironmentFeature({
   return <div className="flex flex-col items-center text-center opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
     animationDelay: delay
   }}>
-      <div className="w-16 h-16 rounded-full bg-[#2d5555]/20 border border-white/10 flex items-center justify-center text-[#2d5555] mb-4">
+      <div className="w-16 h-16 rounded-full bg-white/20 border border-white/10 flex items-center justify-center text-white mb-4">
         {icon}
       </div>
-      <h3 className="text-sm font-serif tracking-wide mb-2">{title}</h3>
-      <p className="text-xs text-gray-400 font-light leading-relaxed max-w-[200px]">
+      <h3 className="text-sm font-serif tracking-wide mb-2 text-white">{title}</h3>
+      <p className="text-xs text-gray-300 font-light leading-relaxed max-w-[200px]">
         {description}
       </p>
     </div>;
 }
+
 export function CoastalEnvironmentSection() {
   const features = [{
     icon: <Waves size={24} />,
@@ -47,25 +50,26 @@ export function CoastalEnvironmentSection() {
     description: 'Daily outdoor activities in our coastal environment promote health and wellbeing',
     delay: '450ms'
   }];
+
   return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}
           <div>
-            <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+            <span className="text-xs tracking-[0.2em] uppercase text-white font-bold mb-4 block">
               Our Environment
             </span>
-            <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-white">
               Learning in{' '}
               <span className="italic opacity-80">Coastal Ahangama</span>
             </h2>
-            <p className="text-gray-300 font-light leading-relaxed mb-8 text-sm md:text-base">
+            <p className="text-white/70 font-light leading-relaxed mb-8 text-sm md:text-base">
               Nestled in Ahangama's quiet coastal village, our preschool
               embraces the natural beauty of the Southern Province. The serene
               atmosphere and outdoor spaces create an ideal environment for
               young children to explore, play, and grow.
             </p>
-            <p className="text-gray-400 font-light leading-relaxed text-sm">
+            <p className="text-white/70 font-light leading-relaxed text-sm">
               Our garden-based approach connects children with nature daily,
               fostering curiosity about the world around them while developing
               gross motor skills and environmental awareness.

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDarkMode } from '../context/DarkModeContext';
 
 export function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark } = useDarkMode();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -19,16 +21,11 @@ export function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-[#1a3a3a]/95 backdrop-blur-sm py-4 shadow-lg' : 'bg-transparent py-8'}`}>
+  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-[#CDD1CB]/95 backdrop-blur-sm py-4 shadow-lg' : 'bg-transparent py-8'}`}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
         {/* Logo */}
-        <button onClick={() => navigate('/')} className="flex flex-col cursor-pointer hover:opacity-80 transition-opacity">
-          <span className="font-serif text-xl tracking-widest uppercase">
-            Apple Tree Tots
-          </span>
-          <span className="text-[10px] tracking-[0.3em] uppercase opacity-70 ml-1">
-            Preschool
-          </span>
+        <button onClick={() => navigate('/')} className="cursor-pointer hover:opacity-80 transition-opacity">
+          <img src="/apple-tree-tots/images/apple-tree-tots-images/logo1.png" alt="Apple Tree Tots Logo" className="h-16 w-auto" />
         </button>
 
         {/* Desktop Menu */}
@@ -41,17 +38,21 @@ export function Navigation() {
             { label: 'Contact', path: '/contact' },
           ].map(({ label, path }) => {
             const isActive = location.pathname === path || (path === '/' && location.pathname === '/apple-tree-tots/');
+            const linkColor = isDark ? 'text-white' : 'text-[#2A372F]';
+            const hoverColor = isDark ? 'hover:text-white/70' : 'hover:text-[#2A372F]/70';
+            const underlineColor = isDark ? 'bg-white' : 'bg-[#2A372F]';
+
             return (
               <button
                 key={path}
                 onClick={() => navigate(path)}
                 className={`text-xs uppercase tracking-widest transition-colors relative group ${
-                  isActive ? 'text-white' : 'hover:text-gray-300'
+                  isActive ? linkColor : hoverColor
                 }`}
               >
                 {label}
                 <span
-                  className={`absolute -bottom-2 left-0 h-px bg-white transition-all duration-300 ${
+                  className={`absolute -bottom-2 left-0 h-px ${underlineColor} transition-all duration-300 ${
                     isActive ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
@@ -61,14 +62,14 @@ export function Navigation() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+        <button className={`md:hidden ${isDark ? 'text-white' : 'text-[#2A372F]'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#1a3a3a] border-t border-white/10 p-6 flex flex-col space-y-6 shadow-xl mx-6 md:mx-12 lg:mx-16">
+        <div className={`md:hidden absolute top-full left-0 right-0 p-6 flex flex-col space-y-6 shadow-xl mx-6 md:mx-12 lg:mx-16 ${isDark ? 'bg-[#1a3a3a] border-t border-white/10' : 'bg-[#CDD1CB] border-t border-[#2A372F]/20'}`}>
           {[
             { label: 'Home', path: '/' },
             { label: 'Team', path: '/team' },
@@ -77,6 +78,8 @@ export function Navigation() {
             { label: 'Contact', path: '/contact' },
           ].map(({ label, path }) => {
             const isActive = location.pathname === path || (path === '/' && location.pathname === '/apple-tree-tots/');
+            const textColor = isDark ? 'text-white' : 'text-[#2A372F]';
+            const borderColor = isDark ? 'border-white/10' : 'border-[#2A372F]/20';
             return (
               <button
                 key={path}
@@ -84,8 +87,8 @@ export function Navigation() {
                   navigate(path);
                   setIsMobileMenuOpen(false);
                 }}
-                className={`text-sm uppercase tracking-widest text-center py-2 border-b border-white/5 ${
-                  isActive ? 'text-white font-semibold' : ''
+                className={`text-sm uppercase tracking-widest text-center py-2 border-b ${borderColor} ${textColor} ${
+                  isActive ? 'font-semibold' : ''
                 }`}
               >
                 {label}

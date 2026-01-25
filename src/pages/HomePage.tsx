@@ -19,7 +19,7 @@ import { Footer } from '../components/Footer';
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
+    <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
       <main>
         <HeroSection />
         <ServicesGrid />

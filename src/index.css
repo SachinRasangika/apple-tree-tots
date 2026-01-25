@@ -6,9 +6,9 @@
 
 @layer base {
   body {
-    @apply bg-[#1a3a3a] text-white font-sans antialiased;
+    @apply bg-[#CDD1CB] text-[#2A372F] font-sans antialiased;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
@@ -20,16 +20,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a3a3a;
+  background: #CDD1CB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d5555;
+  background: #2A372F;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3d6666;
+  background: #1a2720;
 }
 
 /* Animations */

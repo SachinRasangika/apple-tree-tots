@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from './ui/Button';
 import { Instagram, Facebook, Twitter } from 'lucide-react';
 export function Footer() {
-  return <footer className="bg-[#152e2e] pt-20 pb-10 px-6 md:px-12 lg:px-16 mt-20 border-t border-white/5">
+  return <footer className="bg-[#152e2e] text-white pt-20 pb-10 px-6 md:px-12 lg:px-16 mt-20 border-t border-white/5">
       <div className="max-w-[1400px] mx-auto">
         {/* Newsletter */}
         <div className="mb-20 max-w-md">

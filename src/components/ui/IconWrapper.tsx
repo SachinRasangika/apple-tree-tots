@@ -1,18 +1,25 @@
 import React from 'react';
 import { clsx } from 'clsx';
+import { useDarkMode } from '../../context/DarkModeContext';
+
 interface IconWrapperProps {
   icon: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   variant?: 'circle' | 'square' | 'none';
   className?: string;
 }
+
 export function IconWrapper({
   icon,
   size = 'md',
   variant = 'circle',
   className
 }: IconWrapperProps) {
-  return <div className={clsx('flex items-center justify-center bg-[#2d5555]/20 border border-white/10 text-[#2d5555] shrink-0', {
+  const { isDark } = useDarkMode();
+  
+  const bgColor = isDark ? 'bg-white/20 text-white' : 'bg-[#2d5555]/20 text-[#2d5555]';
+
+  return <div className={clsx('flex items-center justify-center border border-white/10 shrink-0', bgColor, {
     // Variants
     'rounded-full': variant === 'circle',
     'rounded-sm': variant === 'square',

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
+import { PageHeroSection } from '../components/PageHeroSection';
 import { Button } from '../components/ui/Button';
+import { CTABox } from '../components/CTABox';
 import { Check, Clock, Users, BookOpen, Heart, Star, Sparkles, Calendar, Shield, CreditCard, Gift, Plus, Minus } from 'lucide-react';
 interface PackageCardProps {
   name: string;
@@ -23,38 +25,38 @@ function PackageCard({
   popular,
   delay
 }: PackageCardProps) {
-  return <div className={`relative flex flex-col h-full opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards] ${popular ? 'bg-[#2d5555]/20 border-2 border-[#2d5555] shadow-xl scale-105' : 'bg-[#1a3a3a]/30 border border-white/10'}`} style={{
+  return <div className={`relative flex flex-col h-full opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards] ${popular ? 'bg-[#2A372F]/20 border-2 border-[#2A372F] shadow-xl scale-105' : 'bg-[#CDD1CB]/10 border border-[#2A372F]/20'}`} style={{
     animationDelay: delay
   }}>
-      {popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2d5555] px-6 py-2 text-xs uppercase tracking-widest">
+      {popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#2A372F] px-6 py-2 text-xs uppercase tracking-widest text-[#CDD1CB]">
           Most Popular
         </div>}
 
       <div className="p-8 flex flex-col flex-grow">
         {/* Icon & Name */}
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-full bg-[#2d5555]/20 border border-white/10 flex items-center justify-center text-[#2d5555]">
+          <div className="w-12 h-12 rounded-full bg-[#2A372F]/20 border border-[#2A372F]/20 flex items-center justify-center text-[#2A372F]">
             {icon}
           </div>
           <div>
-            <h3 className="text-xl font-serif tracking-wide">{name}</h3>
-            <p className="text-xs text-gray-400">{description}</p>
+            <h3 className="text-xl font-semibold text-[#2A372F]">{name}</h3>
+            <p className="text-xs text-[#2A372F]/70">{description}</p>
           </div>
         </div>
 
         {/* Price */}
-        <div className="mb-6 pb-6 border-b border-white/10">
+        <div className="mb-6 pb-6 border-b border-[#2A372F]/20">
           <div className="flex items-baseline gap-2">
-            <span className="text-4xl font-serif tracking-wide">{price}</span>
-            <span className="text-sm text-gray-400">{period}</span>
+            <span className="text-4xl font-semibold text-[#2d5555]">{price}</span>
+            <span className="text-sm text-[#2A372F]/70">{period}</span>
           </div>
         </div>
 
         {/* Features */}
         <ul className="space-y-3 mb-8 flex-grow">
           {features.map((feature, idx) => <li key={idx} className="flex items-start gap-3 text-sm">
-              <Check size={16} className="text-[#2d5555] mt-0.5 shrink-0" />
-              <span className="text-gray-300 font-light">{feature}</span>
+              <Check size={16} className="text-[#2A372F] mt-0.5 shrink-0" />
+              <span className="text-[#2A372F]/70 font-light">{feature}</span>
             </li>)}
         </ul>
 
@@ -85,7 +87,7 @@ function FAQItem({
       </button>
 
       {isOpen && <div className="px-4 pb-6 animate-[fadeIn_0.3s_ease-out]">
-          <p className="text-sm text-gray-400 leading-relaxed">{answer}</p>
+          <p className="text-sm text-[#2A372F]/70 leading-relaxed">{answer}</p>
         </div>}
     </div>;
 }
@@ -162,40 +164,25 @@ export function PackagesPage() {
     question: 'What is your refund policy?',
     answer: "We offer a full refund during the trial week if you're not satisfied. For enrolled students, we require one month's notice for withdrawal. Tuition for the current month is non-refundable, but we'll prorate if you provide advance notice."
   }];
-  return <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
+  return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
       <Navigation />
 
-      <main className="pt-32 pb-20">
-        {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-4 md:gap-8 mb-8 opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
-              <div className="h-px w-12 md:w-24 bg-white/30"></div>
-              <span className="text-xs md:text-sm tracking-[0.3em] uppercase opacity-70">
-                Investment in Excellence
-              </span>
-              <div className="h-px w-12 md:w-24 bg-white/30"></div>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif tracking-widest uppercase mb-8">
-              Class <span className="italic text-white/80">Packages</span>
-            </h1>
-
-            <p className="text-sm md:text-base font-light text-gray-300 leading-relaxed tracking-wide">
-              Choose the program that best fits your child's developmental stage
-              and your family's needs. All packages include our Montessori
-              curriculum, qualified teachers, and nurturing environment.
-            </p>
-          </div>
-        </section>
+      <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
+        <PageHeroSection
+          title="PACKAGES"
+          description="Choose the program that best fits your child's developmental stage and your family's needs. All packages include our Montessori curriculum, qualified teachers, and nurturing environment."
+          imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
+          imageAlt="Class packages"
+        />
 
         {/* Main Packages */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20">
+        <section className="max-w-[1400px] mx-auto mb-20">
           <div className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-4">
-              Core <span className="italic opacity-80">Programs</span>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#2A372F] mb-2">
+              Core <span className="text-[#2d5555] font-light">Programs</span>
             </h2>
-            <p className="text-sm text-gray-400 font-light">
+            <div className="w-12 h-1 bg-gradient-to-r from-[#2d5555] to-transparent mb-4"></div>
+            <p className="text-sm text-[#2A372F]/70 font-light">
               Our primary age-based programs designed for optimal development
             </p>
           </div>
@@ -206,12 +193,13 @@ export function PackagesPage() {
         </section>
 
         {/* Additional Options */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-4">
-              Additional <span className="italic opacity-80">Options</span>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#2A372F] mb-2">
+              Additional <span className="text-[#2d5555] font-light">Options</span>
             </h2>
-            <p className="text-sm text-gray-400 font-light">
+            <div className="w-12 h-1 bg-gradient-to-r from-[#2d5555] to-transparent mb-4"></div>
+            <p className="text-sm text-[#2A372F]/70 font-light">
               Flexible scheduling and trial programs to fit your needs
             </p>
           </div>
@@ -222,53 +210,54 @@ export function PackagesPage() {
         </section>
 
         {/* Benefits Grid */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-4">
-              What's <span className="italic opacity-80">Included</span>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#2A372F] mb-2">
+              What's <span className="text-[#2d5555] font-light">Included</span>
             </h2>
-            <p className="text-sm text-gray-400 font-light">
+            <div className="w-12 h-1 bg-gradient-to-r from-[#2d5555] to-transparent mx-auto mb-4"></div>
+            <p className="text-sm text-[#2A372F]/70 font-light">
               Every package includes these essential benefits
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-[#2d5555]/10 border border-white/10 p-6 text-center">
-              <Shield className="w-10 h-10 text-[#2d5555] mx-auto mb-4" />
-              <h3 className="text-sm font-serif tracking-wide mb-2">
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 text-center">
+              <Shield className="w-10 h-10 text-[#2A372F] mx-auto mb-4" />
+              <h3 className="text-sm font-semibold text-[#2A372F] mb-2">
                 Qualified Teachers
               </h3>
-              <p className="text-xs text-gray-400 font-light">
+              <p className="text-xs text-[#2A372F]/70 font-light">
                 ECE certified educators with 1+ years experience
               </p>
             </div>
 
-            <div className="bg-[#2d5555]/10 border border-white/10 p-6 text-center">
-              <BookOpen className="w-10 h-10 text-[#2d5555] mx-auto mb-4" />
-              <h3 className="text-sm font-serif tracking-wide mb-2">
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 text-center">
+              <BookOpen className="w-10 h-10 text-[#2A372F] mx-auto mb-4" />
+              <h3 className="text-sm font-semibold text-[#2A372F] mb-2">
                 Montessori Curriculum
               </h3>
-              <p className="text-xs text-gray-400 font-light">
+              <p className="text-xs text-[#2A372F]/70 font-light">
                 Research-based, child-centered learning approach
               </p>
             </div>
 
-            <div className="bg-[#2d5555]/10 border border-white/10 p-6 text-center">
-              <Users className="w-10 h-10 text-[#2d5555] mx-auto mb-4" />
-              <h3 className="text-sm font-serif tracking-wide mb-2">
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 text-center">
+              <Users className="w-10 h-10 text-[#2A372F] mx-auto mb-4" />
+              <h3 className="text-sm font-semibold text-[#2A372F] mb-2">
                 Small Class Sizes
               </h3>
-              <p className="text-xs text-gray-400 font-light">
+              <p className="text-xs text-[#2A372F]/70 font-light">
                 Maximum 1:8 teacher-to-child ratio
               </p>
             </div>
 
-            <div className="bg-[#2d5555]/10 border border-white/10 p-6 text-center">
-              <Heart className="w-10 h-10 text-[#2d5555] mx-auto mb-4" />
-              <h3 className="text-sm font-serif tracking-wide mb-2">
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 text-center">
+              <Heart className="w-10 h-10 text-[#2A372F] mx-auto mb-4" />
+              <h3 className="text-sm font-semibold text-[#2A372F] mb-2">
                 Nurturing Environment
               </h3>
-              <p className="text-xs text-gray-400 font-light">
+              <p className="text-xs text-[#2A372F]/70 font-light">
                 Safe, welcoming space for growth and learning
               </p>
             </div>
@@ -276,52 +265,52 @@ export function PackagesPage() {
         </section>
 
         {/* Payment Options */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Discounts */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <Gift className="w-8 h-8 text-[#2d5555]" />
+                <Gift className="w-8 h-8 text-[#2A372F]" />
                 <h2 className="text-2xl font-serif tracking-widest uppercase">
                   Discounts & <span className="italic opacity-80">Savings</span>
                 </h2>
               </div>
 
               <div className="space-y-4">
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Sibling Discount
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     10% off for 2nd child, 15% off for 3rd child
                   </p>
-                  <div className="flex items-center gap-2 text-xs text-[#2d5555]">
+                  <div className="flex items-center gap-2 text-xs text-[#2A372F]">
                     <Check size={14} />
                     <span>Applies to monthly tuition</span>
                   </div>
                 </div>
 
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Annual Payment
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     5% discount for full year paid upfront
                   </p>
-                  <div className="flex items-center gap-2 text-xs text-[#2d5555]">
+                  <div className="flex items-center gap-2 text-xs text-[#2A372F]">
                     <Check size={14} />
                     <span>Save up to Rs 18,000 per year</span>
                   </div>
                 </div>
 
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Referral Bonus
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     Refer a family and get one month 50% off
                   </p>
-                  <div className="flex items-center gap-2 text-xs text-[#2d5555]">
+                  <div className="flex items-center gap-2 text-xs text-[#2A372F]">
                     <Check size={14} />
                     <span>Unlimited referrals</span>
                   </div>
@@ -332,74 +321,74 @@ export function PackagesPage() {
             {/* Payment Methods */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <CreditCard className="w-8 h-8 text-[#2d5555]" />
+                <CreditCard className="w-8 h-8 text-[#2A372F]" />
                 <h2 className="text-2xl font-serif tracking-widest uppercase">
                   Payment <span className="italic opacity-80">Options</span>
                 </h2>
               </div>
 
               <div className="space-y-4">
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Monthly Payments
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     Pay month-to-month with flexible terms
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">
                         Bank transfer, cash, or cheque
                       </span>
                     </li>
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">
                         Due by 1st of each month
                       </span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Quarterly Payments
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     Pay every 3 months for convenience
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">
                         3% discount on total
                       </span>
                     </li>
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">
                         Fewer payment transactions
                       </span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-[#2d5555]/10 border border-white/10 p-6">
+                <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6">
                   <h3 className="text-sm font-medium tracking-wide mb-2">
                     Annual Payments
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
+                  <p className="text-xs text-[#2A372F]/70 mb-3">
                     Pay for the full year and save
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">5% discount applied</span>
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">5% discount applied</span>
                     </li>
                     <li className="flex items-center gap-2 text-xs">
-                      <Check size={12} className="text-[#2d5555]" />
-                      <span className="text-gray-400">Priority enrollment</span>
+                      <Check size={12} className="text-[#2A372F]" />
+                      <span className="text-[#2A372F]/70">Priority enrollment</span>
                     </li>
                   </ul>
                 </div>
@@ -409,10 +398,10 @@ export function PackagesPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+              <span className="text-xs tracking-[0.2em] uppercase text-[#2A372F] font-bold mb-4 block">
                 Common Questions
               </span>
               <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase">
@@ -420,27 +409,31 @@ export function PackagesPage() {
               </h2>
             </div>
 
-            <div className="bg-[#2d5555]/5 border border-white/10">
+            <div className="bg-[#2A372F]/5 border border-[#2A372F]/20">
               {faqs.map(faq => <FAQItem key={faq.question} {...faq} />)}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-4xl mx-auto">
-          <div className="bg-[#2d5555]/10 border border-white/10 p-12 text-center">
-            <Calendar className="w-12 h-12 text-[#2d5555] mx-auto mb-6" />
+        <section className="max-w-4xl mx-auto">
+          <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-12 text-center">
+            <Calendar className="w-12 h-12 text-[#2A372F] mx-auto mb-6" />
             <h3 className="text-2xl font-serif tracking-widest uppercase mb-4">
               Ready to Get Started?
             </h3>
-            <p className="text-sm text-gray-300 font-light mb-8 max-w-lg mx-auto">
+            <p className="text-sm text-[#2A372F]/70 font-light mb-8 max-w-lg mx-auto">
               Schedule a campus tour to see our programs in action, meet our
               teachers, and find the perfect package for your family. We'd love
               to welcome you to Apple Tree Tots.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary">Schedule Campus Tour</Button>
-              <Button variant="outline">Contact Admissions</Button>
+              <CTABox
+                primaryText="Apply Now"
+                secondaryText="Call Us"
+                primaryHref="/application"
+                secondaryHref="tel:+94743431488"
+              />
             </div>
           </div>
         </section>

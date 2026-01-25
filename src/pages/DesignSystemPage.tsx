@@ -1,13 +1,15 @@
 import React, { useState, lazy, Component } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
+import { DarkModeProvider } from '../context/DarkModeContext';
 import { Button, Input, TextArea, Select, Card, FeatureCard, ImageCard, Accordion, AccordionItem, SectionHeader, PageHeader, Badge, Label, IconWrapper, ProgressIndicator, Divider } from '../components/ui';
 import { Heart, Star, Zap, Users, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 export function DesignSystemPage() {
   const [inputValue, setInputValue] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const [currentStep, setCurrentStep] = useState(2);
-  return <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
+  return <DarkModeProvider isDark={true}>
+    <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
       <Navigation />
 
       <main className="pt-32 pb-20">
@@ -693,5 +695,6 @@ export function DesignSystemPage() {
       </main>
 
       <Footer />
-    </div>;
+    </div>
+  </DarkModeProvider>;
 }

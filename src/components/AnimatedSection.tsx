@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { useInView } from '../hooks/useInView';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -10,24 +9,10 @@ interface AnimatedSectionProps {
 
 export function AnimatedSection({
   children,
-  className = '',
-  animation = 'fade-in-up',
-  delay = 0
+  className = ''
 }: AnimatedSectionProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    margin: '0px 0px -50px 0px'
-  });
-
-  const animationClass = inView ? `animate-in animate-${animation}` : 'opacity-0';
-  const style = inView ? { animationDelay: `${delay}ms` } : {};
-
   return (
-    <div
-      ref={ref}
-      className={`${animationClass} ${className}`}
-      style={style}
-    >
+    <div className={className}>
       {children}
     </div>
   );

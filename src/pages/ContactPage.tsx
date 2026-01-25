@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
+import { DarkModeProvider } from '../context/DarkModeContext';
+import { PageHeroSection } from '../components/PageHeroSection';
 import { Input, TextArea, Select } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { MapPin, Phone, Mail, Clock, Instagram, Send, MessageCircle, Calendar } from 'lucide-react';
@@ -24,90 +26,74 @@ export function ContactPage() {
     console.log('Form submitted:', formData);
     // Handle form submission
   };
-  return <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
+  return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
       <Navigation />
 
-      <main className="pt-32 pb-20">
-        {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-4 md:gap-8 mb-8 opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
-              <div className="h-px w-12 md:w-24 bg-white/30"></div>
-              <span className="text-xs md:text-sm tracking-[0.3em] uppercase opacity-70">
-                Get in Touch
-              </span>
-              <div className="h-px w-12 md:w-24 bg-white/30"></div>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif tracking-widest uppercase mb-8">
-              Contact <span className="italic text-white/80">Us</span>
-            </h1>
-
-            <p className="text-sm md:text-base font-light text-gray-300 leading-relaxed tracking-wide">
-              We'd love to hear from you. Whether you're interested in enrolling
-              your child, scheduling a campus tour, or have questions about our
-              programs, our team is here to help.
-            </p>
-          </div>
-        </section>
+      <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
+        <PageHeroSection
+          title="CONTACT"
+          description="We'd love to hear from you. Whether you're interested in enrolling your child, scheduling a campus tour, or have questions about our programs, our team is here to help."
+          imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
+          imageAlt="Contact us"
+        />
 
         {/* Contact Methods Grid */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20">
+        <section className="max-w-[1400px] mx-auto mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="tel:0743431488" className="group bg-[#2d5555]/10 border border-white/10 p-8 hover:bg-white transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]">
-              <Phone className="w-8 h-8 text-[#2d5555] mb-4 group-hover:text-[#1a3a3a] transition-colors duration-300" />
-              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#1a3a3a] transition-colors duration-300">
+            <a href="tel:0743431488" className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 p-8 rounded-2xl hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]">
+              <Phone className="w-8 h-8 text-[#2A372F] mb-4 group-hover:text-[#2A372F] transition-colors duration-300" />
+              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#2A372F] transition-colors duration-300">
                 Call Us
               </h3>
-              <p className="text-xs text-gray-400 font-light leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed group-hover:text-[#2A372F] transition-colors duration-300">
                 074 343 1488
               </p>
-              <p className="text-[10px] text-gray-500 mt-2 group-hover:text-gray-500 transition-colors duration-300">
+              <p className="text-[10px] text-[#2A372F]/60 mt-2 group-hover:text-[#2A372F]/60 transition-colors duration-300">
                 Mon - Fri: 9:00 - 17:00
               </p>
             </a>
 
-            <a href="mailto:info@appletreetots.lk" className="group bg-[#2d5555]/10 border border-white/10 p-8 hover:bg-white transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
+            <a href="mailto:info@appletreetots.lk" className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 p-8 rounded-2xl hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
             animationDelay: '150ms'
           }}>
-              <Mail className="w-8 h-8 text-[#2d5555] mb-4 group-hover:text-[#1a3a3a] transition-colors duration-300" />
-              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#1a3a3a] transition-colors duration-300">
+              <Mail className="w-8 h-8 text-[#2A372F] mb-4 group-hover:text-[#2A372F] transition-colors duration-300" />
+              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#2A372F] transition-colors duration-300">
                 Email Us
               </h3>
-              <p className="text-xs text-gray-400 font-light leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed group-hover:text-[#2A372F] transition-colors duration-300">
                 info@appletreetots.lk
               </p>
-              <p className="text-[10px] text-gray-500 mt-2 group-hover:text-gray-500 transition-colors duration-300">
+              <p className="text-[10px] text-[#2A372F]/60 mt-2 group-hover:text-[#2A372F]/60 transition-colors duration-300">
                 Response within 24 hours
               </p>
             </a>
 
-            <a href="https://instagram.com/apple_tree_tots_preschool" target="_blank" rel="noopener noreferrer" className="group bg-[#2d5555]/10 border border-white/10 p-8 hover:bg-white transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
+            <a href="https://instagram.com/apple_tree_tots_preschool" target="_blank" rel="noopener noreferrer" className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 p-8 rounded-2xl hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
             animationDelay: '300ms'
           }}>
-              <Instagram className="w-8 h-8 text-[#2d5555] mb-4 group-hover:text-[#1a3a3a] transition-colors duration-300" />
-              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#1a3a3a] transition-colors duration-300">
+              <Instagram className="w-8 h-8 text-[#2A372F] mb-4 group-hover:text-[#2A372F] transition-colors duration-300" />
+              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#2A372F] transition-colors duration-300">
                 Message Us
               </h3>
-              <p className="text-xs text-gray-400 font-light leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed group-hover:text-[#2A372F] transition-colors duration-300">
                 @apple_tree_tots_preschool
               </p>
-              <p className="text-[10px] text-gray-500 mt-2 group-hover:text-gray-500 transition-colors duration-300">
+              <p className="text-[10px] text-[#2A372F]/60 mt-2 group-hover:text-[#2A372F]/60 transition-colors duration-300">
                 DM us on Instagram
               </p>
             </a>
 
-            <button className="group bg-[#2d5555]/10 border border-white/10 p-8 hover:bg-white transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards] text-left" style={{
+            <button className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 p-8 rounded-2xl hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards] text-left" style={{
             animationDelay: '450ms'
           }}>
-              <Calendar className="w-8 h-8 text-[#2d5555] mb-4 group-hover:text-[#1a3a3a] transition-colors duration-300" />
-              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#1a3a3a] transition-colors duration-300">
+              <Calendar className="w-8 h-8 text-[#2A372F] mb-4 group-hover:text-[#2A372F] transition-colors duration-300" />
+              <h3 className="text-sm font-serif tracking-wide mb-2 group-hover:text-[#2A372F] transition-colors duration-300">
                 Visit Us
               </h3>
-              <p className="text-xs text-gray-400 font-light leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed group-hover:text-[#2A372F] transition-colors duration-300">
                 Schedule a campus tour
               </p>
-              <p className="text-[10px] text-gray-500 mt-2 group-hover:text-gray-500 transition-colors duration-300">
+              <p className="text-[10px] text-[#2A372F]/60 mt-2 group-hover:text-[#2A372F]/60 transition-colors duration-300">
                 See our facilities
               </p>
             </button>
@@ -115,7 +101,7 @@ export function ContactPage() {
         </section>
 
         {/* Main Content: Form + Contact Info */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             {/* Contact Form */}
             <div className="lg:col-span-7">
@@ -126,7 +112,7 @@ export function ContactPage() {
                 <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-4">
                   Get in <span className="italic opacity-80">Touch</span>
                 </h2>
-                <p className="text-sm text-gray-400 font-light">
+                <p className="text-sm text-[#2A372F]/70 font-light">
                   Fill out the form below and we'll get back to you as soon as
                   possible.
                 </p>
@@ -192,23 +178,23 @@ export function ContactPage() {
                   <div className="flex items-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
                     <MapPin className="w-5 h-5 mt-1 shrink-0 text-[#2d5555]" />
                     <div className="text-sm font-light tracking-wide">
-                      <p className="uppercase tracking-widest font-medium mb-2 text-white">
+                      <p className="uppercase tracking-widest font-medium mb-2 text-[#2A372F]">
                         Address
                       </p>
-                      <p>Matara Road</p>
-                      <p>Ahangama, Galle District</p>
-                      <p>Southern Province, Sri Lanka</p>
+                      <p className="text-[#2A372F]/70">Matara Road</p>
+                      <p className="text-[#2A372F]/70">Ahangama, Galle District</p>
+                      <p className="text-[#2A372F]/70">Southern Province, Sri Lanka</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
                     <Phone className="w-5 h-5 mt-1 shrink-0 text-[#2d5555]" />
                     <div className="text-sm font-light tracking-wide">
-                      <p className="uppercase tracking-widest font-medium mb-2 text-white">
+                      <p className="uppercase tracking-widest font-medium mb-2 text-[#2A372F]">
                         Phone
                       </p>
-                      <p>074 343 1488</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-[#2A372F]/70">074 343 1488</p>
+                      <p className="text-xs text-[#2A372F]/50 mt-1">
                         Mon - Fri: 09:00 - 17:00
                       </p>
                     </div>
@@ -217,11 +203,11 @@ export function ContactPage() {
                   <div className="flex items-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
                     <Mail className="w-5 h-5 mt-1 shrink-0 text-[#2d5555]" />
                     <div className="text-sm font-light tracking-wide">
-                      <p className="uppercase tracking-widest font-medium mb-2 text-white">
+                      <p className="uppercase tracking-widest font-medium mb-2 text-[#2A372F]">
                         Email
                       </p>
-                      <p>info@appletreetots.lk</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-[#2A372F]/70">info@appletreetots.lk</p>
+                      <p className="text-xs text-[#2A372F]/50 mt-1">
                         Response within 24 hours
                       </p>
                     </div>
@@ -230,11 +216,11 @@ export function ContactPage() {
                   <div className="flex items-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
                     <Instagram className="w-5 h-5 mt-1 shrink-0 text-[#2d5555]" />
                     <div className="text-sm font-light tracking-wide">
-                      <p className="uppercase tracking-widest font-medium mb-2 text-white">
+                      <p className="uppercase tracking-widest font-medium mb-2 text-[#2A372F]">
                         Social Media
                       </p>
-                      <p>@apple_tree_tots_preschool</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-[#2A372F]/70">@apple_tree_tots_preschool</p>
+                      <p className="text-xs text-[#2A372F]/50 mt-1">
                         Follow us for daily updates
                       </p>
                     </div>
@@ -243,19 +229,19 @@ export function ContactPage() {
                   <div className="flex items-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
                     <Clock className="w-5 h-5 mt-1 shrink-0 text-[#2d5555]" />
                     <div className="text-sm font-light tracking-wide">
-                      <p className="uppercase tracking-widest font-medium mb-2 text-white">
+                      <p className="uppercase tracking-widest font-medium mb-2 text-[#2A372F]">
                         School Hours
                       </p>
-                      <p>Monday - Friday</p>
-                      <p>07:30 - 18:00</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-[#2A372F]/70">Monday - Friday</p>
+                      <p className="text-[#2A372F]/70">07:30 - 18:00</p>
+                      <p className="text-xs text-[#2A372F]/50 mt-1">
                         Extended care available
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-[#2A372F]/20 pt-6">
                   <Button variant="outline" className="w-full">
                     <MapPin size={16} className="mr-2" />
                     Get Directions
@@ -266,8 +252,9 @@ export function ContactPage() {
           </div>
         </section>
 
-        {/* Location Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mb-20 border-t border-white/10 pt-20">
+        <DarkModeProvider isDark={true}>
+          {/* Location Section */}
+          <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Image */}
             <div className="relative order-2 lg:order-1">
@@ -300,8 +287,8 @@ export function ContactPage() {
               </p>
 
               <div className="bg-[#2d5555]/10 border border-white/10 p-6 mb-8">
-                <h3 className="text-sm font-serif tracking-wide mb-4 flex items-center gap-2">
-                  <MessageCircle size={18} className="text-[#2d5555]" />
+                <h3 className="text-sm font-serif tracking-wide mb-4 flex items-center gap-2 text-white">
+                  <MessageCircle size={18} className="text-white" />
                   Campus Tours
                 </h3>
                 <p className="text-xs text-gray-400 font-light leading-relaxed mb-4">
@@ -326,7 +313,7 @@ export function ContactPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10 pt-20">
+        <section className="max-w-[1400px] mx-auto border-t border-[#2A372F]/20 pt-20">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
               <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
@@ -340,7 +327,7 @@ export function ContactPage() {
 
             <div className="space-y-6">
               <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
                   What are your office hours?
                 </h3>
                 <p className="text-xs text-gray-400 font-light leading-relaxed">
@@ -351,7 +338,7 @@ export function ContactPage() {
               </div>
 
               <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
                   How quickly will I receive a response?
                 </h3>
                 <p className="text-xs text-gray-400 font-light leading-relaxed">
@@ -362,7 +349,7 @@ export function ContactPage() {
               </div>
 
               <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
                   Can I schedule a campus tour?
                 </h3>
                 <p className="text-xs text-gray-400 font-light leading-relaxed">
@@ -373,7 +360,7 @@ export function ContactPage() {
               </div>
 
               <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
                   Do you offer enrollment consultations?
                 </h3>
                 <p className="text-xs text-gray-400 font-light leading-relaxed">
@@ -385,6 +372,7 @@ export function ContactPage() {
             </div>
           </div>
         </section>
+        </DarkModeProvider>
       </main>
 
       <Footer />

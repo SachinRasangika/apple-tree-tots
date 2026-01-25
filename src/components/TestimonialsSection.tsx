@@ -15,21 +15,21 @@ function TestimonialCard({
   program,
   delay
 }: TestimonialProps) {
-  return <div className="group bg-[#2d5555]/10 border border-white/10 p-8 flex flex-col justify-between min-h-[280px] hover:bg-white transition-all duration-500 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{
+  return <div className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 rounded-2xl p-8 flex flex-col justify-between min-h-[280px] hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]" style={{
     animationDelay: delay
   }}>
       <div>
-        <Quote className="w-8 h-8 text-[#2d5555] mb-6 opacity-50 group-hover:text-[#1a3a3a] transition-colors duration-300" />
-        <p className="text-sm font-light text-gray-300 leading-relaxed mb-6 italic group-hover:text-gray-700 transition-colors duration-300">
+        <Quote className="w-8 h-8 text-[#2A372F] mb-6 group-hover:text-[#1a2720] transition-colors duration-300" />
+        <p className="text-sm font-light text-[#2A372F]/70 leading-relaxed mb-6 group-hover:text-[#2A372F] transition-colors duration-300">
           "{quote}"
         </p>
       </div>
 
-      <div className="border-t border-white/10 group-hover:border-gray-300 pt-4 transition-colors duration-300">
-        <p className="text-xs font-medium tracking-widest uppercase text-white mb-1 group-hover:text-[#1a3a3a] transition-colors duration-300">
+      <div className="border-t border-[#2A372F]/20 group-hover:border-[#2A372F]/40 pt-4 transition-colors duration-300">
+        <p className="text-xs font-semibold tracking-wide uppercase text-[#2A372F] mb-1 group-hover:text-[#1a2720] transition-colors duration-300">
           {parent}
         </p>
-        <p className="text-[10px] tracking-wide text-gray-400 group-hover:text-gray-600 transition-colors duration-300">
+        <p className="text-[10px] tracking-wide text-[#2A372F]/60 group-hover:text-[#2A372F]/80 transition-colors duration-300">
           Parent of {child} • {program}
         </p>
       </div>
@@ -55,15 +55,15 @@ export function TestimonialsSection() {
     program: 'Pre-K Program',
     delay: '300ms'
   }];
-  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto border-t border-white/10 block" animation="fade-in-up">
+  return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="mb-16 text-center">
-        <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+        <span className="text-xs tracking-wide uppercase text-[#2d5555] font-semibold mb-4 block">
           Parent Voices
         </span>
-        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6">
+        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
           What Families <span className="italic opacity-80">Are Saying</span>
         </h2>
-        <p className="text-gray-300 font-light max-w-2xl mx-auto text-sm">
+        <p className="text-[#2A372F]/70 font-light max-w-2xl mx-auto text-sm">
           Hear from parents in our community about their experience with Apple
           Tree Tots Preschool
         </p>

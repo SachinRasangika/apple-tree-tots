@@ -15,26 +15,26 @@ function CurriculumCard({
   highlights,
   delay
 }: CurriculumCardProps) {
-  return <div className="group bg-white/95 border border-gray-300/30 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
+  return <div className="group bg-[#CDD1CB]/95 border border-[#2A372F]/20 rounded-2xl p-8 hover:shadow-md transition-all duration-300 opacity-0 animate-[fadeInUp_0.7s_ease-out_forwards]" style={{
     animationDelay: delay
   }}>
       {/* Icon */}
-      <div className="w-14 h-14 rounded-full bg-[#2d5555]/10 border border-[#2d5555]/20 flex items-center justify-center text-[#2d5555] mb-6 group-hover:bg-[#2d5555] group-hover:text-white transition-all duration-300">
+      <div className="w-14 h-14 rounded-full bg-[#2A372F] flex items-center justify-center text-[#CDD1CB] mb-6 group-hover:bg-[#1a2720] transition-all duration-300">
         {icon}
       </div>
 
       {/* Content */}
-      <h3 className="text-lg font-serif tracking-wide mb-3 text-gray-900">
+      <h3 className="text-lg font-semibold mb-3 text-[#2A372F] group-hover:text-[#1a2720] transition-colors duration-300">
         {title}
       </h3>
-      <p className="text-sm text-gray-600 font-light leading-relaxed mb-6">
+      <p className="text-sm text-[#2A372F]/70 font-light leading-relaxed mb-6">
         {description}
       </p>
 
       {/* Highlights */}
       <ul className="space-y-2">
-        {highlights.map((highlight, idx) => <li key={idx} className="flex items-start gap-2 text-xs text-gray-700">
-            <div className="w-1 h-1 rounded-full bg-[#2d5555] mt-1.5 shrink-0" />
+        {highlights.map((highlight, idx) => <li key={idx} className="flex items-start gap-2 text-xs text-[#2A372F]/60">
+            <div className="w-1 h-1 rounded-full bg-[#2A372F] mt-1.5 shrink-0" />
             <span>{highlight}</span>
           </li>)}
       </ul>
@@ -92,13 +92,13 @@ export function ClassesSection() {
   }];
   return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="mb-16 text-center">
-        <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+        <span className="text-xs tracking-wide uppercase text-[#2d5555] font-semibold mb-4 block">
           Learning Philosophy
         </span>
-        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6">
+        <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
           Our <span className="italic opacity-80">Curriculum</span>
         </h2>
-        <p className="text-gray-300 font-light max-w-2xl mx-auto text-sm">
+        <p className="text-[#2A372F]/70 font-light max-w-2xl mx-auto text-sm">
           A holistic approach to early childhood education combining Montessori
           principles with modern pedagogy
         </p>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
+import { PageHeroSection } from '../components/PageHeroSection';
 import { X, Mail, Award, BookOpen } from 'lucide-react';
 interface TeamMember {
   name: string;
@@ -61,9 +62,9 @@ function TeacherModal({
   onClose: () => void;
 }) {
   return <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]" onClick={onClose}>
-      <div className="bg-[#1a3a3a] border border-white/10 max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-[fadeInUp_0.4s_ease-out]" onClick={e => e.stopPropagation()}>
+      <div className="bg-[#CDD1CB] border border-[#2A372F]/20 max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-[fadeInUp_0.4s_ease-out]" onClick={e => e.stopPropagation()}>
         {/* Close Button */}
-        <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center border border-white/20 hover:bg-white/10 transition-colors" aria-label="Close">
+        <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center border border-[#2A372F]/20 hover:bg-[#2A372F]/10 transition-colors" aria-label="Close">
           <X size={20} />
         </button>
 
@@ -76,29 +77,29 @@ function TeacherModal({
           {/* Content */}
           <div className="p-8 md:p-12 flex flex-col">
             <div className="mb-8">
-              <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-2">
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#2A372F] mb-2">
                 {teacher.name}
               </h2>
-              <p className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold">
+              <p className="text-xs tracking-[0.2em] uppercase text-[#2A372F] font-bold">
                 {teacher.role}
               </p>
             </div>
 
             <div className="space-y-6 flex-grow">
               <div>
-                <p className="text-sm text-gray-300 font-light leading-relaxed">
+                <p className="text-sm text-[#2A372F]/70 font-light leading-relaxed">
                   {teacher.bio}
                 </p>
               </div>
 
-              <div className="border-t border-white/10 pt-6">
+              <div className="border-t border-[#2A372F]/20 pt-6">
                 <div className="flex items-start gap-3 mb-4">
-                  <Award className="w-5 h-5 text-[#2d5555] mt-0.5 shrink-0" />
+                  <Award className="w-5 h-5 text-[#2A372F] mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-xs tracking-widest uppercase text-gray-400 mb-1">
+                    <p className="text-xs tracking-widest uppercase text-[#2A372F]/70 mb-1">
                       Qualifications
                     </p>
-                    <p className="text-sm text-gray-300 font-light">
+                    <p className="text-sm text-[#2A372F]/70 font-light">
                       {teacher.qualifications}
                     </p>
                   </div>
@@ -107,10 +108,10 @@ function TeacherModal({
                 <div className="flex items-start gap-3">
                   <BookOpen className="w-5 h-5 text-[#2d5555] mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-xs tracking-widest uppercase text-gray-400 mb-1">
+                    <p className="text-xs tracking-widest uppercase text-[#2A372F]/50 mb-1">
                       Specialization
                     </p>
-                    <p className="text-sm text-gray-300 font-light">
+                    <p className="text-sm text-[#2A372F]/70 font-light">
                       {teacher.specialization}
                     </p>
                   </div>
@@ -118,7 +119,7 @@ function TeacherModal({
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="mt-8 pt-6 border-t border-[#2A372F]/20">
               <a href="tel:0743431488" className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-[#2d5555] hover:text-white transition-colors">
                 <Mail size={14} />
                 Contact About This Teacher
@@ -131,35 +132,22 @@ function TeacherModal({
 }
 export function TeamPage() {
   const [selectedTeacher, setSelectedTeacher] = useState<TeamMember | null>(null);
-  return <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
+  return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
       <Navigation />
 
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
-        {/* Hero Section */}
-        <section className="max-w-[1400px] mx-auto mb-20">
-          <div className="mb-12">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-widest uppercase mb-6">
-              TEACHERS
-            </h1>
-            <p className="text-sm md:text-base tracking-wide leading-relaxed max-w-2xl opacity-90">
-              We are most grateful for our teacher team. Let them carry you
-              along and inspire you. Each educator brings unique expertise and
-              passion to nurturing your child's development.
-            </p>
-          </div>
-
-          {/* Hero Image */}
-          <div className="relative h-[400px] md:h-[500px] overflow-hidden border border-white/10 group">
-            <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
-            <img src="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png" alt="Teacher in peaceful setting" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
-          </div>
-        </section>
+        <PageHeroSection
+          title="TEACHERS"
+          description="We are most grateful for our teacher team. Let them carry you along and inspire you. Each educator brings unique expertise and passion to nurturing your child's development."
+          imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
+          imageAlt="Teacher in peaceful setting"
+        />
 
         {/* Team Grid Section */}
         <section className="max-w-[1400px] mx-auto">
-          <div className="mb-12 border-b border-white/10 pb-6">
-            <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase">
-              Our Team
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase text-[#2A372F] mb-6">
+              Our <span className="italic opacity-80">Team</span>
             </h2>
           </div>
 
@@ -168,12 +156,12 @@ export function TeamPage() {
             animationDelay: `${index * 100}ms`
           }}>
                 {/* Portrait Image */}
-                <div className="aspect-[3/4] mb-4 overflow-hidden border border-white/10 relative">
-                  <div className="absolute inset-0 bg-[#1a3a3a]/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                <div className="aspect-[3/4] mb-4 overflow-hidden border border-[#2A372F]/20 relative">
+                  <div className="absolute inset-0 bg-[#CDD1CB]/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                   <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                    <span className="text-xs uppercase tracking-widest border border-white px-4 py-2 bg-[#1a3a3a]/80 backdrop-blur-sm">
+                    <span className="text-xs uppercase tracking-widest border border-[#2A372F] px-4 py-2 bg-[#2A372F]/80 backdrop-blur-sm text-[#CDD1CB]">
                       View Profile
                     </span>
                   </div>
@@ -181,7 +169,7 @@ export function TeamPage() {
 
                 {/* Name and Role */}
                 <div>
-                  <h3 className="text-sm font-serif tracking-wider mb-1 group-hover:text-[#2d5555] transition-colors">
+                  <h3 className="text-sm font-serif tracking-wider mb-1 group-hover:text-[#2A372F] transition-colors">
                     {member.name}
                   </h3>
                   <p className="text-xs tracking-wide opacity-70">
@@ -193,7 +181,7 @@ export function TeamPage() {
         </section>
 
         {/* Join Section */}
-        <section className="mt-32 max-w-4xl mx-auto text-center border-t border-white/10 pt-20">
+        <section className="mt-32 max-w-4xl mx-auto text-center border-t border-[#2A372F]/20 pt-20">
           <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-6">
             Join Our Teaching Team
           </h2>
@@ -202,7 +190,7 @@ export function TeamPage() {
             teachers. If you have a passion for early childhood education, we
             would love to hear from you.
           </p>
-          <a href="tel:0743431488" className="inline-block border border-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-[#1a3a3a] transition-all duration-300">
+          <a href="tel:0743431488" className="inline-block border border-[#2A372F] px-8 py-3 text-xs uppercase tracking-widest text-[#2A372F] hover:bg-[#2A372F] hover:text-[#CDD1CB] transition-all duration-300">
             Contact Us
           </a>
         </section>

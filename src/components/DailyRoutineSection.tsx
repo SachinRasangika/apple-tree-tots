@@ -97,7 +97,7 @@ export function DailyRoutineSection() {
     delay: '900ms'
   }];
 
-  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
+  return <AnimatedSection className="py-20 bg-[#2d4a4a] block" animation="fade-in-up">
       <div className="max-w-full">
         {/* Header */}
         <div className="px-6 md:px-12 lg:px-20 mb-12">
@@ -121,10 +121,10 @@ export function DailyRoutineSection() {
         {/* Carousel */}
         <div className="relative overflow-hidden">
           {/* Gradient overlay left */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#152e2e] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#2d4a4a] to-transparent z-10 pointer-events-none"></div>
 
           {/* Gradient overlay right */}
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#152e2e] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#2d4a4a] to-transparent z-10 pointer-events-none"></div>
 
           {/* Scrolling container */}
           <div className="flex animate-scrollLeft hover:[animation-play-state:paused] gap-6 px-6 md:px-12 lg:px-20 py-4">

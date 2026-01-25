@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeroSection } from '../components/HeroSection';
+import { PhilosophySection } from '../components/PhilosophySection';
 import { ServicesGrid } from '../components/ServicesGrid';
 import { FoundersSection } from '../components/FoundersSection';
 import { CoastalEnvironmentSection } from '../components/CoastalEnvironmentSection';
@@ -11,21 +12,25 @@ import { DailyRoutineSection } from '../components/DailyRoutineSection';
 import { InstagramSection } from '../components/InstagramSection';
 import { ClassScheduleSection } from '../components/ClassScheduleSection';
 import { PricingSection } from '../components/PricingSection';
-import { ClassesSection } from '../components/ClassesSection';
 import { JoinTeamSection } from '../components/JoinTeamSection';
 import { AddressSection } from '../components/AddressSection';
 import { EnrollmentOfficeSection } from '../components/EnrollmentOfficeSection';
 import { Footer } from '../components/Footer';
+import { FloatingActionBar } from '../components/FloatingActionBar';
 
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
+      <FloatingActionBar />
       <main>
-        <HeroSection />
+        <div data-hero-section>
+          <HeroSection />
+        </div>
         <ServicesGrid />
+        <StatementSection />
+        <PhilosophySection />
         <FoundersSection />
         <CoastalEnvironmentSection />
-        <StatementSection />
         <WhyChooseSection />
         <InteriorDesignSection />
         <TestimonialsSection />
@@ -33,7 +38,6 @@ export function HomePage() {
         <InstagramSection />
         <ClassScheduleSection />
         <PricingSection />
-        <ClassesSection />
         <JoinTeamSection />
         <AddressSection />
         <EnrollmentOfficeSection />

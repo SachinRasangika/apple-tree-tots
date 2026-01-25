@@ -51,7 +51,7 @@ export function CoastalEnvironmentSection() {
     delay: '450ms'
   }];
 
-  return <AnimatedSection className="py-20 bg-[#152e2e] block" animation="fade-in-up">
+  return <AnimatedSection className="py-20 bg-[#2d4a4a] block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}

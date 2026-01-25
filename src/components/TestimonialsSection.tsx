@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Quote } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSection';
 interface TestimonialProps {
@@ -36,6 +36,10 @@ function TestimonialCard({
     </div>;
 }
 export function TestimonialsSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
   const testimonials = [{
     quote: 'The qualified teachers at Apple Tree Tots have been exceptional. My daughter has flourished in their Montessori program, and her English has improved dramatically in just six months.',
     parent: 'Sanduni Perera',
@@ -55,6 +59,35 @@ export function TestimonialsSection() {
     program: 'Pre-K Program',
     delay: '300ms'
   }];
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    setTouchEnd(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swiped left
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }
+    if (touchEnd - touchStart > 50) {
+      // Swiped right
+      setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="mb-16 text-center">
         <span className="text-xs tracking-wide uppercase text-[#2d5555] font-semibold mb-4 block">
@@ -69,8 +102,52 @@ export function TestimonialsSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Desktop Grid */}
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonials.map(testimonial => <TestimonialCard key={testimonial.parent} {...testimonial} />)}
+      </div>
+
+      {/* Mobile Carousel with Pagination & Arrows */}
+      <div className="md:hidden">
+        <div className="relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+          <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+            {testimonials.map(testimonial => <div key={testimonial.parent} className="flex-shrink-0 w-full px-2">
+                <TestimonialCard {...testimonial} />
+              </div>)}
+          </div>
+
+          {/* Arrow Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#2A372F]/30 hover:bg-[#2A372F]/50 text-[#2A372F] rounded-full p-2 transition-all duration-200 z-10"
+            aria-label="Previous slide"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#2A372F]/30 hover:bg-[#2A372F]/50 text-[#2A372F] rounded-full p-2 transition-all duration-200 z-10"
+            aria-label="Next slide"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {testimonials.map((_, index) => <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentSlide === index ? 'bg-[#2A372F] w-8' : 'bg-[#2A372F]/30 w-2 hover:bg-[#2A372F]/50'
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />)}
+        </div>
       </div>
     </AnimatedSection>;
 }

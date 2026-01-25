@@ -1,5 +1,5 @@
-import React from 'react';
-import { Users, Clock, BookOpen, Sparkles, Star, Heart } from 'lucide-react';
+import React, { useState } from 'react';
+import { BookOpen, Star, Heart } from 'lucide-react';
 import { Button } from './ui/Button';
 import { CTABox } from './CTABox';
 import { AnimatedSection } from './AnimatedSection';
@@ -65,6 +65,10 @@ function PricingTier({
     </div>;
 }
 export function PricingSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
   const pricingTiers = [{
     title: 'Toddler Program',
     price: 'Rs 25,000',
@@ -80,7 +84,7 @@ export function PricingSection() {
     features: ['Ages 3-4 years', 'Full-day option available', 'English medium instruction', 'Montessori curriculum', 'Outdoor learning daily'],
     icon: <Star size={20} />,
     highlighted: true,
-    delay: '150ms'
+    delay: '100ms'
   }, {
     title: 'Pre-K Program',
     price: 'Rs 32,000',
@@ -88,32 +92,37 @@ export function PricingSection() {
     features: ['Ages 4-5 years', 'School readiness focus', 'Advanced literacy skills', 'Primary school preparation', 'STEAM activities'],
     icon: <BookOpen size={20} />,
     highlighted: false,
-    delay: '300ms'
-  }, {
-    title: 'Full-Time Care',
-    price: 'Rs 35,000',
-    period: 'per month',
-    features: ['Extended hours (7:30 AM - 6:00 PM)', 'All age groups welcome', 'Meals and snacks included', 'Flexible scheduling', 'Holiday care available'],
-    icon: <Clock size={20} />,
-    highlighted: false,
-    delay: '450ms'
-  }, {
-    title: 'Half-Day Program',
-    price: 'Rs 20,000',
-    period: 'per month',
-    features: ['Morning sessions (8:00 AM - 12:00 PM)', 'All age groups', 'Core curriculum included', 'Flexible start dates', 'Perfect for working parents'],
-    icon: <Users size={20} />,
-    highlighted: false,
-    delay: '600ms'
-  }, {
-    title: 'Trial Week',
-    price: 'Rs 8,000',
-    period: 'one week',
-    features: ['5-day trial period', 'Experience our program', 'No long-term commitment', 'Meet teachers and students', 'Full refund if not satisfied'],
-    icon: <Sparkles size={20} />,
-    highlighted: false,
-    delay: '750ms'
+    delay: '200ms'
   }];
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    setTouchEnd(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swiped left
+      setCurrentSlide((prev) => (prev + 1) % pricingTiers.length);
+    }
+    if (touchEnd - touchStart > 50) {
+      // Swiped right
+      setCurrentSlide((prev) => (prev - 1 + pricingTiers.length) % pricingTiers.length);
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % pricingTiers.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + pricingTiers.length) % pricingTiers.length);
+  };
+
   return <AnimatedSection className="py-20 block" animation="fade-in-up">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         {/* Header */}
@@ -131,9 +140,52 @@ export function PricingSection() {
           </p>
         </div>
 
-        {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Desktop Pricing Grid */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {pricingTiers.map(tier => <PricingTier key={tier.title} {...tier} />)}
+        </div>
+
+        {/* Mobile Carousel with Pagination & Arrows */}
+        <div className="md:hidden mb-12">
+          <div className="relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+              {pricingTiers.map(tier => <div key={tier.title} className="flex-shrink-0 w-full px-2">
+                  <PricingTier {...tier} />
+                </div>)}
+            </div>
+
+            {/* Arrow Buttons */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#2A372F]/30 hover:bg-[#2A372F]/50 text-[#2A372F] rounded-full p-2 transition-all duration-200 z-10"
+              aria-label="Previous slide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#2A372F]/30 hover:bg-[#2A372F]/50 text-[#2A372F] rounded-full p-2 transition-all duration-200 z-10"
+              aria-label="Next slide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {pricingTiers.map((_, index) => <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentSlide === index ? 'bg-[#2A372F] w-8' : 'bg-[#2A372F]/30 w-2 hover:bg-[#2A372F]/50'
+                }`}
+                aria-label={`Go to pricing tier ${index + 1}`}
+              />)}
+          </div>
         </div>
 
         {/* Additional Info */}

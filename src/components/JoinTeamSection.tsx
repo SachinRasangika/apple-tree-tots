@@ -6,8 +6,8 @@ import { AnimatedSection } from './AnimatedSection';
 export function JoinTeamSection() {
   return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Left: Image */}
-        <div className="relative order-2 lg:order-1">
+        {/* Right: Image */}
+        <div className="relative order-1 lg:order-2">
           <div className="aspect-[4/3] overflow-hidden rounded-lg relative group">
             <img src="/apple-tree-tots/images/campus/Gemini_Generated_Image_6fd08v6fd08v6fd0.png" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
 
@@ -20,8 +20,8 @@ export function JoinTeamSection() {
           </div>
         </div>
 
-        {/* Right: Content */}
-        <div className="order-1 lg:order-2">
+        {/* Left: Content */}
+        <div className="order-2 lg:order-1">
           <span className="text-xs tracking-wide uppercase text-[#2d5555] font-semibold mb-4 block">
             Career Opportunities
           </span>

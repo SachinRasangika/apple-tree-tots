@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { DarkModeProvider } from './context/DarkModeContext';
 import { Navigation } from './components/Navigation';
-import { FloatingBottomNavbar } from './components/FloatingBottomNavbar';
 import { HomePage } from './pages/HomePage';
 import { TeamPage } from './pages/TeamPage';
 import { AdmissionsPage } from './pages/AdmissionsPage';
@@ -36,7 +35,6 @@ export function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/packages" element={<PackagesPage />} />
         </Routes>
-        <FloatingBottomNavbar />
       </Router>
     </DarkModeProvider>
   );

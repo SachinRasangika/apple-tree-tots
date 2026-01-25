@@ -10,10 +10,8 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const getPageName = () => {
-    const path = location.pathname.replace('/apple-tree-tots/', '').replace(/^\//, '');
-    return path || 'home';
-  };
+  const isHomePage = location.pathname === '/' || location.pathname === '/apple-tree-tots/';
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -38,17 +36,32 @@ export function Navigation() {
             { label: 'Contact', path: '/contact' },
           ].map(({ label, path }) => {
             const isActive = location.pathname === path || (path === '/' && location.pathname === '/apple-tree-tots/');
-            const linkColor = isDark ? 'text-white' : 'text-[#2A372F]';
-            const hoverColor = isDark ? 'hover:text-white/70' : 'hover:text-[#2A372F]/70';
-            const underlineColor = isDark ? 'bg-white' : 'bg-[#2A372F]';
+            let linkColor: string;
+            let hoverColor: string;
+            let underlineColor: string;
+
+            // On home page: white when not scrolled, dark when scrolled
+            if (isHomePage) {
+              if (isScrolled) {
+                linkColor = 'text-[#2A372F]';
+                hoverColor = 'hover:text-[#2A372F]/70';
+                underlineColor = 'bg-[#2A372F]';
+              } else {
+                linkColor = 'text-white';
+                hoverColor = 'hover:text-white/70';
+                underlineColor = 'bg-white';
+              }
+            } else {
+              linkColor = isDark ? 'text-white' : 'text-[#2A372F]';
+              hoverColor = isDark ? 'hover:text-white/70' : 'hover:text-[#2A372F]/70';
+              underlineColor = isDark ? 'bg-white' : 'bg-[#2A372F]';
+            }
 
             return (
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className={`text-xs uppercase tracking-widest transition-colors relative group ${
-                  isActive ? linkColor : hoverColor
-                }`}
+                className={`text-xs uppercase tracking-widest transition-colors relative group ${linkColor} ${hoverColor}`}
               >
                 {label}
                 <span
@@ -62,14 +75,18 @@ export function Navigation() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className={`md:hidden ${isDark ? 'text-white' : 'text-[#2A372F]'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+        <button className={`md:hidden ${isHomePage ? (isScrolled ? 'text-[#2A372F]' : 'text-white') : (isDark ? 'text-white' : 'text-[#2A372F]')}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className={`md:hidden absolute top-full left-0 right-0 p-6 flex flex-col space-y-6 shadow-xl mx-6 md:mx-12 lg:mx-16 ${isDark ? 'bg-[#1a3a3a] border-t border-white/10' : 'bg-[#CDD1CB] border-t border-[#2A372F]/20'}`}>
+        <div className={`md:hidden absolute top-full left-0 right-0 p-6 flex flex-col space-y-6 shadow-xl mx-6 md:mx-12 lg:mx-16 ${
+          isScrolled
+            ? (isDark ? 'bg-[#1a3a3a] border-t border-white/10' : 'bg-[#CDD1CB] border-t border-[#2A372F]/20')
+            : 'bg-[#2A372F]/95 border-t border-white/20'
+        }`}>
           {[
             { label: 'Home', path: '/' },
             { label: 'Team', path: '/team' },
@@ -78,8 +95,24 @@ export function Navigation() {
             { label: 'Contact', path: '/contact' },
           ].map(({ label, path }) => {
             const isActive = location.pathname === path || (path === '/' && location.pathname === '/apple-tree-tots/');
-            const textColor = isDark ? 'text-white' : 'text-[#2A372F]';
-            const borderColor = isDark ? 'border-white/10' : 'border-[#2A372F]/20';
+            const isHomePage = location.pathname === '/' || location.pathname === '/apple-tree-tots/';
+
+            // On home page: white when not scrolled, dark when scrolled
+            let textColor: string;
+            let borderColor: string;
+
+            if (isHomePage) {
+              if (isScrolled) {
+                textColor = 'text-[#2A372F]';
+                borderColor = 'border-[#2A372F]/20';
+              } else {
+                textColor = 'text-white';
+                borderColor = 'border-white/20';
+              }
+            } else {
+              textColor = isDark ? 'text-white' : 'text-[#2A372F]';
+              borderColor = isDark ? 'border-white/10' : 'border-[#2A372F]/20';
+            }
             return (
               <button
                 key={path}

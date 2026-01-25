@@ -263,7 +263,7 @@ export function ClassScheduleSection() {
     }
   }];
 
-  const bgColor = 'bg-[#1a3a3a]';
+  const bgColor = 'bg-[#2d4a4a]';
   const textColor = 'text-white';
   const mutedTextColor = 'text-white/70';
   const headingColor = 'text-white';

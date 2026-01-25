@@ -17,42 +17,14 @@ const teamMembers: TeamMember[] = [{
   bio: 'With a degree in Early Childhood Education and extensive experience, Priya leads our teaching team with expertise in Montessori methodology and child development. She creates a nurturing environment where children thrive and develop a genuine love for learning.',
   qualifications: 'Degree in Early Childhood Education, Montessori Certification',
   specialization: 'Montessori Methodology, Child Development',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
+  image: '/apple-tree-tots/images/team/IMG_8118.JPG'
 }, {
   name: 'SARAH MITCHELL',
   role: 'Senior Teacher',
   bio: 'A native English speaker with ECE certification, Sarah brings international teaching experience and a passion for language immersion education. Her warm approach helps children develop confidence in English communication.',
   qualifications: 'ECE Certification, TESOL Diploma',
   specialization: 'English Language Immersion, International Curriculum',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
-}, {
-  name: 'CHAMINDA FERNANDO',
-  role: 'Toddler Coordinator',
-  bio: 'Specializing in ages 2-3, Chaminda creates nurturing environments where our youngest learners develop confidence and social skills through play. His patient, gentle approach helps toddlers feel secure and excited to explore.',
-  qualifications: 'Diploma in Early Childhood Education',
-  specialization: 'Toddler Development, Play-Based Learning',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
-}, {
-  name: 'NISHA PERERA',
-  role: 'Pre-K Teacher',
-  bio: 'Focused on school readiness, Nisha prepares our 4-5 year olds for primary school with advanced literacy and numeracy programs. She makes learning engaging and builds the academic foundation children need for future success.',
-  qualifications: 'Diploma in Early Childhood Education, Primary Education Certificate',
-  specialization: 'School Readiness, Literacy & Numeracy',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
-}, {
-  name: 'RAJITHA SILVA',
-  role: 'STEAM Coordinator',
-  bio: 'With a background in science education, Rajitha designs hands-on STEAM activities that spark curiosity and critical thinking in young learners. Her innovative approach makes complex concepts accessible and fun.',
-  qualifications: 'Bachelor of Science, ECE Diploma',
-  specialization: 'STEAM Education, Science & Technology',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
-}, {
-  name: 'EMMA THOMPSON',
-  role: 'Trainee Teacher',
-  bio: 'Currently completing her ECE diploma, Emma brings fresh perspectives and enthusiasm to our teaching team while gaining valuable classroom experience. Her energy and creativity inspire both children and colleagues.',
-  qualifications: 'ECE Diploma (In Progress)',
-  specialization: 'Creative Arts, Outdoor Learning',
-  image: '/apple-tree-tots/images/team/Gemini_Generated_Image_w9xky2w9xky2w9xk.png'
+  image: '/apple-tree-tots/images/team/IMG_8163.JPG'
 }];
 function TeacherModal({
   teacher,

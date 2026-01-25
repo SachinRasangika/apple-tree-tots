@@ -326,44 +326,44 @@ export function ContactPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
+              <div className="bg-[#2d5555]/10 border border-[#2A372F]/20 p-6">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-[#2A372F]">
                   What are your office hours?
                 </h3>
-                <p className="text-xs text-gray-400 font-light leading-relaxed">
+                <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed">
                   Our administrative office is open Monday through Friday, 9:00
                   AM to 5:00 PM. School hours are 7:30 AM to 6:00 PM with
                   extended care available.
                 </p>
               </div>
 
-              <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
+              <div className="bg-[#2d5555]/10 border border-[#2A372F]/20 p-6">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-[#2A372F]">
                   How quickly will I receive a response?
                 </h3>
-                <p className="text-xs text-gray-400 font-light leading-relaxed">
+                <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed">
                   We aim to respond to all inquiries within 24 hours during
                   business days. For urgent matters, please call us directly at
                   074 343 1488.
                 </p>
               </div>
 
-              <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
+              <div className="bg-[#2d5555]/10 border border-[#2A372F]/20 p-6">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-[#2A372F]">
                   Can I schedule a campus tour?
                 </h3>
-                <p className="text-xs text-gray-400 font-light leading-relaxed">
+                <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed">
                   Yes! We encourage all prospective families to visit our
                   campus. Tours are available by appointment on weekday
                   mornings. Contact us to schedule your visit.
                 </p>
               </div>
 
-              <div className="bg-[#2d5555]/10 border border-white/10 p-6">
-                <h3 className="text-sm font-medium tracking-wide mb-3 text-white">
+              <div className="bg-[#2d5555]/10 border border-[#2A372F]/20 p-6">
+                <h3 className="text-sm font-medium tracking-wide mb-3 text-[#2A372F]">
                   Do you offer enrollment consultations?
                 </h3>
-                <p className="text-xs text-gray-400 font-light leading-relaxed">
+                <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed">
                   Absolutely. Our admissions team offers personalized
                   consultations to discuss your child's needs, our programs, and
                   answer any questions you may have about enrollment.

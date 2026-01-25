@@ -3,63 +3,81 @@ import { Button } from './ui/Button';
 import { Check, ChevronRight } from 'lucide-react';
 
 interface FormData {
-  // Step 1: Child's Information
+  // Section A: Child's Information
   childFullName: string;
   childDOB: string;
-  programType: string; // Montessori or Daycare
-  programOption: string; // Nursery, Toddler Group, Before/After School Group
-  
-  // Step 2: Parent / Guardian Information
-  parentName1: string;
-  parentName2: string;
-  contactNumber: string;
-  contactEmail: string;
+  childGender: string;
+  childNationality: string;
   homeAddress: string;
-  
-  // Step 3: Required Document Uploads
-  birthCertificate: File[];
-  childPhotograph: File[];
-  parentNIC: File[];
-  
-  // Step 4: Health & Safety
+  languageAtHome: string;
+
+  // Section B: Parent / Guardian Information
+  parent1Name: string;
+  parent1NIC: string;
+  parent1Mobile: string;
+  parent1Email: string;
+  parent2Name: string;
+  parent2NIC: string;
+  parent2Mobile: string;
+
+  // Section C: Program Enrollment
+  programType: string;
+  programLevel: string;
+
+  // Section D: Medical & Emergency Information
+  immunizationUpToDate: boolean;
+  medicalConditions: string;
   emergencyContact1Name: string;
   emergencyContact1Phone: string;
   emergencyContact2Name: string;
   emergencyContact2Phone: string;
-  allergies: string;
-  immunizationStatus: boolean;
-  
-  // Step 5: Authorized Pickup
-  authorizedPersonName: string;
-  authorizedPersonNIC: string;
+  authorizedPickupPersons: string;
+
+  // Section E: Document Uploads
+  birthCertificate: File[];
+  childPhoto: File[];
+  parentNICs: File[];
+  immunizationRecord: File[];
+
+  // Agreements
+  termsAgreed: boolean;
+  medicalConsentAgreed: boolean;
 }
 
 export function ApplicationForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
-  const [termsAgreed, setTermsAgreed] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     childFullName: '',
     childDOB: '',
-    programType: '',
-    programOption: '',
-    parentName1: '',
-    parentName2: '',
-    contactNumber: '',
-    contactEmail: '',
+    childGender: '',
+    childNationality: '',
     homeAddress: '',
-    birthCertificate: [],
-    childPhotograph: [],
-    parentNIC: [],
+    languageAtHome: '',
+    parent1Name: '',
+    parent1NIC: '',
+    parent1Mobile: '',
+    parent1Email: '',
+    parent2Name: '',
+    parent2NIC: '',
+    parent2Mobile: '',
+    programType: '',
+    programLevel: '',
+    immunizationUpToDate: false,
+    medicalConditions: '',
     emergencyContact1Name: '',
     emergencyContact1Phone: '',
     emergencyContact2Name: '',
     emergencyContact2Phone: '',
-    allergies: '',
-    immunizationStatus: false,
-    authorizedPersonName: '',
-    authorizedPersonNIC: ''
+    authorizedPickupPersons: '',
+    birthCertificate: [],
+    childPhoto: [],
+    parentNICs: [],
+    immunizationRecord: [],
+    termsAgreed: false,
+    medicalConsentAgreed: false,
   });
+
   const totalSteps = 5;
 
   const updateFormData = (field: keyof FormData, value: string | boolean | File[]) => {
@@ -69,7 +87,7 @@ export function ApplicationForm() {
     }));
   };
 
-  const handleFileUpload = (field: 'birthCertificate' | 'childPhotograph' | 'parentNIC', files: FileList | null) => {
+  const handleFileUpload = (field: 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord', files: FileList | null) => {
     if (files) {
       const fileArray = Array.from(files);
       setFormData(prev => ({
@@ -97,29 +115,42 @@ export function ApplicationForm() {
   };
 
   const handleFinalSubmit = () => {
-    if (termsAgreed) {
+    if (formData.termsAgreed && formData.medicalConsentAgreed) {
       console.log('Form submitted:', formData);
       setShowTermsPopup(false);
-      setTermsAgreed(false);
       // Here you would typically send the data to your backend
+      alert('Application submitted successfully!');
     }
   };
 
   return <div className="w-full">
+      {/* Form Header */}
+      <div className="mb-12 pb-8 border-b border-[#2A372F]/20">
+        <h1 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-4 text-[#2A372F]">
+          Apple Tree Tots - Online Admission Form
+        </h1>
+        <p className="text-base text-[#2A372F]/80 mb-4 font-light">
+          Nurturing confident, independent, and curious learners through AMI Montessori principles and the HEI approach.
+        </p>
+        <p className="text-sm text-[#2A372F]/70">
+          <strong>Instructions:</strong> Please complete all sections below. To finalize admission, you must submit the required documents (Birth Certificate, Photos, and NIC copies) and pay the non-refundable admission fee.
+        </p>
+      </div>
+
       {/* Progress Indicator */}
       <div className="mb-12">
         <div className="flex items-center justify-between mb-4">
           {[1, 2, 3, 4, 5].map(step => <Fragment key={step}>
               <div className="flex flex-col items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555] border-[#2A372F]/20 text-[#2A372F]' : step === currentStep ? 'bg-transparent border-[#2A372F]/20 text-[#2A372F]' : 'bg-transparent border-[#2A372F]/20 text-[#2A372F]/40'}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555] border-[#2d5555] text-white' : step === currentStep ? 'bg-transparent border-[#2A372F] text-[#2A372F]' : 'bg-transparent border-[#2A372F]/20 text-[#2A372F]/40'}`}>
                   {step < currentStep ? <Check size={20} /> : <span className="text-sm font-medium">{step}</span>}
                 </div>
                 <span className="text-[10px] tracking-widest uppercase mt-2 opacity-60">
                   {step === 1 && "Child's Info"}
                   {step === 2 && 'Parent Info'}
-                  {step === 3 && 'Documents'}
-                  {step === 4 && 'Health'}
-                  {step === 5 && 'Pickup'}
+                  {step === 3 && 'Program'}
+                  {step === 4 && 'Health & Docs'}
+                  {step === 5 && 'Agreements'}
                 </span>
               </div>
               {step < 5 && <div className={`flex-1 h-0.5 mx-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555]' : 'bg-[#2A372F]/10'}`} />}
@@ -132,169 +163,196 @@ export function ApplicationForm() {
         {/* Step 1: Child's Information */}
         {currentStep === 1 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
             <div>
-              <h3 className="text-2xl font-serif tracking-wide mb-6">
-                Child's Information
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Section A: Child's Information
               </h3>
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
                 Full Name *
               </label>
               <input type="text" required value={formData.childFullName} onChange={e => updateFormData('childFullName', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter child's full name" />
             </div>
 
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Date of Birth *
-              </label>
-              <input type="date" required value={formData.childDOB} onChange={e => updateFormData('childDOB', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] focus:outline-none focus:border-[#2A372F] transition-colors" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Date of Birth *
+                </label>
+                <input type="date" required value={formData.childDOB} onChange={e => updateFormData('childDOB', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] focus:outline-none focus:border-[#2A372F] transition-colors" />
+              </div>
+
+              <div>
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Gender *
+                </label>
+                <select required value={formData.childGender} onChange={e => updateFormData('childGender', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Program Type *
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Nationality *
               </label>
-              <select required value={formData.programType} onChange={e => updateFormData('programType', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
-                <option value="" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                  Select program type
-                </option>
-                <option value="montessori" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                  Montessori
-                </option>
-                <option value="daycare" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                  Daycare
-                </option>
-              </select>
+              <input type="text" required value={formData.childNationality} onChange={e => updateFormData('childNationality', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter nationality" />
             </div>
 
-            {formData.programType && <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                {formData.programType === 'montessori' ? 'Montessori Program' : 'Daycare Program'} *
+            <div>
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Home Address *
               </label>
-              <select required value={formData.programOption} onChange={e => updateFormData('programOption', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
-                <option value="" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                  Select option
-                </option>
-                {formData.programType === 'daycare' ? (
-                  <>
-                    <option value="nursery" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                      Nursery
-                    </option>
-                    <option value="toddler" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                      Toddler Group
-                    </option>
-                    <option value="beforeafter" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                      Before/After School Group
-                    </option>
-                  </>
-                ) : (
-                  <option value="montessori-program" className="bg-[#2d5555] text-white" style={{ padding: '0.5rem' }}>
-                    Montessori Program
-                  </option>
-                )}
-              </select>
-            </div>}
+              <textarea required value={formData.homeAddress} onChange={e => updateFormData('homeAddress', e.target.value)} rows={3} className="w-full bg-transparent border border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors resize-none" placeholder="Enter full home address" />
+            </div>
+
+            <div>
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Language Spoken at Home *
+              </label>
+              <input type="text" required value={formData.languageAtHome} onChange={e => updateFormData('languageAtHome', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter language(s)" />
+              <p className="text-xs text-[#2A372F]/60 mt-1">Note: English is the main language of instruction</p>
+            </div>
           </div>}
 
         {/* Step 2: Parent / Guardian Information */}
         {currentStep === 2 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
             <div>
-              <h3 className="text-2xl font-serif tracking-wide mb-6">
-                Parent / Guardian Information
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Section B: Parent / Guardian Information
               </h3>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Parent / Guardian 1 Name *
-              </label>
-              <input type="text" required value={formData.parentName1} onChange={e => updateFormData('parentName1', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter parent/guardian name" />
-            </div>
-
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Parent / Guardian 2 Name
-              </label>
-              <input type="text" value={formData.parentName2} onChange={e => updateFormData('parentName2', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter second parent/guardian name (optional)" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Father/Guardian 1 */}
+            <div className="pb-6 border-b border-[#2A372F]/20">
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Father/Guardian 1</h4>
+              
               <div>
-                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                  Contact Number *
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Name *
                 </label>
-                <input type="tel" required value={formData.contactNumber} onChange={e => updateFormData('contactNumber', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter contact number" />
+                <input type="text" required value={formData.parent1Name} onChange={e => updateFormData('parent1Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter name" />
               </div>
 
-              <div>
-                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                  Email Address *
+              <div className="mt-6">
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  NIC Number * (Copy required)
                 </label>
-                <input type="email" required value={formData.contactEmail} onChange={e => updateFormData('contactEmail', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter email address" />
+                <input type="text" required value={formData.parent1NIC} onChange={e => updateFormData('parent1NIC', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter NIC number" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Mobile Number *
+                  </label>
+                  <input type="tel" required value={formData.parent1Mobile} onChange={e => updateFormData('parent1Mobile', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter mobile number" />
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Email Address * (Used for receipts and reminders)
+                  </label>
+                  <input type="email" required value={formData.parent1Email} onChange={e => updateFormData('parent1Email', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter email" />
+                </div>
               </div>
             </div>
 
+            {/* Mother/Guardian 2 */}
             <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Home Address *
-              </label>
-              <textarea required value={formData.homeAddress} onChange={e => updateFormData('homeAddress', e.target.value)} rows={3} className="w-full bg-transparent border border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors resize-none" placeholder="Enter your full home address" />
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Mother/Guardian 2 (Optional)</h4>
+              
+              <div>
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Name
+                </label>
+                <input type="text" value={formData.parent2Name} onChange={e => updateFormData('parent2Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter name (optional)" />
+              </div>
+
+              <div className="mt-6">
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  NIC Number (Copy required)
+                </label>
+                <input type="text" value={formData.parent2NIC} onChange={e => updateFormData('parent2NIC', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter NIC number (optional)" />
+              </div>
+
+              <div className="mt-6">
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Mobile Number
+                </label>
+                <input type="tel" value={formData.parent2Mobile} onChange={e => updateFormData('parent2Mobile', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter mobile number (optional)" />
+              </div>
             </div>
           </div>}
 
-        {/* Step 3: Required Document Uploads */}
+        {/* Step 3: Program Enrollment */}
         {currentStep === 3 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
             <div>
-              <h3 className="text-2xl font-serif tracking-wide mb-6">
-                Required Documents
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Section C: Program Enrollment
               </h3>
-              <p className="text-sm text-[#2A372F]/70 mb-6">Please upload the following documents (you can upload multiple files for each document type)</p>
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Child's Birth Certificate (Front Page) *
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Select Program Type *
               </label>
-              <input type="file" multiple required onChange={e => handleFileUpload('birthCertificate', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
-              {formData.birthCertificate.length > 0 && (
-                <div className="mt-2 text-xs text-[#2A372F]/70">
-                  {formData.birthCertificate.length} file(s) selected
-                </div>
-              )}
+              <select required value={formData.programType} onChange={e => updateFormData('programType', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
+                <option value="">Select program</option>
+                <option value="montessori">Montessori</option>
+                <option value="daycare">Daycare</option>
+              </select>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Child's Photograph *
+            {formData.programType && <div>
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                {formData.programType === 'montessori' ? 'Level' : 'Group'} *
               </label>
-              <input type="file" multiple required onChange={e => handleFileUpload('childPhotograph', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
-              {formData.childPhotograph.length > 0 && (
-                <div className="mt-2 text-xs text-[#2A372F]/70">
-                  {formData.childPhotograph.length} file(s) selected
-                </div>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Parents' / Guardian's NIC *
-              </label>
-              <input type="file" multiple required onChange={e => handleFileUpload('parentNIC', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
-              {formData.parentNIC.length > 0 && (
-                <div className="mt-2 text-xs text-[#2A372F]/70">
-                  {formData.parentNIC.length} file(s) selected
-                </div>
-              )}
-            </div>
+              <select required value={formData.programLevel} onChange={e => updateFormData('programLevel', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
+                <option value="">Select {formData.programType === 'montessori' ? 'level' : 'group'}</option>
+                {formData.programType === 'montessori' ? (
+                  <>
+                    <option value="toddler">Toddler</option>
+                    <option value="first-year">First Year</option>
+                    <option value="second-year">Second Year</option>
+                    <option value="third-year">Third Year</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="nursery">Nursery</option>
+                    <option value="toddler-group">Toddler Group</option>
+                    <option value="before-after">Before & After School Group</option>
+                  </>
+                )}
+              </select>
+            </div>}
           </div>}
 
-        {/* Step 4: Health & Safety */}
+        {/* Step 4: Medical & Emergency Information & Documents */}
         {currentStep === 4 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
             <div>
-              <h3 className="text-2xl font-serif tracking-wide mb-6">
-                Health & Safety
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Section D: Medical & Emergency Information
               </h3>
+            </div>
+
+            <div>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" checked={formData.immunizationUpToDate} onChange={e => updateFormData('immunizationUpToDate', e.target.checked)} className="w-5 h-5 accent-[#2d5555]" />
+                <span className="text-sm text-[#2A372F]">
+                  Immunization Record Up to Date? * (Copy of record required)
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Existing Medical Conditions/Allergies
+              </label>
+              <textarea value={formData.medicalConditions} onChange={e => updateFormData('medicalConditions', e.target.value)} rows={3} className="w-full bg-transparent border border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors resize-none" placeholder="List any medical conditions or allergies" />
             </div>
 
             <div className="border-t border-[#2A372F]/20 pt-6">
@@ -302,74 +360,148 @@ export function ApplicationForm() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                    Emergency Contact 1 - Name *
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Emergency Contact 1 - Name & Phone *
                   </label>
-                  <input type="text" required value={formData.emergencyContact1Name} onChange={e => updateFormData('emergencyContact1Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter name" />
+                  <input type="text" required value={formData.emergencyContact1Name} onChange={e => updateFormData('emergencyContact1Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Name & Phone" />
                 </div>
 
                 <div>
-                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                    Emergency Contact 1 - Phone *
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Emergency Contact 2 - Name & Phone *
                   </label>
-                  <input type="tel" required value={formData.emergencyContact1Phone} onChange={e => updateFormData('emergencyContact1Phone', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter phone number" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                    Emergency Contact 2 - Name *
-                  </label>
-                  <input type="text" required value={formData.emergencyContact2Name} onChange={e => updateFormData('emergencyContact2Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter name" />
-                </div>
-
-                <div>
-                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                    Emergency Contact 2 - Phone *
-                  </label>
-                  <input type="tel" required value={formData.emergencyContact2Phone} onChange={e => updateFormData('emergencyContact2Phone', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter phone number" />
+                  <input type="text" required value={formData.emergencyContact2Name} onChange={e => updateFormData('emergencyContact2Name', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Name & Phone" />
                 </div>
               </div>
             </div>
 
             <div className="border-t border-[#2A372F]/20 pt-6">
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Allergies / Dietary Restrictions
+              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                Authorized Pickup Persons *
               </label>
-              <textarea value={formData.allergies} onChange={e => updateFormData('allergies', e.target.value)} rows={3} className="w-full bg-transparent border border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors resize-none" placeholder="Please list any allergies or dietary restrictions" />
+              <p className="text-xs text-[#2A372F]/60 mb-3">Note: Only individuals listed here may collect your child</p>
+              <textarea required value={formData.authorizedPickupPersons} onChange={e => updateFormData('authorizedPickupPersons', e.target.value)} rows={3} className="w-full bg-transparent border border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors resize-none" placeholder="List names and relationships of authorized pickup persons" />
             </div>
 
             <div className="border-t border-[#2A372F]/20 pt-6">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={formData.immunizationStatus} onChange={e => updateFormData('immunizationStatus', e.target.checked)} className="w-5 h-5 accent-[#2d5555]" />
-                <span className="text-sm text-[#2A372F]">
-                  Confirm that child's immunizations are up to date
-                </span>
-              </label>
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Section E: Document Uploads</h4>
+              <p className="text-sm text-[#2A372F]/70 mb-6">Please upload clear scans or photos of the following:</p>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Child's Birth Certificate (Front page) *
+                  </label>
+                  <input type="file" multiple required onChange={e => handleFileUpload('birthCertificate', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
+                  {formData.birthCertificate.length > 0 && (
+                    <div className="mt-2 text-xs text-[#2A372F]/70">
+                      ✓ {formData.birthCertificate.length} file(s) uploaded
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Child's Photograph (Clear headshot) *
+                  </label>
+                  <input type="file" multiple required onChange={e => handleFileUpload('childPhoto', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
+                  {formData.childPhoto.length > 0 && (
+                    <div className="mt-2 text-xs text-[#2A372F]/70">
+                      ✓ {formData.childPhoto.length} file(s) uploaded
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Parents'/Guardians' NIC Copies *
+                  </label>
+                  <input type="file" multiple required onChange={e => handleFileUpload('parentNICs', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
+                  {formData.parentNICs.length > 0 && (
+                    <div className="mt-2 text-xs text-[#2A372F]/70">
+                      ✓ {formData.parentNICs.length} file(s) uploaded
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                    Immunization Record *
+                  </label>
+                  <input type="file" multiple required onChange={e => handleFileUpload('immunizationRecord', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
+                  {formData.immunizationRecord.length > 0 && (
+                    <div className="mt-2 text-xs text-[#2A372F]/70">
+                      ✓ {formData.immunizationRecord.length} file(s) uploaded
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>}
 
-        {/* Step 5: Authorized Pickup */}
+        {/* Step 5: Agreements & Terms */}
         {currentStep === 5 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
             <div>
-              <h3 className="text-2xl font-serif tracking-wide mb-6">
-                Authorized Pickup Person
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Terms, Conditions & Agreements
               </h3>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                Authorized Person Name *
-              </label>
-              <input type="text" required value={formData.authorizedPersonName} onChange={e => updateFormData('authorizedPersonName', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter name of authorized pickup person" />
+            {/* Payment Terms */}
+            <div className="bg-[#2d5555]/5 border border-[#2d5555]/20 rounded-lg p-6 mb-6">
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Payment Terms and Conditions</h4>
+              <div className="space-y-3 text-sm text-[#2A372F]/80">
+                <p><strong>Billing Cycle:</strong> Tuition fees are payable either Termly or Monthly.</p>
+                <p><strong>Due Dates:</strong> Termly payments by the 2nd week of each term. Monthly payments by the 10th of each month.</p>
+                <p><strong>Late Fees:</strong> Any fees not settled by the due date will incur a 10% surcharge per month until fully paid.</p>
+                <p><strong>Grace Period:</strong> A 7-day grace period is provided from the due date before late fees apply.</p>
+                <p><strong>Service Suspension:</strong> If fees remain unpaid 7 days after the "Final Notice" (issued 3 weeks from due date), the school reserves the right to suspend the child's attendance.</p>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F]">
-                NIC Number *
+            {/* Refund Policy */}
+            <div className="bg-[#2d5555]/5 border border-[#2d5555]/20 rounded-lg p-6 mb-6">
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Refund Policy</h4>
+              <div className="space-y-3 text-sm text-[#2A372F]/80">
+                <p><strong>Admission Fee:</strong> The enrollment/admission fee is strictly non-refundable.</p>
+                <p><strong>Withdrawal Before Term Start:</strong> A full refund of the term/monthly fee is provided (minus the admission fee).</p>
+                <p><strong>Withdrawal Within First 2 Weeks:</strong> A 50% refund of the monthly fee is provided.</p>
+                <p><strong>No Refunds:</strong> No refunds will be issued after the first two weeks of the term/month.</p>
+                <p><strong>Activity/Field Trip Fees:</strong> Non-refundable unless canceled by the school.</p>
+              </div>
+            </div>
+
+            {/* Agreements */}
+            <div className="space-y-4 border-t border-[#2A372F]/20 pt-6">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.termsAgreed}
+                  onChange={e => updateFormData('termsAgreed', e.target.checked)}
+                  required
+                  className="w-5 h-5 mt-1 accent-[#2d5555]"
+                />
+                <span className="text-sm text-[#2A372F] leading-relaxed">
+                  I have read and agree to the Terms and Conditions of Apple Tree Tots, including payment terms, refund policies, and all school procedures.
+                </span>
               </label>
-              <input type="text" required value={formData.authorizedPersonNIC} onChange={e => updateFormData('authorizedPersonNIC', e.target.value)} className="w-full bg-transparent border-b border-[#2A372F]/40 px-3 py-3 text-sm text-[#2A372F] placeholder-[#2A372F]/60 focus:outline-none focus:border-[#2A372F] transition-colors" placeholder="Enter NIC number" />
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.medicalConsentAgreed}
+                  onChange={e => updateFormData('medicalConsentAgreed', e.target.checked)}
+                  required
+                  className="w-5 h-5 mt-1 accent-[#2d5555]"
+                />
+                <span className="text-sm text-[#2A372F] leading-relaxed">
+                  <strong>Medical Consent:</strong> In the event of a medical emergency, parents will be notified immediately, and the child will be taken to the closest medical hospital. I authorize the school to take appropriate emergency action if I cannot be reached.
+                </span>
+              </label>
+
+              <div className="pt-4 text-xs text-[#2A372F]/70">
+                <p><strong>Data Accuracy Disclaimer:</strong> I confirm that the information provided, including emergency contacts and immunization records, is accurate and up to date.</p>
+              </div>
             </div>
           </div>}
 
@@ -383,115 +515,50 @@ export function ApplicationForm() {
               Next Step
               <ChevronRight size={16} />
             </Button> : <Button type="submit" variant="primary">
-              Submit Application
+              Review & Submit
             </Button>}
         </div>
       </form>
 
-      {/* Terms and Conditions Popup */}
+      {/* Terms and Conditions Modal */}
       {showTermsPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-[#CDD1CB] rounded-lg max-w-2xl max-h-[90vh] overflow-y-auto w-full">
             <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
-                Terms and Conditions <span className="italic opacity-80">of Enrollment</span>
+              <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
+                Confirm Your <span className="italic opacity-80">Application</span>
               </h2>
 
-              <div className="space-y-6 text-[#2A372F]">
-                {/* Section 1 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">1. Attendance and Punctuality</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Arrival Time:</span> Children should arrive by 8:30 AM to ensure they do not miss out on important morning activities.</li>
-                    <li><span className="font-semibold">Absences:</span> Please inform the school administration via text or email by 8:00 AM if your child will be absent.</li>
-                    <li><span className="font-semibold">Dismissal and Late Pickup:</span>
-                      <ul className="ml-4 mt-2 space-y-1">
-                        <li>• Toddlers: Pickup is at 11:30 AM</li>
-                        <li>• First-Year Students: Pickup is at 12:00 PM</li>
-                        <li>• Second/Third-Year Students: Pickup is at 1:00 PM</li>
-                      </ul>
-                    </li>
-                    <li><span className="font-semibold">Late Pickup Fees:</span> Pickups after 1:00 PM will incur a fee (USD/LKR...) per every hour. Daycare late pickups beyond 15 minutes will incur a fee per every hour. After-School Daycare closes at 6:00 PM, and pickups beyond 15 minutes past this time will incur a fee (USD/LKR...) per 30 minutes.</li>
-                  </ul>
+              <div className="space-y-4 text-[#2A372F] mb-8">
+                <div className="bg-[#2d5555]/10 border-l-4 border-[#2d5555] p-4 rounded">
+                  <p className="text-sm font-light leading-relaxed">
+                    <strong>Registration Fee:</strong> A non-refundable admission fee is required at the time of enrollment. The amount is determined based on the program level selected.
+                  </p>
                 </div>
 
-                {/* Section 2 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">2. Fees and Payment Policy</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Payment Due Date:</span> Tuition and fees are due by the 10th of each month. For termly payments, fees should be paid in full by the second week of each term.</li>
-                    <li><span className="font-semibold">Late Payment Surcharge:</span> Any fees not settled by the due date will be subject to a 10% surcharge per month until fully paid.</li>
-                    <li><span className="font-semibold">Grace Period:</span> A grace period of 7 days will be provided from the initial due date before any late fees are applied.</li>
-                    <li><span className="font-semibold">Service Suspension:</span> If outstanding fees are not paid within 7 days of the final notice (issued three weeks from the due date), the preschool reserves the right to suspend the child's attendance until the account is settled in full.</li>
-                    <li><span className="font-semibold">Financial Hardship:</span> It is the parent's responsibility to contact the administration as early as possible to discuss alternative payment arrangements if experiencing financial hardship.</li>
-                  </ul>
+                <div className="bg-[#2d5555]/10 border-l-4 border-[#2d5555] p-4 rounded">
+                  <p className="text-sm font-light leading-relaxed">
+                    <strong>Montessori Program:</strong> Monthly or Termly tuition fees apply based on your selected billing cycle.
+                  </p>
                 </div>
 
-                {/* Section 3 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">3. Refunds and Withdrawals</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Refund Requests:</span> All refund requests must be submitted in writing to the school administration.</li>
-                    <li><span className="font-semibold">Non-Refundable Fee:</span> The enrollment/admission fee is non-refundable and secures your child's spot for the upcoming academic term.</li>
-                    <li><span className="font-semibold">Withdrawal Before Term Start:</span> If a student withdraws before the start of the term/calendar month, a full refund of the term/monthly fee will be provided (minus the admission fee).</li>
-                    <li><span className="font-semibold">Withdrawal During First Two Weeks:</span> If a student withdraws within the first two weeks of the term/calendar month, a partial refund of 50% of the monthly fee will be provided.</li>
-                    <li><span className="font-semibold">No Refunds:</span> No refunds will be issued after the first two weeks.</li>
-                    <li><span className="font-semibold">Extracurriculars:</span> Fees for extracurricular activities and field trips are non-refundable unless the activity or trip is canceled by the school.</li>
-                  </ul>
-                </div>
-
-                {/* Section 4 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">4. Health and Safety</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Illness:</span> Daily health checks will be conducted. Please do not send your child to school if they show signs of illness. The school reserves the right to ask an unwell child to remain at home if there is a risk to others.</li>
-                    <li><span className="font-semibold">Medication:</span> If teachers need to administer medication, a Medication Record Form must be completed by the parent/guardian. We reserve the right to refuse the administration of medication.</li>
-                    <li><span className="font-semibold">Immunizations:</span> Ensure your child's immunizations are up to date and provide a copy of the immunization record to the school office.</li>
-                    <li><span className="font-semibold">Emergency Procedures:</span> In case of a medical emergency, parents will be notified immediately, and the child will be taken to the closest medical hospital.</li>
-                  </ul>
-                </div>
-
-                {/* Section 5 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">5. Authority to Pick Up</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Authorized List:</span> Only individuals listed on the authorized pickup list will be allowed to collect your child.</li>
-                    <li><span className="font-semibold">Security Pass:</span> The designated person must present a valid security pass to ensure the safety of all students.</li>
-                    <li><span className="font-semibold">Changes:</span> Any changes to this list must be communicated in writing (text/email). If there are abrupt changes on the day, inform the school immediately in writing and provide a photo of the person coming to pick up the child.</li>
-                  </ul>
-                </div>
-
-                {/* Section 6 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">6. Behavior and Conduct</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Respect:</span> Children are expected to treat peers, staff, and property with respect.</li>
-                    <li><span className="font-semibold">Aggression:</span> Physical or verbal aggression will not be tolerated. We encourage positive conflict resolution.</li>
-                  </ul>
-                </div>
-
-                {/* Section 7 */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">7. Supplies and Personal Items</h3>
-                  <ul className="space-y-2 text-sm leading-relaxed">
-                    <li><span className="font-semibold">Jewelry:</span> Avoid sending children with valuable jewelry or accessories.</li>
-                    <li><span className="font-semibold">Toys:</span> Personal toys should not be brought to school unless for a specific show-and-tell activity.</li>
-                    <li><span className="font-semibold">Labeling:</span> Please label all personal belongings, including clothing, water bottles, and backpacks.</li>
-                  </ul>
+                <div className="bg-[#2d5555]/10 border-l-4 border-[#2d5555] p-4 rounded">
+                  <p className="text-sm font-light leading-relaxed">
+                    <strong>Additional Charges:</strong> School uniforms, late pickup fees, and activity fees may apply. Late pickup fees vary by program level.
+                  </p>
                 </div>
               </div>
 
-              {/* Checkbox */}
-              <div className="mt-8 pt-6 border-t border-[#2A372F]/20">
-                <label className="flex items-start gap-3 cursor-pointer">
+              <div className="border-t border-[#2A372F]/20 pt-6">
+                <label className="flex items-start gap-3 cursor-pointer mb-4">
                   <input
                     type="checkbox"
-                    checked={termsAgreed}
-                    onChange={e => setTermsAgreed(e.target.checked)}
+                    checked={formData.termsAgreed && formData.medicalConsentAgreed}
+                    readOnly
                     className="w-5 h-5 mt-1 accent-[#2d5555]"
                   />
                   <span className="text-sm text-[#2A372F] leading-relaxed">
-                    I have read and understood the Terms and Conditions above, including attendance and pickup policies, fees and payment terms, refund restrictions, health and safety requirements, authorized pickup procedures, and school conduct expectations.
+                    I acknowledge that I have reviewed all information, agree to the terms and conditions, and provide medical consent as outlined above.
                   </span>
                 </label>
               </div>
@@ -499,24 +566,21 @@ export function ApplicationForm() {
               {/* Buttons */}
               <div className="flex gap-4 mt-8 justify-end">
                 <button
-                  onClick={() => {
-                    setShowTermsPopup(false);
-                    setTermsAgreed(false);
-                  }}
+                  onClick={() => setShowTermsPopup(false)}
                   className="px-6 py-2 text-sm font-medium text-[#2A372F] border border-[#2A372F]/40 rounded hover:bg-[#2A372F]/5 transition-colors uppercase tracking-widest"
                 >
-                  Cancel
+                  Back
                 </button>
                 <button
                   onClick={handleFinalSubmit}
-                  disabled={!termsAgreed}
+                  disabled={!formData.termsAgreed || !formData.medicalConsentAgreed}
                   className={`px-8 py-3 text-xs font-medium uppercase tracking-widest rounded transition-all duration-300 ${
-                    termsAgreed
+                    formData.termsAgreed && formData.medicalConsentAgreed
                       ? 'bg-[#2A372F] text-[#CDD1CB] hover:bg-[#1a2720] cursor-pointer'
                       : 'bg-[#2A372F]/50 text-[#CDD1CB]/50 cursor-not-allowed'
                   }`}
                 >
-                  I Agree & Submit
+                  Submit Application
                 </button>
               </div>
             </div>

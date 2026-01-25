@@ -276,22 +276,22 @@ export function ContactPage() {
               <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
                 Visit Our Campus
               </span>
-              <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6">
+              <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
                 Located in <span className="italic opacity-80">Ahangama</span>
               </h2>
-              <p className="text-gray-300 font-light leading-relaxed mb-8 text-sm md:text-base">
+              <p className="text-[#2A372F]/70 font-light leading-relaxed mb-8 text-sm md:text-base">
                 Our preschool is nestled in the peaceful coastal village of
                 Ahangama, providing a safe and nurturing environment for your
                 child's early education. The serene setting and natural
                 surroundings create an ideal atmosphere for learning and growth.
               </p>
 
-              <div className="bg-[#2d5555]/10 border border-white/10 p-6 mb-8">
-                <h3 className="text-sm font-serif tracking-wide mb-4 flex items-center gap-2 text-white">
-                  <MessageCircle size={18} className="text-white" />
+              <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 mb-8">
+                <h3 className="text-sm font-serif tracking-wide mb-4 flex items-center gap-2 text-[#2A372F]">
+                  <MessageCircle size={18} className="text-[#2A372F]" />
                   Campus Tours
                 </h3>
-                <p className="text-xs text-gray-400 font-light leading-relaxed mb-4">
+                <p className="text-xs text-[#2A372F]/70 font-light leading-relaxed mb-4">
                   We welcome prospective families to visit our campus and see
                   our facilities firsthand. Tours are available by appointment
                   on weekday mornings.
@@ -301,7 +301,7 @@ export function ContactPage() {
                 </Button>
               </div>
 
-              <div className="flex items-start gap-3 text-xs text-gray-400">
+              <div className="flex items-start gap-3 text-xs text-[#2A372F]/70">
                 <MapPin size={16} className="text-[#2d5555] mt-0.5 shrink-0" />
                 <p>
                   Easily accessible from Galle, Matara, and surrounding areas.

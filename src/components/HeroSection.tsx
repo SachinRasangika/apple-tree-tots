@@ -102,9 +102,23 @@ export function HeroSection() {
     if (selectedFeature !== null) return; // Don't auto-rotate if user has selected a feature
 
     const heroInterval = setInterval(() => {
-      setHeroImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+      setHeroImageOpacity(0); // Start fade out
+      setTimeout(() => {
+        setHeroImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+        setHeroImageOpacity(1); // Fade in new image
+      }, 350); // Half of the transition duration
     }, 8000);
     return () => clearInterval(heroInterval);
+  }, [selectedFeature]);
+
+  // Smooth fade transition when feature is selected or hero image changes
+  useEffect(() => {
+    if (selectedFeature !== null) {
+      setHeroImageOpacity(0);
+      setTimeout(() => {
+        setHeroImageOpacity(1);
+      }, 100);
+    }
   }, [selectedFeature]);
 
   // Auto-rotate feature card images every 7-8 seconds
@@ -143,7 +157,7 @@ export function HeroSection() {
             : HERO_IMAGES[heroImageIndex]
         )}
         alt="Hero"
-        className="absolute inset-0 z-0 w-full h-full object-cover transition-opacity duration-[3500ms] ease-in-out"
+        className="absolute inset-0 z-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
         style={{ opacity: heroImageOpacity }}
       />
       {/* Secondary image layer for ultra-smooth crossfade */}
@@ -230,7 +244,7 @@ export function HeroSection() {
                 <img
                   src={encodeURI(FEATURE_IMAGES[featureImageIndex1])}
                   alt="Children playing and learning"
-                  className="h-full w-full object-cover transition-all duration-[3500ms] ease-in-out"
+                  className="h-full w-full object-cover transition-all duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a3a]/80 via-[#1a3a3a]/20 to-transparent transition-colors duration-500 ease-in-out group-hover:from-[#1a3a3a]/60 group-hover:via-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-medium text-white sm:text-sm">
@@ -246,7 +260,7 @@ export function HeroSection() {
                 <img
                   src={encodeURI(FEATURE_IMAGES_2[featureImageIndex2])}
                   alt="Children exploring outdoors"
-                  className="h-full w-full object-cover transition-all duration-[3500ms] ease-in-out"
+                  className="h-full w-full object-cover transition-all duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a3a]/80 via-[#1a3a3a]/20 to-transparent transition-colors duration-500 ease-in-out group-hover:from-[#1a3a3a]/60 group-hover:via-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-medium text-white sm:text-sm">
@@ -262,7 +276,7 @@ export function HeroSection() {
                 <img
                   src={encodeURI(FEATURE_IMAGES_3[featureImageIndex3])}
                   alt="Children growing with confidence"
-                  className="h-full w-full object-cover transition-all duration-[3500ms] ease-in-out"
+                  className="h-full w-full object-cover transition-all duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a3a]/80 via-[#1a3a3a]/20 to-transparent transition-colors duration-500 ease-in-out group-hover:from-[#1a3a3a]/60 group-hover:via-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-medium text-white sm:text-sm">
@@ -283,7 +297,7 @@ export function HeroSection() {
                       : FEATURE_IMAGES_3[featureImageIndex3]
                   )}
                   alt="Learning through play and nature"
-                  className="h-full w-full object-cover transition-all duration-[3500ms] ease-in-out"
+                  className="h-full w-full object-cover transition-all duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a3a]/80 via-[#1a3a3a]/20 to-transparent transition-colors duration-500 ease-in-out group-hover:from-[#1a3a3a]/60 group-hover:via-transparent" />
                 <span className="absolute bottom-4 left-4 text-xs font-medium text-white">

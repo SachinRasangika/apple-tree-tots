@@ -37,50 +37,50 @@ export function FoundersSection() {
   return <AnimatedSection className="py-20 px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto block" animation="fade-in-up">
       <div className="mb-12">
         <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
-          Our Educational
+          Our Learning
           <br />
-          <span className="italic opacity-80">Philosophy</span>
+          <span className="italic opacity-80">Approach</span>
         </h2>
       </div>
 
       {/* Desktop Grid */}
       <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Feature 1: Qualified Educators */}
+        {/* Feature 1: Play-Based Learning */}
         <div className="group">
           <div className="aspect-square overflow-hidden rounded-lg mb-6">
-            <img src="https://images.pexels.com/photos/8617981/pexels-photo-8617981.jpeg" alt="Qualified educators" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+            <img src="https://images.pexels.com/photos/8618062/pexels-photo-8618062.jpeg" alt="Children learning through play and interaction" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
           </div>
           <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-            Qualified Educators
+            Learning Through Play
           </h3>
           <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-            We employ only certified professionals with recognized diplomas in Early Childhood Education.
+            We believe children learn best when they're having fun! Our play-based curriculum encourages curiosity, creativity, and discovery every day.
           </p>
         </div>
 
-        {/* Feature 2: Community Focused */}
+        {/* Feature 2: Creative Spaces */}
         <div className="group">
           <div className="aspect-square overflow-hidden rounded-lg mb-6">
-            <img src="https://images.pexels.com/photos/8617899/pexels-photo-8617899.jpeg" alt="Welcoming environment" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+            <img src="https://images.pexels.com/photos/9534281/pexels-photo-9534281.jpeg" alt="Colorful creative art and handprints" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
           </div>
           <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-            Welcoming Environment
+            Creative Spaces
           </h3>
           <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-            Serving both local families and the expatriate population with cultural warmth and inclusive values.
+            Bright, colorful classrooms filled with art supplies, building blocks, and engaging materials designed to spark imagination and self-expression.
           </p>
         </div>
 
-        {/* Feature 3: Professional Excellence */}
+        {/* Feature 3: Caring Teachers */}
         <div className="group">
           <div className="aspect-square overflow-hidden rounded-lg mb-6">
-            <img src="https://images.pexels.com/photos/6902351/pexels-photo-6902351.jpeg" alt="Professional care" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+            <img src="https://images.pexels.com/photos/8617899/pexels-photo-8617899.jpeg" alt="Caring teacher with happy children" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
           </div>
           <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-            Professional Excellence
+            Caring Professionals
           </h3>
           <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-            Your child receives expert care in a nurturing environment backed by quality training and experience.
+            Our trained and compassionate teachers provide a warm, safe, and nurturing environment where every child feels loved and valued.
           </p>
         </div>
       </div>
@@ -89,42 +89,42 @@ export function FoundersSection() {
       <div className="md:hidden">
         <div className="relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-            {/* Feature 1: Qualified Educators */}
+            {/* Feature 1: Play-Based Learning */}
             <div className="flex-shrink-0 w-full px-2 group">
               <div className="aspect-square overflow-hidden rounded-lg mb-6">
-                <img src="https://images.pexels.com/photos/8617981/pexels-photo-8617981.jpeg" alt="Qualified educators" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                <img src="https://images.pexels.com/photos/8618062/pexels-photo-8618062.jpeg" alt="Children learning through play and interaction" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
               </div>
               <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-                Qualified Educators
+                Learning Through Play
               </h3>
               <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-                We employ only certified professionals with recognized diplomas in Early Childhood Education.
+                We believe children learn best when they're having fun! Our play-based curriculum encourages curiosity, creativity, and discovery every day.
               </p>
             </div>
 
-            {/* Feature 2: Community Focused */}
+            {/* Feature 2: Creative Spaces */}
             <div className="flex-shrink-0 w-full px-2 group">
               <div className="aspect-square overflow-hidden rounded-lg mb-6">
-                <img src="https://images.pexels.com/photos/8617899/pexels-photo-8617899.jpeg" alt="Welcoming environment" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                <img src="https://images.pexels.com/photos/9534281/pexels-photo-9534281.jpeg" alt="Colorful creative art and handprints" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
               </div>
               <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-                Welcoming Environment
+                Creative Spaces
               </h3>
               <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-                Serving both local families and the expatriate population with cultural warmth and inclusive values.
+                Bright, colorful classrooms filled with art supplies, building blocks, and engaging materials designed to spark imagination and self-expression.
               </p>
             </div>
 
-            {/* Feature 3: Professional Excellence */}
+            {/* Feature 3: Caring Teachers */}
             <div className="flex-shrink-0 w-full px-2 group">
               <div className="aspect-square overflow-hidden rounded-lg mb-6">
-                <img src="https://images.pexels.com/photos/6902351/pexels-photo-6902351.jpeg" alt="Professional care" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                <img src="https://images.pexels.com/photos/8617899/pexels-photo-8617899.jpeg" alt="Caring teacher with happy children" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
               </div>
               <h3 className="text-lg font-semibold text-[#2A372F] mb-3">
-                Professional Excellence
+                Caring Professionals
               </h3>
               <p className="text-[#2A372F]/70 font-light leading-relaxed text-sm">
-                Your child receives expert care in a nurturing environment backed by quality training and experience.
+                Our trained and compassionate teachers provide a warm, safe, and nurturing environment where every child feels loved and valued.
               </p>
             </div>
           </div>
@@ -157,21 +157,21 @@ export function FoundersSection() {
             className={`h-2 rounded-full transition-all duration-300 ${
               currentSlide === 0 ? 'bg-[#2A372F] w-8' : 'bg-[#2A372F]/30 w-2 hover:bg-[#2A372F]/50'
             }`}
-            aria-label="Qualified Educators"
+            aria-label="Learning Through Play"
           />
           <button
             onClick={() => setCurrentSlide(1)}
             className={`h-2 rounded-full transition-all duration-300 ${
               currentSlide === 1 ? 'bg-[#2A372F] w-8' : 'bg-[#2A372F]/30 w-2 hover:bg-[#2A372F]/50'
             }`}
-            aria-label="Welcoming Environment"
+            aria-label="Creative Spaces"
           />
           <button
             onClick={() => setCurrentSlide(2)}
             className={`h-2 rounded-full transition-all duration-300 ${
               currentSlide === 2 ? 'bg-[#2A372F] w-8' : 'bg-[#2A372F]/30 w-2 hover:bg-[#2A372F]/50'
             }`}
-            aria-label="Professional Excellence"
+            aria-label="Caring Professionals"
           />
         </div>
       </div>

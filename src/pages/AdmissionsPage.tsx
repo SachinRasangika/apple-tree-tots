@@ -192,7 +192,7 @@ export function AdmissionsPage() {
         </section>
 
         {/* FAQ Section */}
-        <DarkModeProvider isDark={true}>
+        <DarkModeProvider isDark={false}>
           <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
@@ -204,7 +204,7 @@ export function AdmissionsPage() {
                 </h2>
               </div>
 
-              <div className="bg-[#2d5555]/5 border border-white/10">
+              <div className="bg-[#2A372F]/5 border border-[#2A372F]/20">
                 {faqs.map(faq => <FAQItem key={faq.question} {...faq} />)}
               </div>
             </div>
@@ -212,14 +212,14 @@ export function AdmissionsPage() {
         </DarkModeProvider>
 
         {/* Contact CTA */}
-        <DarkModeProvider isDark={true}>
+        <DarkModeProvider isDark={false}>
           <section className="max-w-4xl mx-auto text-center">
-            <div className="bg-[#2d5555]/10 border border-white/10 p-12">
-              <Clock className="w-12 h-12 text-white mx-auto mb-6" />
-              <h3 className="text-2xl font-serif tracking-widest uppercase mb-4 text-white">
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-12">
+              <Clock className="w-12 h-12 text-[#2A372F] mx-auto mb-6" />
+              <h3 className="text-2xl font-serif tracking-widest uppercase mb-4 text-[#2A372F]">
                 Have Questions?
               </h3>
-              <p className="text-sm text-gray-300 font-light mb-8 max-w-lg mx-auto">
+              <p className="text-sm text-[#2A372F]/70 font-light mb-8 max-w-lg mx-auto">
                 Our admissions team is here to help. Schedule a campus visit or
                 contact us directly to learn more about Apple Tree Tots
                 Preschool.

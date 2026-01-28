@@ -1,5 +1,4 @@
 import React, { useState, lazy, Component } from 'react';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { DarkModeProvider } from '../context/DarkModeContext';
 import { Button, Input, TextArea, Select, Card, FeatureCard, ImageCard, Accordion, AccordionItem, SectionHeader, PageHeader, Badge, Label, IconWrapper, ProgressIndicator, Divider } from '../components/ui';
@@ -10,8 +9,6 @@ export function DesignSystemPage() {
   const [currentStep, setCurrentStep] = useState(2);
   return <DarkModeProvider isDark={true}>
     <div className="min-h-screen bg-[#1a3a3a] text-white selection:bg-[#2d5555] selection:text-white">
-      <Navigation />
-
       <main className="pt-32 pb-20">
         {/* Hero */}
         <section className="px-4 max-w-[1400px] mx-auto mb-32">
@@ -291,13 +288,10 @@ export function DesignSystemPage() {
                 label: 'Select a program'
               }, {
                 value: 'toddler',
-                label: 'Toddler Program (Ages 2-3)'
+                label: 'Toddler Programs (Ages 1.5-3)'
               }, {
-                value: 'preschool',
-                label: 'Preschool Program (Ages 3-4)'
-              }, {
-                value: 'prek',
-                label: 'Pre-K Program (Ages 4-5)'
+                value: 'casa',
+                label: 'CASA Programs (Ages 3-6)'
               }]} />
                 <TextArea label="Message" rows={4} placeholder="Enter your message here..." helperText="Maximum 500 characters" />
               </div>

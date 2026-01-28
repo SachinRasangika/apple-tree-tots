@@ -3,7 +3,11 @@ import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../context/DarkModeContext';
 
-export function Navigation() {
+interface NavigationProps {
+  bannerVisible?: boolean;
+}
+
+export function Navigation({ bannerVisible = true }: NavigationProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { isDark } = useDarkMode();
@@ -19,7 +23,9 @@ export function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-[#CDD1CB]/95 backdrop-blur-sm py-4 shadow-lg' : 'bg-transparent py-8'}`}>
+  const navTop = bannerVisible ? 'top-12 md:top-14' : 'top-0';
+
+  return <nav className={`fixed left-0 right-0 z-50 transition-all duration-500 ${navTop} ${isScrolled ? 'bg-[#CDD1CB]/95 backdrop-blur-sm py-4 shadow-lg' : 'bg-transparent py-8'}`}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
         {/* Logo */}
         <button onClick={() => navigate('/')} className="cursor-pointer hover:opacity-80 transition-opacity">
@@ -95,13 +101,14 @@ export function Navigation() {
             { label: 'Contact', path: '/contact' },
           ].map(({ label, path }) => {
             const isActive = location.pathname === path || (path === '/' && location.pathname === '/apple-tree-tots/');
-            const isHomePage = location.pathname === '/' || location.pathname === '/apple-tree-tots/';
+            const isCurrentHomePage = location.pathname === '/' || location.pathname === '/apple-tree-tots/';
 
             // On home page: white when not scrolled, dark when scrolled
+            // On other pages: always light color in mobile menu
             let textColor: string;
             let borderColor: string;
 
-            if (isHomePage) {
+            if (isCurrentHomePage) {
               if (isScrolled) {
                 textColor = 'text-[#2A372F]';
                 borderColor = 'border-[#2A372F]/20';
@@ -110,8 +117,9 @@ export function Navigation() {
                 borderColor = 'border-white/20';
               }
             } else {
-              textColor = isDark ? 'text-white' : 'text-[#2A372F]';
-              borderColor = isDark ? 'border-white/10' : 'border-[#2A372F]/20';
+              // Non-home pages: always use light text in mobile menu
+              textColor = 'text-white';
+              borderColor = 'border-white/10';
             }
             return (
               <button

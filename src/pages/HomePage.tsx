@@ -10,7 +10,6 @@ import { InteriorDesignSection } from '../components/InteriorDesignSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { DailyRoutineSection } from '../components/DailyRoutineSection';
 import { InstagramSection } from '../components/InstagramSection';
-import { ClassScheduleSection } from '../components/ClassScheduleSection';
 import { PricingSection } from '../components/PricingSection';
 import { JoinTeamSection } from '../components/JoinTeamSection';
 import { AddressSection } from '../components/AddressSection';
@@ -36,7 +35,6 @@ export function HomePage() {
         <TestimonialsSection />
         <DailyRoutineSection />
         <InstagramSection />
-        <ClassScheduleSection />
         <PricingSection />
         <JoinTeamSection />
         <AddressSection />

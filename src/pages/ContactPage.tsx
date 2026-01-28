@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { DarkModeProvider } from '../context/DarkModeContext';
 import { PageHeroSection } from '../components/PageHeroSection';
@@ -27,8 +26,6 @@ export function ContactPage() {
     // Handle form submission
   };
   return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
-      <Navigation />
-
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
         <PageHeroSection
           title="CONTACT"

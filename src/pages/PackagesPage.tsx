@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { PageHeroSection } from '../components/PageHeroSection';
 import { Button } from '../components/ui/Button';
@@ -93,32 +92,23 @@ function FAQItem({
 }
 export function PackagesPage() {
   const packages = [{
-    name: 'Toddler Program',
+    name: 'Toddler Programs',
     price: 'Rs 25,000',
     period: 'per month',
-    description: 'Ages 2-3 years',
+    description: 'Ages 1.5 to 3 years',
     features: ['Half-day sessions (4 hours)', 'Sensory play and exploration', 'Small group activities (1:6 ratio)', 'Parent orientation included', 'Weekly progress updates', 'Snack time included'],
     icon: <Heart size={20} />,
     popular: false,
     delay: '0ms'
   }, {
-    name: 'Preschool Program',
+    name: 'CASA Programs',
     price: 'Rs 30,000',
     period: 'per month',
-    description: 'Ages 3-4 years',
-    features: ['Full-day option available', 'English medium instruction', 'Montessori curriculum', 'Outdoor learning daily', 'Teacher-child ratio 1:8', 'Lunch and snacks included', 'Monthly parent workshops'],
+    description: 'Ages 3 to 6 years',
+    features: ['Full-day option available', 'Montessori curriculum', 'Structured learning environment', 'Teacher-child ratio 1:8', 'Lunch and snacks included', 'Monthly parent workshops', 'School readiness focus'],
     icon: <Star size={20} />,
-    popular: true,
-    delay: '150ms'
-  }, {
-    name: 'Pre-K Program',
-    price: 'Rs 32,000',
-    period: 'per month',
-    description: 'Ages 4-5 years',
-    features: ['School readiness focus', 'Advanced literacy skills', 'Primary school preparation', 'STEAM activities', 'Field trips included', 'All meals included', 'Progress portfolio'],
-    icon: <BookOpen size={20} />,
     popular: false,
-    delay: '300ms'
+    delay: '150ms'
   }];
   const additionalOptions = [{
     name: 'Full-Time Care',
@@ -165,8 +155,6 @@ export function PackagesPage() {
     answer: "We offer a full refund during the trial week if you're not satisfied. For enrolled students, we require one month's notice for withdrawal. Tuition for the current month is non-refundable, but we'll prorate if you provide advance notice."
   }];
   return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
-      <Navigation />
-
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
         <PageHeroSection
           title="PACKAGES"
@@ -187,7 +175,7 @@ export function PackagesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {packages.map(pkg => <PackageCard key={pkg.name} {...pkg} />)}
           </div>
         </section>

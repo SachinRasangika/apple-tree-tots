@@ -53,17 +53,12 @@ export function Footer() {
             <ul className="space-y-3 text-xs tracking-wide opacity-80">
               <li>
                 <a href="#" className="hover:text-white hover:opacity-100 transition-opacity">
-                  Toddler Program
+                  Toddler Programs
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white hover:opacity-100 transition-opacity">
-                  Preschool Program
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white hover:opacity-100 transition-opacity">
-                  Pre-K Program
+                  CASA Programs
                 </a>
               </li>
             </ul>

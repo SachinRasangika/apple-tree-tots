@@ -1,11 +1,10 @@
 import React, { useState, Children } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { DarkModeProvider, useDarkMode } from '../context/DarkModeContext';
 import { PageHeroSection } from '../components/PageHeroSection';
 import { Button } from '../components/ui/Button';
-import { Calendar, FileText, Users, CheckCircle, Clock, Mail, Plus, Minus } from 'lucide-react';
+import { Calendar, FileText, Users, CheckCircle, Clock, Mail, Plus, Minus, Package } from 'lucide-react';
 
 interface FAQItemProps {
   question: string;
@@ -45,7 +44,7 @@ export function AdmissionsPage() {
   const navigate = useNavigate();
   const faqs = [{
     question: 'What are the age requirements for enrollment?',
-    answer: 'We accept children ages 2-5 years old. Our Toddler Program serves ages 2-3, Preschool Program serves ages 3-4, and Pre-K Program serves ages 4-5. Children must meet the minimum age requirement by the start date.'
+    answer: 'We accept children ages 1.5 to 6 years old. Our Toddler Program serves ages 1.5-3 years, and our CASA Class (C-A-S-A) serves ages 3-6 years. Children must meet the minimum age requirement by the start date.'
   }, {
     question: 'When does the academic year begin?',
     answer: 'Our academic year follows the Sri Lankan calendar, beginning in January. However, we accept rolling admissions throughout the year based on availability. We recommend applying 2-3 months before your desired start date.'
@@ -54,13 +53,13 @@ export function AdmissionsPage() {
     answer: "You'll need: Child's birth certificate, immunization records, two recent passport-size photos, parent/guardian ID copies, proof of address, and previous school records (if applicable). All documents should be submitted within one week of application."
   }, {
     question: 'Is there an application fee?',
-    answer: 'Yes, there is a non-refundable application fee of Rs 5,000. This covers administrative processing and assessment materials. The fee can be paid online or at our admissions office.'
+    answer: 'Yes, there is a non-refundable application fee of Rs 5,000. This covers administrative processing and assessment materials. The application fee must be paid online only.'
   }, {
     question: 'How long does the admissions process take?',
-    answer: 'Once your complete application is submitted, we typically respond within 5-7 business days. The process includes document review, a campus visit, and a brief child assessment. Total timeline from application to enrollment is approximately 2-3 weeks.'
+    answer: 'Once your complete application is submitted, we typically respond within 5-7 business days. The process includes document review, a school visit, and a brief child assessment. Total timeline from application to enrollment is approximately 2-3 weeks.'
   }, {
-    question: 'Do you offer campus tours?',
-    answer: "Absolutely! We encourage all prospective families to schedule a campus tour. Tours are available Monday-Friday by appointment. You'll meet our teachers, see our facilities, and learn about our curriculum. Contact our admissions office to schedule."
+    question: 'Do you offer school visits?',
+    answer: "Absolutely! We encourage all prospective families to schedule a school visit. Visits are available Monday-Friday by appointment. You'll meet our teachers, see our facilities, and learn about our curriculum. Contact our admissions office to schedule."
   }, {
     question: 'What is your teacher-to-child ratio?',
     answer: 'We maintain a maximum 1:8 teacher-to-child ratio across all programs. Our Toddler Program often has even smaller ratios of 1:6. All lead teachers hold recognized ECE degrees or diplomas.'
@@ -70,8 +69,6 @@ export function AdmissionsPage() {
   }];
 
   return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
-      <Navigation />
-
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
         <PageHeroSection
           title="ADMISSIONS"
@@ -118,11 +115,82 @@ export function AdmissionsPage() {
                 Age Requirements
               </h3>
               <ul className="text-sm text-[#2A372F]/70 font-light leading-relaxed space-y-2">
-                <li>• Toddler: Ages 2-3</li>
-                <li>• Preschool: Ages 3-4</li>
-                <li>• Pre-K: Ages 4-5</li>
+                <li>• Toddler Program: 1.5 to 3 years</li>
+                <li>• CASA Class (C-A-S-A): 3 to 6 years</li>
               </ul>
             </div>
+          </div>
+        </section>
+
+        {/* Personal Care Items Section */}
+        <section className="max-w-[1400px] mx-auto mb-20 border-t border-[#2A372F]/20 pt-20">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <span className="text-xs tracking-[0.2em] uppercase text-[#2d5555] font-bold mb-4 block">
+              Required Items
+            </span>
+            <h2 className="text-3xl md:text-4xl font-serif tracking-widest uppercase mb-6 text-[#2A372F]">
+              Personal Care <span className="italic opacity-80">Items</span>
+            </h2>
+            <p className="text-sm text-[#2A372F]/70 font-light">
+              To ensure your child's comfort and hygiene, please send the following items to school. All items should be clearly labeled with your child's name.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Personal Care Items */}
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-[#2A372F] mb-4">Personal Care Items</h3>
+              <ul className="text-sm text-[#2A372F]/70 font-light leading-relaxed space-y-2">
+                <li>• Diapers (labeled)</li>
+                <li>• Wipes</li>
+                <li>• Diaper Cream</li>
+                <li>• Towel</li>
+                <li>• Extra Clothing (include a sun hat)</li>
+                <li>• Comfort Item (blanket, stuffed animal, etc.)</li>
+                <li>• 1 set of Bed sheets (preferably white or lighter color)</li>
+                <li>• Pacifiers</li>
+                <li>• Moisturizer, Cologne</li>
+              </ul>
+            </div>
+
+            {/* Feeding Supplies */}
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-[#2A372F] mb-4">Feeding Supplies</h3>
+              <ul className="text-sm text-[#2A372F]/70 font-light leading-relaxed space-y-2">
+                <li>• Bottles and Formula/Breast Milk</li>
+                <li>• Sippy Cups</li>
+                <li>• Healthy Snacks</li>
+                <li>• Lunch Box (if meals are not provided by the school)</li>
+                <li>• Utensils (spoons, forks)</li>
+                <li>• Bibs</li>
+              </ul>
+            </div>
+
+            {/* Hygiene Supplies */}
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-[#2A372F] mb-4">Hygiene Supplies</h3>
+              <ul className="text-sm text-[#2A372F]/70 font-light leading-relaxed space-y-2">
+                <li>• Hand Sanitizer</li>
+                <li>• Tissues</li>
+              </ul>
+            </div>
+
+            {/* Arts & Craft + Outdoor */}
+            <div className="bg-[#2A372F]/10 border border-[#2A372F]/20 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-[#2A372F] mb-4">Arts, Crafts & Outdoor Gear</h3>
+              <ul className="text-sm text-[#2A372F]/70 font-light leading-relaxed space-y-2">
+                <li>• Stationary items (we may occasionally collect)</li>
+                <li>• Art Smock (optional)</li>
+                <li>• Rain Boots (if applicable)</li>
+                <li>• Raincoat (if applicable)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 bg-[#2d5555]/10 border-l-4 border-[#2d5555] p-6 rounded">
+            <p className="text-sm text-[#2A372F]/80 font-light">
+              <strong>Note:</strong> Please ensure all items are clearly labeled with your child's name. Replace or refill items as needed throughout the week. We will notify you if specific items run low.
+            </p>
           </div>
         </section>
 
@@ -142,7 +210,7 @@ export function AdmissionsPage() {
               {[{
                 step: '01',
                 title: 'Submit Application',
-                description: "Complete our online application form with your child's and family information. Application fee: Rs 5,000.",
+                description: "Complete our online application form with your child's and family information. Application fee: Rs 5,000 (payable online only).",
                 icon: <FileText size={20} />,
                 delay: '0ms'
               }, {
@@ -153,8 +221,8 @@ export function AdmissionsPage() {
                 delay: '150ms'
               }, {
                 step: '03',
-                title: 'Campus Visit & Assessment',
-                description: "Schedule a campus tour and brief child assessment. This helps us understand your child's needs and readiness.",
+                title: 'School Visit & Assessment',
+                description: "Schedule a school visit and brief child assessment. This helps us understand your child's needs and readiness.",
                 icon: <Users size={20} />,
                 delay: '300ms'
               }, {
@@ -220,12 +288,12 @@ export function AdmissionsPage() {
                 Have Questions?
               </h3>
               <p className="text-sm text-[#2A372F]/70 font-light mb-8 max-w-lg mx-auto">
-                Our admissions team is here to help. Schedule a campus visit or
+                Our admissions team is here to help. Schedule a school visit or
                 contact us directly to learn more about Apple Tree Tots
                 Preschool.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="primary">Schedule Campus Tour</Button>
+                <Button variant="primary">Schedule School Visit</Button>
                 <Button variant="outline">Contact Admissions</Button>
               </div>
             </div>

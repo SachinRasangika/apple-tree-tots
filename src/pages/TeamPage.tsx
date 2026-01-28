@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { PageHeroSection } from '../components/PageHeroSection';
 import { X, Mail, Award, BookOpen } from 'lucide-react';
@@ -105,8 +104,6 @@ function TeacherModal({
 export function TeamPage() {
   const [selectedTeacher, setSelectedTeacher] = useState<TeamMember | null>(null);
   return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
-      <Navigation />
-
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
         <PageHeroSection
           title="TEACHERS"

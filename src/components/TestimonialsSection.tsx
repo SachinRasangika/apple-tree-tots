@@ -44,19 +44,19 @@ export function TestimonialsSection() {
     quote: 'The qualified teachers at Apple Tree Tots have been exceptional. My daughter has flourished in their Montessori program, and her English has improved dramatically in just six months.',
     parent: 'Sanduni Perera',
     child: 'Amaya, Age 4',
-    program: 'Preschool Program',
+    program: 'CASA Programs',
     delay: '0ms'
   }, {
     quote: 'As expats living in Ahangama, finding quality English-medium education was crucial. Apple Tree Tots exceeded our expectations with their professional approach and nurturing environment.',
     parent: 'James & Claire Wilson',
     child: 'Oliver, Age 3',
-    program: 'Toddler Program',
+    program: 'Toddler Programs',
     delay: '150ms'
   }, {
     quote: "The small class sizes and individual attention have made all the difference. The teachers genuinely care about each child's development and communicate regularly with parents.",
     parent: 'Rohan Fernando',
     child: 'Dilan, Age 5',
-    program: 'Pre-K Program',
+    program: 'CASA Programs',
     delay: '300ms'
   }];
 

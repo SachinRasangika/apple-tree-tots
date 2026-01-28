@@ -302,29 +302,26 @@ export function ApplicationForm() {
               </label>
               <select required value={formData.programType} onChange={e => updateFormData('programType', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
                 <option value="">Select program</option>
-                <option value="montessori">Montessori</option>
-                <option value="daycare">Daycare</option>
+                <option value="toddler">Toddler Programs</option>
+                <option value="casa">CASA Programs</option>
               </select>
             </div>
 
             {formData.programType && <div>
               <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
-                {formData.programType === 'montessori' ? 'Level' : 'Group'} *
+                Schedule Type *
               </label>
               <select required value={formData.programLevel} onChange={e => updateFormData('programLevel', e.target.value)} className="w-full bg-[#2d5555] border-b border-[#2A372F]/40 px-3 py-3 text-sm text-white focus:outline-none focus:border-[#2A372F] transition-colors">
-                <option value="">Select {formData.programType === 'montessori' ? 'level' : 'group'}</option>
-                {formData.programType === 'montessori' ? (
+                <option value="">Select schedule type</option>
+                {formData.programType === 'toddler' ? (
                   <>
-                    <option value="toddler">Toddler</option>
-                    <option value="first-year">First Year</option>
-                    <option value="second-year">Second Year</option>
-                    <option value="third-year">Third Year</option>
+                    <option value="half-day">Half-day (4 hours)</option>
+                    <option value="full-day">Full-day (Extended hours)</option>
                   </>
                 ) : (
                   <>
-                    <option value="nursery">Nursery</option>
-                    <option value="toddler-group">Toddler Group</option>
-                    <option value="before-after">Before & After School Group</option>
+                    <option value="half-day">Half-day (4 hours)</option>
+                    <option value="full-day">Full-day (Extended hours)</option>
                   </>
                 )}
               </select>
@@ -436,6 +433,7 @@ export function ApplicationForm() {
                   )}
                 </div>
               </div>
+
             </div>
           </div>}
 

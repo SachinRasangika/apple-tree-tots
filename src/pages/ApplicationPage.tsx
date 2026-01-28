@@ -1,13 +1,10 @@
 import React from 'react';
-import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { ApplicationForm } from '../components/ApplicationForm';
 
 export function ApplicationPage() {
   return (
     <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
-      <Navigation />
-
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
         <section className="flex flex-col items-center justify-center mb-20 animate-[fadeIn_0.5s_ease-out]">
           <div className="mb-12 text-center max-w-2xl">

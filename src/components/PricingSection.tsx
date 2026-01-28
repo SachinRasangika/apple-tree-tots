@@ -70,29 +70,21 @@ export function PricingSection() {
   const [touchEnd, setTouchEnd] = useState(0);
 
   const pricingTiers = [{
-    title: 'Toddler Program',
+    title: 'Toddler Programs',
     price: 'Rs 25,000',
     period: 'per month',
-    features: ['Ages 2-3 years', 'Half-day sessions (4 hours)', 'Sensory play and exploration', 'Parent orientation included', 'Small group activities'],
+    features: ['Ages 1.5 to 3 years', 'Half-day sessions (4 hours)', 'Sensory play and exploration', 'Parent orientation included', 'Small group activities'],
     icon: <Heart size={20} />,
     highlighted: false,
     delay: '0ms'
   }, {
-    title: 'Preschool Program',
+    title: 'CASA Programs',
     price: 'Rs 30,000',
     period: 'per month',
-    features: ['Ages 3-4 years', 'Full-day option available', 'English medium instruction', 'Montessori curriculum', 'Outdoor learning daily'],
+    features: ['Ages 3 to 6 years', 'Full-day option available', 'Montessori curriculum', 'Structured learning environment', 'School readiness focus'],
     icon: <Star size={20} />,
-    highlighted: true,
-    delay: '100ms'
-  }, {
-    title: 'Pre-K Program',
-    price: 'Rs 32,000',
-    period: 'per month',
-    features: ['Ages 4-5 years', 'School readiness focus', 'Advanced literacy skills', 'Primary school preparation', 'STEAM activities'],
-    icon: <BookOpen size={20} />,
     highlighted: false,
-    delay: '200ms'
+    delay: '100ms'
   }];
 
   const handleTouchStart = (e) => {
@@ -141,8 +133,8 @@ export function PricingSection() {
         </div>
 
         {/* Desktop Pricing Grid */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {pricingTiers.map(tier => <PricingTier key={tier.title} {...tier} />)}
+        <div className="hidden md:flex md:justify-center gap-6 mb-12">
+          {pricingTiers.map(tier => <div key={tier.title} className="w-full md:w-80"><PricingTier {...tier} /></div>)}
         </div>
 
         {/* Mobile Carousel with Pagination & Arrows */}

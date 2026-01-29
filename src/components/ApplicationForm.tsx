@@ -1,6 +1,13 @@
 import React, { useState, Fragment } from 'react';
 import { Button } from './ui/Button';
 import { Check, ChevronRight } from 'lucide-react';
+import { submitWebsiteApplication } from '../services/applicationApi';
+import { generateApplicationSubmissionPDF } from '../services/pdfGenerator';
+
+interface ApplicationFormProps {
+  onSubmitSuccess?: () => void;
+  submittedBy?: 'website' | 'admin';
+}
 
 interface FormData {
   // Section A: Child's Information
@@ -44,9 +51,16 @@ interface FormData {
   medicalConsentAgreed: boolean;
 }
 
-export function ApplicationForm() {
+// For PDF generation - without File arrays and agreements
+type FormDataForPDFGeneration = Omit<FormData, 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord' | 'termsAgreed' | 'medicalConsentAgreed'>;
+
+export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: ApplicationFormProps = {}) {
   const [currentStep, setCurrentStep] = useState(1);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedApplicationData, setSubmittedApplicationData] = useState<FormData | null>(null);
   const [formData, setFormData] = useState<FormData>({
     childFullName: '',
     childDOB: '',
@@ -94,12 +108,20 @@ export function ApplicationForm() {
         ...prev,
         [field]: fileArray
       }));
+      // Clear validation error when files are uploaded
+      if (submitError) {
+        setSubmitError(null);
+      }
     }
   };
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+      // Clear validation error when moving to next step
+      if (submitError) {
+        setSubmitError(null);
+      }
     }
   };
 
@@ -109,17 +131,70 @@ export function ApplicationForm() {
     }
   };
 
+  const downloadApplicationData = async () => {
+    if (!submittedApplicationData) return;
+    const pdfData: FormDataForPDFGeneration = {
+      childFullName: submittedApplicationData.childFullName,
+      childDOB: submittedApplicationData.childDOB,
+      childGender: submittedApplicationData.childGender,
+      childNationality: submittedApplicationData.childNationality,
+      homeAddress: submittedApplicationData.homeAddress,
+      languageAtHome: submittedApplicationData.languageAtHome,
+      parent1Name: submittedApplicationData.parent1Name,
+      parent1NIC: submittedApplicationData.parent1NIC,
+      parent1Mobile: submittedApplicationData.parent1Mobile,
+      parent1Email: submittedApplicationData.parent1Email,
+      parent2Name: submittedApplicationData.parent2Name,
+      parent2NIC: submittedApplicationData.parent2NIC,
+      parent2Mobile: submittedApplicationData.parent2Mobile,
+      programType: submittedApplicationData.programType,
+      programLevel: submittedApplicationData.programLevel,
+      immunizationUpToDate: submittedApplicationData.immunizationUpToDate,
+      medicalConditions: submittedApplicationData.medicalConditions,
+      emergencyContact1Name: submittedApplicationData.emergencyContact1Name,
+      emergencyContact1Phone: submittedApplicationData.emergencyContact1Phone,
+      emergencyContact2Name: submittedApplicationData.emergencyContact2Name,
+      emergencyContact2Phone: submittedApplicationData.emergencyContact2Phone,
+      authorizedPickupPersons: submittedApplicationData.authorizedPickupPersons,
+    };
+    await generateApplicationSubmissionPDF(pdfData);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Clear previous errors before attempting new submission
+    setSubmitError(null);
     setShowTermsPopup(true);
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     if (formData.termsAgreed && formData.medicalConsentAgreed) {
-      console.log('Form submitted:', formData);
-      setShowTermsPopup(false);
-      // Here you would typically send the data to your backend
-      alert('Application submitted successfully!');
+      setIsSubmitting(true);
+      setSubmitError(null);
+
+      try {
+        const submissionData = {
+          ...formData,
+          submittedBy: submittedBy,
+        };
+        await submitWebsiteApplication(submissionData);
+        setShowTermsPopup(false);
+
+        // Store the application data and show success popup
+        setSubmittedApplicationData(formData);
+        setShowSuccessPopup(true);
+
+        // Call success callback if provided (for admin dashboard redirect)
+        if (onSubmitSuccess) {
+          onSubmitSuccess?.();
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to submit application';
+        setSubmitError(errorMessage);
+        alert(`Error: ${errorMessage}`);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -391,8 +466,12 @@ export function ApplicationForm() {
                   </label>
                   <input type="file" multiple required onChange={e => handleFileUpload('birthCertificate', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
                   {formData.birthCertificate.length > 0 && (
-                    <div className="mt-2 text-xs text-[#2A372F]/70">
-                      ✓ {formData.birthCertificate.length} file(s) uploaded
+                    <div className="mt-2 space-y-1">
+                      {formData.birthCertificate.map((file, idx) => (
+                        <div key={idx} className="text-xs text-[#2A372F]/70">
+                          ✓ {file.name}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -403,8 +482,12 @@ export function ApplicationForm() {
                   </label>
                   <input type="file" multiple required onChange={e => handleFileUpload('childPhoto', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
                   {formData.childPhoto.length > 0 && (
-                    <div className="mt-2 text-xs text-[#2A372F]/70">
-                      ✓ {formData.childPhoto.length} file(s) uploaded
+                    <div className="mt-2 space-y-1">
+                      {formData.childPhoto.map((file, idx) => (
+                        <div key={idx} className="text-xs text-[#2A372F]/70">
+                          ✓ {file.name}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -415,8 +498,12 @@ export function ApplicationForm() {
                   </label>
                   <input type="file" multiple required onChange={e => handleFileUpload('parentNICs', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
                   {formData.parentNICs.length > 0 && (
-                    <div className="mt-2 text-xs text-[#2A372F]/70">
-                      ✓ {formData.parentNICs.length} file(s) uploaded
+                    <div className="mt-2 space-y-1">
+                      {formData.parentNICs.map((file, idx) => (
+                        <div key={idx} className="text-xs text-[#2A372F]/70">
+                          ✓ {file.name}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -427,8 +514,12 @@ export function ApplicationForm() {
                   </label>
                   <input type="file" multiple required onChange={e => handleFileUpload('immunizationRecord', e.target.files)} className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors" />
                   {formData.immunizationRecord.length > 0 && (
-                    <div className="mt-2 text-xs text-[#2A372F]/70">
-                      ✓ {formData.immunizationRecord.length} file(s) uploaded
+                    <div className="mt-2 space-y-1">
+                      {formData.immunizationRecord.map((file, idx) => (
+                        <div key={idx} className="text-xs text-[#2A372F]/70">
+                          ✓ {file.name}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -518,6 +609,137 @@ export function ApplicationForm() {
         </div>
       </form>
 
+      {/* Success Popup Modal */}
+      {showSuccessPopup && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4 animate-fadeIn">
+          <div className="bg-[#CDD1CB] rounded-lg max-w-2xl w-full shadow-2xl overflow-hidden animate-[scaleIn_0.4s_ease-out]">
+            {/* Success Content */}
+            <div className="px-6 md:px-12 py-12">
+              {/* Success Icon */}
+              <div className="flex justify-center mb-8">
+                <div className="w-20 h-20 bg-[#2d5555]/10 rounded-full flex items-center justify-center animate-[bounceIn_0.6s_ease-out]">
+                  <Check size={40} className="text-[#2d5555]" strokeWidth={2.5} />
+                </div>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-3xl md:text-4xl font-serif tracking-widest text-center mb-2 text-[#2A372F]">
+                Application Submitted
+              </h2>
+              <p className="text-center text-[#2A372F]/70 font-light mb-8">
+                Thank you for choosing Apple Tree Tots
+              </p>
+
+              {/* Child Name Highlight */}
+              <div className="bg-white border-l-4 border-[#2d5555] rounded mb-8 p-6">
+                <p className="text-xs uppercase tracking-widest text-[#2A372F]/60 mb-2 font-semibold">
+                  Application Received For
+                </p>
+                <p className="text-2xl font-serif text-[#2d5555]">
+                  {submittedApplicationData?.childFullName}
+                </p>
+              </div>
+
+              {/* Key Information */}
+              <div className="grid md:grid-cols-2 gap-4 mb-8">
+                <div className="bg-[#2d5555]/5 rounded p-4">
+                  <p className="text-xs uppercase tracking-widest text-[#2A372F]/60 font-semibold mb-2">Program</p>
+                  <p className="text-sm text-[#2A372F] capitalize">
+                    {submittedApplicationData?.programType} - {submittedApplicationData?.programLevel}
+                  </p>
+                </div>
+                <div className="bg-[#2d5555]/5 rounded p-4">
+                  <p className="text-xs uppercase tracking-widest text-[#2A372F]/60 font-semibold mb-2">Contact Email</p>
+                  <p className="text-sm text-[#2A372F]">
+                    {submittedApplicationData?.parent1Email}
+                  </p>
+                </div>
+              </div>
+
+              {/* Next Steps */}
+              <div className="bg-[#2d5555]/10 rounded-lg p-6 mb-8 border border-[#2d5555]/20">
+                <p className="text-sm uppercase tracking-widest text-[#2A372F] font-semibold mb-4">What Happens Next?</p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#2d5555] font-bold mt-0.5">1</span>
+                    <span className="text-sm text-[#2A372F] font-light">Our admissions team will review your application</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#2d5555] font-bold mt-0.5">2</span>
+                    <span className="text-sm text-[#2A372F] font-light">We will contact you at the provided email and phone number</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#2d5555] font-bold mt-0.5">3</span>
+                    <span className="text-sm text-[#2A372F] font-light">Confirmation will be sent within 2-3 business days</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Buttons */}
+              <div className="space-y-3">
+                {/* Download PDF Button */}
+                <button
+                  onClick={downloadApplicationData}
+                  className="w-full bg-[#E77A6A] hover:bg-[#D66A5A] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase text-xs tracking-widest"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  Download PDF Receipt
+                </button>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => {
+                    setShowSuccessPopup(false);
+                    setSubmittedApplicationData(null);
+                    // Reset form
+                    setFormData({
+                      childFullName: '',
+                      childDOB: '',
+                      childGender: '',
+                      childNationality: '',
+                      homeAddress: '',
+                      languageAtHome: '',
+                      parent1Name: '',
+                      parent1NIC: '',
+                      parent1Mobile: '',
+                      parent1Email: '',
+                      parent2Name: '',
+                      parent2NIC: '',
+                      parent2Mobile: '',
+                      programType: '',
+                      programLevel: '',
+                      immunizationUpToDate: false,
+                      medicalConditions: '',
+                      emergencyContact1Name: '',
+                      emergencyContact1Phone: '',
+                      emergencyContact2Name: '',
+                      emergencyContact2Phone: '',
+                      authorizedPickupPersons: '',
+                      birthCertificate: [],
+                      childPhoto: [],
+                      parentNICs: [],
+                      immunizationRecord: [],
+                      termsAgreed: false,
+                      medicalConsentAgreed: false,
+                    });
+                    setCurrentStep(1);
+                  }}
+                  className="w-full bg-white border-2 border-[#2A372F]/20 text-[#2A372F] font-medium py-3 px-6 rounded-lg hover:bg-[#2A372F]/5 transition-all duration-300 uppercase text-xs tracking-widest"
+                >
+                  Submit Another Application
+                </button>
+              </div>
+
+              <p className="text-xs text-[#2A372F]/60 text-center mt-6 font-light">
+                A copy of your application data has been saved for download
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Terms and Conditions Modal */}
       {showTermsPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -561,24 +783,38 @@ export function ApplicationForm() {
                 </label>
               </div>
 
+              {/* Error Message */}
+              {submitError && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                  <p className="text-sm">{submitError}</p>
+                </div>
+              )}
+
               {/* Buttons */}
               <div className="flex gap-4 mt-8 justify-end">
                 <button
-                  onClick={() => setShowTermsPopup(false)}
-                  className="px-6 py-2 text-sm font-medium text-[#2A372F] border border-[#2A372F]/40 rounded hover:bg-[#2A372F]/5 transition-colors uppercase tracking-widest"
+                  onClick={() => {
+                    setShowTermsPopup(false);
+                    // Clear validation error when going back to upload documents
+                    if (submitError) {
+                      setSubmitError(null);
+                    }
+                  }}
+                  disabled={isSubmitting}
+                  className="px-6 py-2 text-sm font-medium text-[#2A372F] border border-[#2A372F]/40 rounded hover:bg-[#2A372F]/5 transition-colors uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleFinalSubmit}
-                  disabled={!formData.termsAgreed || !formData.medicalConsentAgreed}
+                  disabled={!formData.termsAgreed || !formData.medicalConsentAgreed || isSubmitting}
                   className={`px-8 py-3 text-xs font-medium uppercase tracking-widest rounded transition-all duration-300 ${
-                    formData.termsAgreed && formData.medicalConsentAgreed
+                    formData.termsAgreed && formData.medicalConsentAgreed && !isSubmitting
                       ? 'bg-[#2A372F] text-[#CDD1CB] hover:bg-[#1a2720] cursor-pointer'
                       : 'bg-[#2A372F]/50 text-[#CDD1CB]/50 cursor-not-allowed'
                   }`}
                 >
-                  Submit Application
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
                 </button>
               </div>
             </div>

@@ -1,0 +1,7 @@
+# Ignore uploaded files
+*
+!.gitignore
+!documents/
+documents/*
+!documents/.gitignore
+documents/.gitignore

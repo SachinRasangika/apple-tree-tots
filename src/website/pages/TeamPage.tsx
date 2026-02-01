@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Footer, PageHeroSection } from '../components';
 import { X, Mail, Award, BookOpen } from 'lucide-react';
 interface TeamMember {
@@ -101,6 +102,7 @@ function TeacherModal({
     </div>;
 }
 export function TeamPage() {
+  const navigate = useNavigate();
   const [selectedTeacher, setSelectedTeacher] = useState<TeamMember | null>(null);
   return <div className="min-h-screen bg-[#CDD1CB] text-[#2A372F] selection:bg-[#2A372F] selection:text-[#CDD1CB]">
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-16">
@@ -109,6 +111,16 @@ export function TeamPage() {
           description="We are most grateful for our teacher team. Let them carry you along and inspire you. Each educator brings unique expertise and passion to nurturing your child's development."
           imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
           imageAlt="Teacher in peaceful setting"
+          buttonLabel="Join with Us"
+          onButtonClick={() => {
+            const contactSection = document.getElementById('join-section');
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              document.querySelector('a[href="tel:0743431488"]')?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          showIcon={false}
         />
 
         {/* Team Grid Section */}
@@ -149,7 +161,7 @@ export function TeamPage() {
         </section>
 
         {/* Join Section */}
-        <section className="mt-32 max-w-4xl mx-auto text-center border-t border-[#2A372F]/20 pt-20">
+        <section id="join-section" className="mt-32 max-w-4xl mx-auto text-center border-t border-[#2A372F]/20 pt-20">
           <h2 className="text-2xl md:text-3xl font-serif tracking-widest uppercase mb-6">
             Join Our Teaching Team
           </h2>

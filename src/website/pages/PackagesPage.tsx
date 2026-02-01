@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Footer, PageHeroSection, CTABox } from '../components';
 import { Button } from '../../components/ui/Button';
 import { Check, Clock, Users, BookOpen, Heart, Star, Sparkles, Calendar, Shield, CreditCard, Gift, Plus, Minus, Package } from 'lucide-react';
+import html2pdf from 'html2pdf.js';
 interface PackageCardProps {
   name: string;
   price: string;
@@ -89,6 +91,138 @@ function FAQItem({
     </div>;
 }
 export function PackagesPage() {
+  const navigate = useNavigate();
+
+  const handleDownloadPackages = () => {
+    const element = document.createElement('div');
+    element.innerHTML = `
+      <div style="background: #CDD1CB; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2A372F; line-height: 1.6;">
+        <!-- Header Section -->
+        <div style="background: linear-gradient(135deg, #2A372F 0%, #2d5555 100%); color: #CDD1CB; padding: 50px 40px; text-align: center;">
+          <h1 style="font-size: 42px; margin: 0 0 10px 0; font-weight: 700; letter-spacing: 2px;">APPLE TREE TOTS</h1>
+          <h2 style="font-size: 28px; margin: 0; font-weight: 300; letter-spacing: 1px;">Package Options</h2>
+          <div style="height: 3px; width: 100px; background: #CDD1CB; margin: 20px auto; border-radius: 2px;"></div>
+          <p style="margin: 15px 0 0 0; font-size: 14px; opacity: 0.9;">Montessori Education for Every Child</p>
+        </div>
+
+        <!-- Main Content -->
+        <div style="padding: 40px; background: #CDD1CB;">
+          <!-- Core Programs Section -->
+          <div style="margin-bottom: 40px;">
+            <h2 style="font-size: 24px; color: #2A372F; margin: 0 0 5px 0; font-weight: 700; letter-spacing: 1px;">CORE</h2>
+            <h3 style="font-size: 20px; color: #2d5555; margin: 0 0 25px 0; font-weight: 300; letter-spacing: 0.5px;">Programs</h3>
+
+            <!-- Package Card 1 -->
+            <div style="background: white; border-left: 4px solid #2d5555; padding: 25px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+              <h4 style="font-size: 18px; color: #2A372F; margin: 0 0 10px 0; font-weight: 700;">Toddler Programs</h4>
+              <p style="color: #2d5555; font-size: 20px; margin: 5px 0; font-weight: 700;">Rs 25,000 <span style="font-size: 14px; color: #666;">per month</span></p>
+              <p style="color: #666; font-size: 12px; margin: 5px 0 15px 0;">Ages 1.5 to 3 years</p>
+              <ul style="margin: 0; padding-left: 20px; list-style-position: inside;">
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Half-day sessions (4 hours)</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Sensory play and exploration</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Small group activities (1:6 ratio)</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Parent orientation included</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Weekly progress updates</li>
+                <li style="color: #444; font-size: 13px;">Snack time included</li>
+              </ul>
+            </div>
+
+            <!-- Package Card 2 -->
+            <div style="background: white; border-left: 4px solid #2d5555; padding: 25px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+              <h4 style="font-size: 18px; color: #2A372F; margin: 0 0 10px 0; font-weight: 700;">CASA Programs</h4>
+              <p style="color: #2d5555; font-size: 20px; margin: 5px 0; font-weight: 700;">Rs 30,000 <span style="font-size: 14px; color: #666;">per month</span></p>
+              <p style="color: #666; font-size: 12px; margin: 5px 0 15px 0;">Ages 3 to 6 years</p>
+              <ul style="margin: 0; padding-left: 20px; list-style-position: inside;">
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Full-day option available</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Montessori curriculum</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Structured learning environment</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Teacher-child ratio 1:8</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Lunch and snacks included</li>
+                <li style="margin-bottom: 6px; color: #444; font-size: 13px;">Monthly parent workshops</li>
+                <li style="color: #444; font-size: 13px;">School readiness focus</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Additional Options Section -->
+          <div style="margin-bottom: 40px;">
+            <h2 style="font-size: 24px; color: #2A372F; margin: 0 0 5px 0; font-weight: 700; letter-spacing: 1px;">ADDITIONAL</h2>
+            <h3 style="font-size: 20px; color: #2d5555; margin: 0 0 25px 0; font-weight: 300; letter-spacing: 0.5px;">Options</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+              <div style="background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+                <h4 style="font-size: 16px; color: #2A372F; margin: 0 0 8px 0; font-weight: 700;">Full-Time Care</h4>
+                <p style="color: #2d5555; font-size: 16px; margin: 5px 0; font-weight: 700;">Rs 35,000</p>
+                <p style="color: #666; font-size: 12px; margin: 0;">7:30 AM - 6:00 PM</p>
+              </div>
+
+              <div style="background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+                <h4 style="font-size: 16px; color: #2A372F; margin: 0 0 8px 0; font-weight: 700;">Half-Day Program</h4>
+                <p style="color: #2d5555; font-size: 16px; margin: 5px 0; font-weight: 700;">Rs 20,000</p>
+                <p style="color: #666; font-size: 12px; margin: 0;">8:00 AM - 12:00 PM</p>
+              </div>
+
+              <div style="background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+                <h4 style="font-size: 16px; color: #2A372F; margin: 0 0 8px 0; font-weight: 700;">Trial Week</h4>
+                <p style="color: #2d5555; font-size: 16px; margin: 5px 0; font-weight: 700;">Rs 8,000</p>
+                <p style="color: #666; font-size: 12px; margin: 0;">One week experience</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- What's Included -->
+          <div style="background: white; padding: 25px; border-radius: 4px; margin-bottom: 40px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+            <h2 style="font-size: 20px; color: #2A372F; margin: 0 0 15px 0; font-weight: 700; letter-spacing: 0.5px;">WHAT'S INCLUDED IN EVERY PACKAGE</h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 8px; color: #444; font-size: 13px;">✓ Qualified ECE certified educators with 1+ years experience</li>
+              <li style="margin-bottom: 8px; color: #444; font-size: 13px;">✓ Research-based Montessori curriculum</li>
+              <li style="margin-bottom: 8px; color: #444; font-size: 13px;">✓ Small class sizes (maximum 1:8 teacher-to-child ratio)</li>
+              <li style="color: #444; font-size: 13px;">✓ Nurturing and safe learning environment</li>
+            </ul>
+          </div>
+
+          <!-- Discounts & Payment -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+            <div style="background: white; padding: 25px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+              <h3 style="font-size: 16px; color: #2A372F; margin: 0 0 15px 0; font-weight: 700; letter-spacing: 0.5px;">DISCOUNTS & OFFERS</h3>
+              <ul style="margin: 0; padding-left: 20px;">
+                <li style="margin-bottom: 8px; color: #444; font-size: 13px;">Sibling: 10-15% off</li>
+                <li style="margin-bottom: 8px; color: #444; font-size: 13px;">Annual Payment: 5% off</li>
+                <li style="color: #444; font-size: 13px;">Referral: 50% off (1 month)</li>
+              </ul>
+            </div>
+
+            <div style="background: white; padding: 25px; border-radius: 4px; box-shadow: 0 2px 8px rgba(42, 55, 47, 0.1);">
+              <h3 style="font-size: 16px; color: #2A372F; margin: 0 0 15px 0; font-weight: 700; letter-spacing: 0.5px;">PAYMENT OPTIONS</h3>
+              <ul style="margin: 0; padding-left: 20px;">
+                <li style="margin-bottom: 8px; color: #444; font-size: 13px;">Monthly Payments</li>
+                <li style="margin-bottom: 8px; color: #444; font-size: 13px;">Quarterly (3% off)</li>
+                <li style="color: #444; font-size: 13px;">Annual (5% off)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div style="border-top: 2px solid #2A372F; padding-top: 20px; text-align: center;">
+            <p style="margin: 0 0 5px 0; color: #2A372F; font-size: 14px; font-weight: 700;">For More Information</p>
+            <p style="margin: 0; color: #666; font-size: 13px;">Phone: +94 74 343 1488</p>
+            <p style="margin: 10px 0 0 0; color: #999; font-size: 11px;">Apple Tree Tots | Montessori Education</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const opt = {
+      margin: 0,
+      filename: 'Apple_Tree_Tots_Packages.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, allowTaint: true },
+      jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  };
+
   const packages = [{
     name: 'Toddler Programs',
     price: 'Rs 25,000',
@@ -159,6 +293,9 @@ export function PackagesPage() {
           description="Choose the program that best fits your child's developmental stage and your family's needs. All packages include our Montessori curriculum, qualified teachers, and nurturing environment."
           imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
           imageAlt="Class packages"
+          buttonLabel="Download Packages"
+          onButtonClick={handleDownloadPackages}
+          showIcon={false}
         />
 
         {/* Main Packages */}

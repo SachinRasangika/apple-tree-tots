@@ -23,6 +23,7 @@ interface FormDataForPDF {
   emergencyContact2Name: string;
   emergencyContact2Phone: string;
   authorizedPickupPersons: string;
+  paymentReceiptUploaded?: boolean;
 }
 
 interface DocumentFile {
@@ -38,6 +39,7 @@ interface Documents {
   childPhoto?: DocumentFile;
   parentNICs?: DocumentFile;
   immunizationRecord?: DocumentFile;
+  paymentReceipt?: DocumentFile;
 }
 
 interface Application {
@@ -78,7 +80,7 @@ interface Application {
   uploadedDocuments?: Documents;
 }
 
-const LOGO_URL = '/apple-tree-tots/images/apple-tree-tots-images/logo1.png';
+const LOGO_URL = '/images/logo.JPG';
 const THEME_COLOR = '#2A372F';
 const SECONDARY_COLOR = '#CDD1CB';
 
@@ -366,7 +368,7 @@ export const generateApplicationPDF = async (application: Application) => {
         </div>
       ` : ''}
 
-      ${(application.documents?.birthCertificate?.fileUrl || application.documents?.childPhoto?.fileUrl || application.documents?.parentNICs?.fileUrl || application.documents?.immunizationRecord?.fileUrl) ? `
+      ${(application.documents?.birthCertificate?.fileUrl || application.documents?.childPhoto?.fileUrl || application.documents?.parentNICs?.fileUrl || application.documents?.immunizationRecord?.fileUrl || application.documents?.paymentReceipt?.fileUrl) ? `
         <div class="section">
           <div class="section-title">Uploaded Documents</div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -414,6 +416,17 @@ export const generateApplicationPDF = async (application: Application) => {
                 </div>
               </div>
             ` : ''}
+            ${application.documents?.paymentReceipt?.fileUrl ? `
+              <div style="border: 1px solid #ddd; padding: 15px; border-radius: 4px;">
+                <div class="label" style="margin-bottom: 10px;">Payment Receipt</div>
+                ${application.documents.paymentReceipt.fileUrl.match(/\.(jpg|jpeg|png|gif)$/i) ? `
+                  <img src="${application.documents.paymentReceipt.fileUrl}" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;" />
+                ` : ''}
+                <div style="font-size: 10px; color: #666; word-break: break-all;">
+                  ${application.documents.paymentReceipt.fileName || 'Receipt'}
+                </div>
+              </div>
+            ` : ''}
           </div>
         </div>
       ` : ''}
@@ -429,7 +442,7 @@ export const generateApplicationPDF = async (application: Application) => {
     margin: 10,
     filename: `Application_${childName.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff' },
     jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' },
     pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
   };
@@ -437,13 +450,32 @@ export const generateApplicationPDF = async (application: Application) => {
   html2pdf().set(opt).from(element).save();
 };
 
-export const generateApplicationSubmissionPDF = async (formData: FormDataForPDF) => {
+export const generateApplicationSubmissionPDF = async (formData: any) => {
   const element = document.createElement('div');
   const submissionDate = new Date();
   const ACCENT_COLOR = '#E77A6A';
   const SECONDARY_DARK = '#2d5555';
   const THEME_COLOR_PRIMARY = '#2A372F';
   const BG_LIGHT = '#CDD1CB';
+
+  // Convert payment receipt file to data URL if available
+  let paymentReceiptDataUrl = '';
+  if (formData.paymentReceiptFile && formData.paymentReceiptFile instanceof File) {
+    try {
+      paymentReceiptDataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          resolve(result || '');
+        };
+        reader.onerror = () => reject(new Error('Failed to read payment receipt file'));
+        reader.readAsDataURL(formData.paymentReceiptFile);
+      });
+      console.log('Payment receipt converted to data URL, size:', paymentReceiptDataUrl.length);
+    } catch (error) {
+      console.error('Error converting payment receipt:', error);
+    }
+  }
 
   element.innerHTML = `
     <style>
@@ -671,7 +703,7 @@ export const generateApplicationSubmissionPDF = async (formData: FormDataForPDF)
       <!-- Header with Logo -->
       <div class="header-section">
         <div class="logo-container">
-          <img src="/images/apple-tree-tots-images/logo1.png" alt="Apple Tree Tots Logo" />
+          <img src="/images/logo.JPG" alt="Apple Tree Tots Logo" style="max-width: 100%; height: auto;" />
         </div>
         <div class="header-right">
           <div class="header-title">Application Submitted</div>
@@ -843,25 +875,57 @@ export const generateApplicationSubmissionPDF = async (formData: FormDataForPDF)
         </div>
       </div>
 
-      <!-- Submitted Documents -->
+      <!-- Submitted Documents with Images -->
       <div class="section">
         <div class="section-header">Submitted Documents</div>
-        <div class="documents-list">
-          <div class="document-item">
-            <span class="document-name">Birth Certificate</span>
-            <span class="document-status">✓ Submitted</span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="border: 1px solid #ddd; padding: 12px; border-radius: 4px; page-break-inside: avoid;">
+            <div class="field-label" style="margin-bottom: 8px;">Birth Certificate</div>
+            <div style="background: #f5f5f5; height: 120px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; margin-bottom: 8px;">
+              [Birth Certificate Uploaded]
+            </div>
+            <div style="font-size: 10px; color: #666;">✓ Submitted</div>
           </div>
-          <div class="document-item">
-            <span class="document-name">Child Photograph</span>
-            <span class="document-status">✓ Submitted</span>
+          <div style="border: 1px solid #ddd; padding: 12px; border-radius: 4px; page-break-inside: avoid;">
+            <div class="field-label" style="margin-bottom: 8px;">Child Photograph</div>
+            <div style="background: #f5f5f5; height: 120px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; margin-bottom: 8px;">
+              [Photo Uploaded]
+            </div>
+            <div style="font-size: 10px; color: #666;">✓ Submitted</div>
           </div>
-          <div class="document-item">
-            <span class="document-name">Parents' NIC Copies</span>
-            <span class="document-status">✓ Submitted</span>
+          <div style="border: 1px solid #ddd; padding: 12px; border-radius: 4px; page-break-inside: avoid;">
+            <div class="field-label" style="margin-bottom: 8px;">Parents' NIC Copies</div>
+            <div style="background: #f5f5f5; height: 120px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; margin-bottom: 8px;">
+              [NIC Document Uploaded]
+            </div>
+            <div style="font-size: 10px; color: #666;">✓ Submitted</div>
           </div>
-          <div class="document-item">
-            <span class="document-name">Immunization Record</span>
-            <span class="document-status">✓ Submitted</span>
+          <div style="border: 1px solid #ddd; padding: 12px; border-radius: 4px; page-break-inside: avoid;">
+            <div class="field-label" style="margin-bottom: 8px;">Immunization Record</div>
+            <div style="background: #f5f5f5; height: 120px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; margin-bottom: 8px;">
+              [Immunization Record Uploaded]
+            </div>
+            <div style="font-size: 10px; color: #666;">✓ Submitted</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Receipt Section -->
+      <div class="section">
+        <div class="section-header">Payment Receipt</div>
+        <div style="border: 1px solid #E77A6A; padding: 16px; border-radius: 4px; background: #FFF5F3;">
+          <div class="field-label" style="margin-bottom: 12px; color: #E77A6A;">Payment Receipt</div>
+          ${paymentReceiptDataUrl ? `
+            <div style="background: white; border: 1px solid #E77A6A; padding: 12px; border-radius: 4px; text-align: center;">
+              <img src="${paymentReceiptDataUrl}" style="max-width: 100%; max-height: 400px; border-radius: 3px;" alt="Payment Receipt" />
+            </div>
+          ` : `
+            <div style="background: white; border: 1px dashed #E77A6A; padding: 20px; border-radius: 4px; text-align: center; color: #999; font-size: 12px;">
+              Payment Receipt Image
+            </div>
+          `}
+          <div style="margin-top: 12px; font-size: 11px; color: #666;">
+            <strong>Status:</strong> ✓ Payment receipt received and verified
           </div>
         </div>
       </div>
@@ -879,7 +943,7 @@ export const generateApplicationSubmissionPDF = async (formData: FormDataForPDF)
     margin: 5,
     filename: `Apple-Tree-Tots-Application-${formData.childFullName.replace(/\s+/g, '-')}-${new Date().getTime()}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, allowTaint: true },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff' },
     jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' },
     pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
   };

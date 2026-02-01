@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Footer, PageHeroSection } from '../components';
 import { DarkModeProvider } from '../../context/DarkModeContext';
 import { Input, TextArea, Select } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { MapPin, Phone, Mail, Clock, Instagram, Send, MessageCircle, Calendar } from 'lucide-react';
 export function ContactPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,6 +33,14 @@ export function ContactPage() {
           description="We'd love to hear from you. Whether you're interested in enrolling your child, scheduling a campus tour, or have questions about our programs, our team is here to help."
           imageUrl="/apple-tree-tots/images/gallery/Gemini_Generated_Image_dcqagmdcqagmdcqa.png"
           imageAlt="Contact us"
+          buttonLabel="Contact Us"
+          onButtonClick={() => {
+            const formSection = document.querySelector('form');
+            if (formSection) {
+              formSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          showIcon={false}
         />
 
         {/* Contact Methods Grid */}

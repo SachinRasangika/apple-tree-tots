@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from './ui/Button';
-import { ArrowRight } from 'lucide-react';
+import { Download } from 'lucide-react';
 
 interface PageHeroSectionProps {
   title: string;
@@ -9,9 +9,10 @@ interface PageHeroSectionProps {
   imageAlt: string;
   buttonLabel?: string;
   onButtonClick?: () => void;
+  showIcon?: boolean;
 }
 
-export function PageHeroSection({ title, description, imageUrl, imageAlt, buttonLabel, onButtonClick }: PageHeroSectionProps) {
+export function PageHeroSection({ title, description, imageUrl, imageAlt, buttonLabel, onButtonClick, showIcon = true }: PageHeroSectionProps) {
   return (
     <section className="max-w-[1400px] mx-auto mb-20 px-6 md:px-12 lg:px-0">
       <div className="flex gap-8 items-start mb-12 justify-between">
@@ -32,10 +33,10 @@ export function PageHeroSection({ title, description, imageUrl, imageAlt, button
                 variant="primary"
                 size="md"
                 onClick={onButtonClick}
-                className="flex gap-2 items-center"
+                className={`flex ${showIcon ? 'gap-2' : ''} items-center`}
               >
                 {buttonLabel}
-                <ArrowRight size={18} />
+                {showIcon && <Download size={18} />}
               </Button>
             </div>
           )}
@@ -48,10 +49,10 @@ export function PageHeroSection({ title, description, imageUrl, imageAlt, button
               variant="primary"
               size="md"
               onClick={onButtonClick}
-              className="flex gap-2 items-center whitespace-nowrap"
+              className={`flex ${showIcon ? 'gap-2' : ''} items-center whitespace-nowrap`}
             >
               {buttonLabel}
-              <ArrowRight size={18} />
+              {showIcon && <Download size={18} />}
             </Button>
           </div>
         )}

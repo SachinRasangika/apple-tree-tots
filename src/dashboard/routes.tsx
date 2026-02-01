@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ApplicationsPage } from './pages/ApplicationsPage';
-import { GalleryPage } from './pages/GalleryPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { ApplicationForm } from '../components/ApplicationForm';
@@ -33,10 +32,6 @@ const dashboardRoutes: RouteObject[] = [
   {
     path: 'applications/new',
     element: <DashboardLayout><DashboardApplicationForm /></DashboardLayout>,
-  },
-  {
-    path: 'gallery',
-    element: <DashboardLayout><GalleryPage /></DashboardLayout>,
   },
   {
     path: 'settings',

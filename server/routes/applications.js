@@ -19,9 +19,10 @@ router.get('/', async (req, res) => {
     // Search filter
     if (search) {
       query.$or = [
-        { childName: { $regex: search, $options: 'i' } },
-        { parentName: { $regex: search, $options: 'i' } },
-        { email: { $regex: search, $options: 'i' } },
+        { childFullName: { $regex: search, $options: 'i' } },
+        { parent1Name: { $regex: search, $options: 'i' } },
+        { parent1Email: { $regex: search, $options: 'i' } },
+        { parent1Mobile: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -33,6 +34,31 @@ router.get('/', async (req, res) => {
       success: true,
       count: applications.length,
       data: applications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Get applications statistics (must be before /:id route)
+router.get('/stats/summary', async (req, res) => {
+  try {
+    const total = await Application.countDocuments();
+    const pending = await Application.countDocuments({ status: 'pending' });
+    const approved = await Application.countDocuments({ status: 'approved' });
+    const rejected = await Application.countDocuments({ status: 'rejected' });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        total,
+        pending,
+        approved,
+        rejected,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -72,7 +98,8 @@ router.post('/',
     { name: 'birthCertificate', maxCount: 5 },
     { name: 'childPhoto', maxCount: 5 },
     { name: 'parentNICs', maxCount: 5 },
-    { name: 'immunizationRecord', maxCount: 5 }
+    { name: 'immunizationRecord', maxCount: 5 },
+    { name: 'paymentReceipt', maxCount: 5 }
   ]),
   async (req, res) => {
   try {
@@ -177,6 +204,15 @@ router.post('/',
       if (req.files.immunizationRecord && req.files.immunizationRecord.length > 0) {
         const file = req.files.immunizationRecord[0];
         documents.immunizationRecord = {
+          fileName: file.originalname,
+          fileUrl: getFileUrl(file.filename),
+          uploadedAt: new Date(),
+          size: file.size,
+        };
+      }
+      if (req.files.paymentReceipt && req.files.paymentReceipt.length > 0) {
+        const file = req.files.paymentReceipt[0];
+        documents.paymentReceipt = {
           fileName: file.originalname,
           fileUrl: getFileUrl(file.filename),
           uploadedAt: new Date(),
@@ -301,31 +337,6 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Application deleted successfully',
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
-
-// Get applications statistics
-router.get('/stats/summary', async (req, res) => {
-  try {
-    const total = await Application.countDocuments();
-    const pending = await Application.countDocuments({ status: 'pending' });
-    const approved = await Application.countDocuments({ status: 'approved' });
-    const rejected = await Application.countDocuments({ status: 'rejected' });
-
-    res.status(200).json({
-      success: true,
-      data: {
-        total,
-        pending,
-        approved,
-        rejected,
-      },
     });
   } catch (error) {
     res.status(500).json({

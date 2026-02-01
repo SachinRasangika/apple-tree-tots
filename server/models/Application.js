@@ -130,6 +130,11 @@ const applicationSchema = new mongoose.Schema(
         fileUrl: String,
         uploadedAt: Date,
       },
+      paymentReceipt: {
+        fileName: String,
+        fileUrl: String,
+        uploadedAt: Date,
+      },
     },
 
     // Agreements

@@ -98,6 +98,7 @@ export const submitWebsiteApplication = async (formData: any) => {
       childPhoto: 'Child Photo',
       parentNICs: 'Parent NICs',
       immunizationRecord: 'Immunization Record',
+      paymentReceipt: 'Payment Receipt',
     };
 
     const missingFiles: string[] = [];
@@ -165,6 +166,9 @@ export const submitWebsiteApplication = async (formData: any) => {
     }
     if (formData.immunizationRecord && formData.immunizationRecord.length > 0) {
       form.append('immunizationRecord', formData.immunizationRecord[0]);
+    }
+    if (formData.paymentReceipt && formData.paymentReceipt.length > 0) {
+      form.append('paymentReceipt', formData.paymentReceipt[0]);
     }
 
     console.log('Submitting application with fields:', {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Leaf, Apple, Sparkles, Heart, Users, Flower2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Leaf, Apple, Sparkles, Heart, Users, Flower2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSection';
 
 interface ValueCardProps {
@@ -60,6 +60,19 @@ function ValueCard({ icon, title, description, delay, number }: ValueCardProps) 
 }
 
 export function PhilosophySection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  // Auto-advance carousel every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 6); // 6 values total
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const values = [
     {
       icon: <Leaf size={40} strokeWidth={1.5} />,
@@ -99,6 +112,33 @@ export function PhilosophySection() {
     }
   ];
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEnd(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swiped left - next slide
+      setCurrentSlide((prev) => (prev + 1) % values.length);
+    } else if (touchEnd - touchStart > 50) {
+      // Swiped right - previous slide
+      setCurrentSlide((prev) => (prev - 1 + values.length) % values.length);
+    }
+  };
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + values.length) % values.length);
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % values.length);
+  };
+
   return (
     <AnimatedSection className="py-16 md:py-20 px-6 md:px-12 lg:px-20 relative overflow-hidden block bg-[#2d5555]">
 
@@ -132,8 +172,70 @@ export function PhilosophySection() {
           </div>
         </div>
 
-        {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div
+            className="relative overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="flex transition-transform duration-300 ease-out"
+              style={{
+                transform: `translateX(-${currentSlide * 100}%)`
+              }}
+            >
+              {values.map((value) => (
+                <div key={value.title} className="w-full flex-shrink-0">
+                  <ValueCard
+                    icon={value.icon}
+                    title={value.title}
+                    description={value.description}
+                    number={value.number}
+                    delay="0ms"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Navigation Controls */}
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              onClick={goToPrevious}
+              className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white/60 hover:text-white hover:border-white/60 transition-colors"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Dot Indicators */}
+            <div className="flex gap-2">
+              {values.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentSlide
+                      ? 'bg-white w-6'
+                      : 'bg-white/30 w-2 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={goToNext}
+              className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white/60 hover:text-white hover:border-white/60 transition-colors"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {values.map((value, index) => (
             <ValueCard
               key={value.title}

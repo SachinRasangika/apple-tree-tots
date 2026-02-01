@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Phone } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function FloatingActionBar() {
   const [showBar, setShowBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Find the hero section
@@ -37,7 +39,7 @@ export function FloatingActionBar() {
       <div className="bg-[#CDD1CB]/95 rounded-none border border-[#2A372F]/20 max-w-sm w-full overflow-hidden">
         <div className="flex items-center">
           <div className="flex w-full gap-3 p-3">
-            <button className="inline-flex items-center justify-center transition-all duration-300 ease-in-out uppercase tracking-widest font-medium text-xs bg-[#2A372F] text-[#CDD1CB] hover:bg-[#1a2720] px-4 py-2 flex-1 rounded">
+            <button onClick={() => navigate('/application')} className="inline-flex items-center justify-center transition-all duration-300 ease-in-out uppercase tracking-widest font-medium text-xs bg-[#2A372F] text-[#CDD1CB] hover:bg-[#1a2720] px-4 py-2 flex-1 rounded">
               Apply Now
             </button>
             <a

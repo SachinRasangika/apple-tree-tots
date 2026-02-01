@@ -76,6 +76,7 @@ export function AdmissionsPage() {
           imageAlt="Admissions welcome"
           buttonLabel="Start Application"
           onButtonClick={() => navigate('/application')}
+          showIcon={false}
         />
 
         {/* Key Information Cards */}

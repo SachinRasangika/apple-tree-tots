@@ -46,13 +46,16 @@ interface FormData {
   parentNICs: File[];
   immunizationRecord: File[];
 
+  // Section F: Payment Receipt Upload
+  paymentReceipt: File[];
+
   // Agreements
   termsAgreed: boolean;
   medicalConsentAgreed: boolean;
 }
 
 // For PDF generation - without File arrays and agreements
-type FormDataForPDFGeneration = Omit<FormData, 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord' | 'termsAgreed' | 'medicalConsentAgreed'>;
+type FormDataForPDFGeneration = Omit<FormData, 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord' | 'paymentReceipt' | 'termsAgreed' | 'medicalConsentAgreed'>;
 
 export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: ApplicationFormProps = {}) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -88,11 +91,12 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
     childPhoto: [],
     parentNICs: [],
     immunizationRecord: [],
+    paymentReceipt: [],
     termsAgreed: false,
     medicalConsentAgreed: false,
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const updateFormData = (field: keyof FormData, value: string | boolean | File[]) => {
     setFormData(prev => ({
@@ -101,7 +105,7 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
     }));
   };
 
-  const handleFileUpload = (field: 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord', files: FileList | null) => {
+  const handleFileUpload = (field: 'birthCertificate' | 'childPhoto' | 'parentNICs' | 'immunizationRecord' | 'paymentReceipt', files: FileList | null) => {
     if (files) {
       const fileArray = Array.from(files);
       setFormData(prev => ({
@@ -133,7 +137,7 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
 
   const downloadApplicationData = async () => {
     if (!submittedApplicationData) return;
-    const pdfData: FormDataForPDFGeneration = {
+    const pdfData: any = {
       childFullName: submittedApplicationData.childFullName,
       childDOB: submittedApplicationData.childDOB,
       childGender: submittedApplicationData.childGender,
@@ -156,6 +160,7 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
       emergencyContact2Name: submittedApplicationData.emergencyContact2Name,
       emergencyContact2Phone: submittedApplicationData.emergencyContact2Phone,
       authorizedPickupPersons: submittedApplicationData.authorizedPickupPersons,
+      paymentReceiptFile: submittedApplicationData.paymentReceipt?.[0] || null,
     };
     await generateApplicationSubmissionPDF(pdfData);
   };
@@ -215,7 +220,7 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
       {/* Progress Indicator */}
       <div className="mb-12">
         <div className="flex items-center justify-between mb-4">
-          {[1, 2, 3, 4, 5].map(step => <Fragment key={step}>
+          {[1, 2, 3, 4, 5, 6].map(step => <Fragment key={step}>
               <div className="flex flex-col items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555] border-[#2d5555] text-white' : step === currentStep ? 'bg-transparent border-[#2A372F] text-[#2A372F]' : 'bg-transparent border-[#2A372F]/20 text-[#2A372F]/40'}`}>
                   {step < currentStep ? <Check size={20} /> : <span className="text-sm font-medium">{step}</span>}
@@ -226,9 +231,10 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
                   {step === 3 && 'Program'}
                   {step === 4 && 'Health & Docs'}
                   {step === 5 && 'Agreements'}
+                  {step === 6 && 'Payment'}
                 </span>
               </div>
-              {step < 5 && <div className={`flex-1 h-0.5 mx-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555]' : 'bg-[#2A372F]/10'}`} />}
+              {step < 6 && <div className={`flex-1 h-0.5 mx-2 transition-all duration-500 ${step < currentStep ? 'bg-[#2d5555]' : 'bg-[#2A372F]/10'}`} />}
             </Fragment>)}
         </div>
       </div>
@@ -594,6 +600,66 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
             </div>
           </div>}
 
+        {/* Step 6: Payment Receipt Upload */}
+        {currentStep === 6 && <div className="space-y-6 animate-[fadeIn_0.5s_ease-out]">
+            <div>
+              <h3 className="text-2xl font-serif tracking-wide mb-6 text-[#2A372F]">
+                Section F: Payment Receipt
+              </h3>
+              <p className="text-sm text-[#2A372F]/70 mb-4">
+                Please upload a copy of your payment receipt to complete the admission process.
+              </p>
+            </div>
+
+            <div className="bg-[#2d5555]/5 border border-[#2d5555]/20 rounded-lg p-6 mb-6">
+              <h4 className="text-sm font-semibold text-[#2A372F] mb-4 uppercase">Admission Fee Payment</h4>
+              <div className="space-y-3 text-sm text-[#2A372F]/80">
+                <p><strong>Non-Refundable Admission Fee:</strong> A non-refundable admission fee is required at the time of enrollment. The amount varies based on the program level selected.</p>
+                <p><strong>Payment Methods:</strong> Please make the payment and upload a clear scan or photo of the payment receipt.</p>
+                <p><strong>Receipt Verification:</strong> Our admissions team will verify the payment receipt before finalizing your admission.</p>
+              </div>
+            </div>
+
+            <div className="border-t border-[#2A372F]/20 pt-6">
+              <div>
+                <label className="block text-xs tracking-widest uppercase mb-2 text-[#2A372F] font-semibold">
+                  Payment Receipt *
+                </label>
+                <p className="text-xs text-[#2A372F]/60 mb-3">Upload a clear image or PDF of your payment receipt</p>
+                <input
+                  type="file"
+                  multiple
+                  required
+                  onChange={e => handleFileUpload('paymentReceipt', e.target.files)}
+                  className="w-full px-3 py-2 text-sm text-[#2A372F] border border-[#2A372F]/40 rounded focus:outline-none focus:border-[#2A372F] transition-colors"
+                  accept=".jpg,.jpeg,.png,.gif,.pdf"
+                />
+                {formData.paymentReceipt.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    <p className="text-xs font-semibold text-[#2A372F] uppercase">Uploaded Receipt:</p>
+                    <div className="space-y-2">
+                      {formData.paymentReceipt.map((file, idx) => (
+                        <div key={idx} className="flex items-center gap-2 bg-[#2d5555]/5 p-3 rounded border border-[#2d5555]/20">
+                          <span className="text-[#2d5555] text-lg">✓</span>
+                          <div className="flex-1">
+                            <p className="text-sm text-[#2A372F] font-medium">{file.name}</p>
+                            <p className="text-xs text-[#2A372F]/60">{(file.size / 1024).toFixed(2)} KB</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="bg-[#E77A6A]/10 border border-[#E77A6A]/30 rounded-lg p-6 mt-6">
+              <p className="text-sm text-[#E77A6A] leading-relaxed">
+                <strong>Important:</strong> Please ensure the payment receipt is clear and legible. This receipt will be used to verify your payment. Your application cannot be finalized without a valid payment receipt.
+              </p>
+            </div>
+          </div>}
+
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center pt-8 border-t border-[#2A372F]/40">
           {currentStep > 1 ? <button type="button" onClick={prevStep} className="text-xs uppercase tracking-widest text-[#2A372F]/60 hover:text-[#2A372F] transition-colors">
@@ -721,6 +787,7 @@ export function ApplicationForm({ onSubmitSuccess, submittedBy = 'website' }: Ap
                       childPhoto: [],
                       parentNICs: [],
                       immunizationRecord: [],
+                      paymentReceipt: [],
                       termsAgreed: false,
                       medicalConsentAgreed: false,
                     });

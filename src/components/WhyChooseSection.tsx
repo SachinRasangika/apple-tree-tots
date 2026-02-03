@@ -68,7 +68,7 @@ export function WhyChooseSection() {
         {/* Left: Image */}
         <div className="lg:col-span-5 relative">
           <div className="aspect-[3/4] overflow-hidden rounded-lg relative group">
-            <img src="/apple-tree-tots/images/hero/Gemini_Generated_Image_wqpza0wqpza0wqpz.png" alt="Teacher with children" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" />
+            <video src="/images/apple-tree-tots-images/IMG_8854.MOV" className="w-full h-full object-cover transition-all duration-700 transform group-hover:scale-105" controls autoPlay muted loop />
 
             {/* Floating stat card */}
             <div className="absolute bottom-8 right-8 bg-[#CDD1CB]/95 border border-[#2A372F]/20 rounded-2xl p-6 z-20 shadow-lg">

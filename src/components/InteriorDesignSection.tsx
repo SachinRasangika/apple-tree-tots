@@ -9,24 +9,44 @@ export function InteriorDesignSection() {
 
   const images = [
     {
-      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8433 03.16.45.jpg',
-      alt: 'Bright classroom with learning materials'
+      src: '/apple-tree-tots/images/apple-tree-tots-images/11.png',
+      alt: 'Gallery image 6'
     },
     {
       src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8434 03.16.45.jpg',
       alt: 'Outdoor learning and nature exploration'
     },
     {
-      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8435 03.16.45.jpg',
-      alt: 'Campus facilities and spaces'
+      src: '/apple-tree-tots/images/apple-tree-tots-images/img2 1.png',
+      alt: 'Gallery image 9'
+    },
+    {
+      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8433 03.16.45.jpg',
+      alt: 'Bright classroom with learning materials'
+    },
+    {
+      src: '/apple-tree-tots/images/apple-tree-tots-images/123.png',
+      alt: 'Gallery image 7'
+    },
+    {
+      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8439 03.16.45.jpg',
+      alt: 'Happy children and families'
+    },
+    {
+      src: '/apple-tree-tots/images/apple-tree-tots-images/img1 1.png',
+      alt: 'Gallery image 8'
     },
     {
       src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8437 03.16.45.jpg',
       alt: 'Teacher engagement with children'
     },
     {
-      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8439 03.16.45.jpg',
-      alt: 'Happy children and families'
+      src: '/apple-tree-tots/images/apple-tree-tots-images/IMG_8435 03.16.45.jpg',
+      alt: 'Campus facilities and spaces'
+    },
+    {
+      src: '/apple-tree-tots/images/apple-tree-tots-images/img3 1.png',
+      alt: 'Gallery image 10'
     }
   ];
 
@@ -42,20 +62,20 @@ export function InteriorDesignSection() {
   const handleSwipe = () => {
     if (touchStart - touchEnd > 50) {
       // Swiped left
-      setCurrentSlide((prev) => (prev + 1) % 5);
+      setCurrentSlide((prev) => (prev + 1) % images.length);
     }
     if (touchEnd - touchStart > 50) {
       // Swiped right
-      setCurrentSlide((prev) => (prev - 1 + 5) % 5);
+      setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % 5);
+    setCurrentSlide((prev) => (prev + 1) % images.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + 5) % 5);
+    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
   };
 
   const handleFullscreenPrev = () => {
@@ -179,7 +199,7 @@ export function InteriorDesignSection() {
             <div className="hidden md:block md:col-span-3">
               <div className="h-full flex items-end justify-end pb-2">
                 <span className="text-xs tracking-wider opacity-80">
-                  Photography: Sien Koolen
+                  Photography: Pasindu Himantha
                 </span>
               </div>
             </div>
@@ -189,61 +209,20 @@ export function InteriorDesignSection() {
           <div className="md:hidden mb-4">
             <div className="relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
               <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                <button
-                  onClick={() => setFullscreenIndex(0)}
-                  className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
-                >
-                  <img src={images[0].src} alt={images[0].alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
-                    </svg>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setFullscreenIndex(1)}
-                  className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
-                >
-                  <img src={images[1].src} alt={images[1].alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
-                    </svg>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setFullscreenIndex(2)}
-                  className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
-                >
-                  <img src={images[2].src} alt={images[2].alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
-                    </svg>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setFullscreenIndex(3)}
-                  className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
-                >
-                  <img src={images[3].src} alt={images[3].alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
-                    </svg>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setFullscreenIndex(4)}
-                  className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
-                >
-                  <img src={images[4].src} alt={images[4].alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
-                    </svg>
-                  </div>
-                </button>
+                {images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setFullscreenIndex(index)}
+                    className="flex-shrink-0 w-full aspect-[3/4] overflow-hidden px-2 cursor-pointer group relative"
+                  >
+                    <img src={image.src} alt={image.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 13H7" />
+                      </svg>
+                    </div>
+                  </button>
+                ))}
               </div>
 
               {/* Arrow Buttons */}
@@ -269,41 +248,16 @@ export function InteriorDesignSection() {
 
             {/* Pagination Dots */}
             <div className="flex justify-center gap-2 mt-4">
-              <button
-                onClick={() => setCurrentSlide(0)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === 0 ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-                }`}
-                aria-label="Gallery image 1"
-              />
-              <button
-                onClick={() => setCurrentSlide(1)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === 1 ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-                }`}
-                aria-label="Gallery image 2"
-              />
-              <button
-                onClick={() => setCurrentSlide(2)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === 2 ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-                }`}
-                aria-label="Gallery image 3"
-              />
-              <button
-                onClick={() => setCurrentSlide(3)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === 3 ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-                }`}
-                aria-label="Gallery image 4"
-              />
-              <button
-                onClick={() => setCurrentSlide(4)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === 4 ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-                }`}
-                aria-label="Gallery image 5"
-              />
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
+                  }`}
+                  aria-label={`Gallery image ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
 
